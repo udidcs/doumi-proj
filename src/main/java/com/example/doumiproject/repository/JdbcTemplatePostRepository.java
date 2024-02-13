@@ -1,6 +1,6 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.vo.PostVO;
+import com.example.doumiproject.dto.PostDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,8 +17,18 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
-    public List<PostVO> findAllPost() {
+    public List<PostDto> findAllPost() {
 
-        return jdbcTemplate.query("select * from post", postRowMapper());
+        String sql = "select p.id," +
+                "u.nickname as author," +
+                "p.type, p.title, p.contents, p.created_at," +
+                "p.updated_at, p.like as like_count " +
+                "from post p " +
+                "inner join " +
+                "user u on p.user_id = u.id " +
+                "order by " +
+                "p.id desc ";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper());
     }
 }

@@ -1,7 +1,7 @@
 package com.example.doumiproject.controller;
 
+import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.service.QuizService;
-import com.example.doumiproject.vo.PostVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class QuizController {
     @GetMapping("/")
     public String index(Model model) {
 
-        List<PostVO> posts = quizService.getAllPost();
+        List<PostDto> posts = quizService.getAllPost();
 
         model.addAttribute("posts", posts);
 

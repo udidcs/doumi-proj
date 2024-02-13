@@ -1,7 +1,7 @@
 package com.example.doumiproject.service;
 
+import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.repository.PostRepository;
-import com.example.doumiproject.vo.PostVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class QuizServiceImpl implements QuizService{
     private final PostRepository postRepository;
 
     @Override
-    public List<PostVO> getAllPost() {
+    public List<PostDto> getAllPost() {
 
         return postRepository.findAllPost();
     }

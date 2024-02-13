@@ -1,15 +1,18 @@
-package com.example.doumiproject.vo;
+package com.example.doumiproject.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
-@RequiredArgsConstructor
-public class PostVO {
+public class PostDto {
 
     private long id;
-    private long userId;
+    private String userId;
     private String type;
     private String title;
     private String contents;

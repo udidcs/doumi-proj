@@ -1,23 +1,23 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.vo.PostVO;
+import com.example.doumiproject.dto.PostDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
 
 public interface PostRepository {
 
-    public List<PostVO> findAllPost();
+    public List<PostDto> findAllPost();
 
-    default RowMapper<PostVO> postRowMapper() {
+    default RowMapper<PostDto> postDtoRowMapper() {
         return ((rs, rowNum) -> {
-            PostVO post = new PostVO();
-            post.setId(rs.getLong("id"));
-            post.setUserId(rs.getLong("user_id"));
-            post.setTitle(rs.getString("title"));
-            post.setContents(rs.getString("contents"));
+            PostDto postDto = new PostDto();
+            postDto.setId(rs.getLong("id"));
+            postDto.setUserId(rs.getString("author"));
+            postDto.setTitle(rs.getString("title"));
+            postDto.setContents(rs.getString("contents"));
 
-            return post;
+            return postDto;
         });
     };
 }
