@@ -1,0 +1,81 @@
+
+
+html {
+    background: #add7f3;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+}
+
+header{
+    margin-top:20vh;
+    font-family: 'Poor Story', system-ui;
+}
+
+h1 span {
+    position: relative;
+    top: 20px;
+    display: inline-block;
+    animation: bounce .4s ease infinite alternate;
+    font-size: 50px;
+    color: #FFF;
+    text-shadow: 0 1px 0 #CCC,
+    0 2px 0 #CCC,
+    0 3px 0 #CCC,
+    0 4px 0 #CCC,
+    0 5px 0 #CCC,
+    0 6px 0 transparent,
+    0 7px 0 transparent,
+    0 8px 0 transparent,
+    0 9px 0 transparent,
+    0 10px 10px rgba(0, 0, 0, .4);
+}
+
+h1 span:nth-child(2) { animation-delay: .1s; }
+h1 span:nth-child(3) { animation-delay: .2s; }
+h1 span:nth-child(4) { animation-delay: .3s; }
+h1 span:nth-child(5) { animation-delay: .4s; }
+
+
+@keyframes bounce {
+    100% {
+        top: -20px;
+        text-shadow: 0 1px 0 #CCC,
+        0 2px 0 #CCC,
+        0 3px 0 #CCC,
+        0 4px 0 #CCC,
+        0 5px 0 #CCC,
+        0 6px 0 #CCC,
+        0 7px 0 #CCC,
+        0 8px 0 #CCC,
+        0 9px 0 #CCC,
+        0 50px 25px rgba(0, 0, 0, .2);
+    }
+}
+
+/*main*/
+main{
+    text-align: center;
+    margin-top:10vh;
+}
+
+main a{
+    display:block;
+    margin:80px;
+    vertical-align: bottom;
+    font-size: 30px;
+    font-family: 'Poor Story', system-ui;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:visited, a:hover, a:active {
+    color: inherit;
+}
+
+main a:hover{
+    color:white;
+}
+
+main a img{
+    vertical-align: middle;
+}
