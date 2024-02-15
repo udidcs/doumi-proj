@@ -32,7 +32,7 @@ public class QuizController {
         }
 
         if(endIdx >= totalPages) {
-            startIdx = totalPages - pageSize;
+            startIdx = totalPages - pageSize + 1;
             endIdx = totalPages;
         }
 
