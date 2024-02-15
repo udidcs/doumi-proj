@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>퀴즈 작성</title>
+    <link href="../static/css/quizForm.css" th:href = "@{/css/quizForm.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header></header>
+<main class="cont-main">
+    <form action="" class="quiz" onsubmit="return false;">
+        <div class="title-container">
+            <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)" onkeydown="autoResize(this)"></textarea>
+        </div>
+        <div class="tag-select-container">
+            <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
+            <div class="selected-tags-container">
+                <p>선택된 태그들:</p>
+                <div class="selected-tags"></div>
+                <button class="reset-button">
+                    <img src="../static/images/icon_reset.png" alt="초기화 버튼">
+                    초기화
+                </button>
+            </div>
+            <div class="subject-tags-container">
+                <button class="subject-tag-button selected-subject">JAVA</button>
+                <button class="subject-tag-button">SPRING</button>
+                <button class="subject-tag-button">DB</button>
+                <button class="subject-tag-button">AWS</button>
+                <button class="subject-tag-button">FrontEnd</button>
+            </div>
+            <div class="detail-tags-container">
+                <div class="java-details detail-tags">
+                    <button class="detail-tag-button" value="Java">Java</button>
+                    <button class="detail-tag-button" value="반복문">반복문</button>
+                    <button class="detail-tag-button" value="제네릭">제네릭</button>
+                    <button class="detail-tag-button" value="람다식">람다식</button>
+                    <button class="detail-tag-button" value="컬렉션">컬렉션</button>
+                </div>
+                <div class="spring-details detail-tags hidden">
+                    <button class="detail-tag-button" value="Spring">Spring</button>
+                    <button class="detail-tag-button" value="spring-boot">spring-boot</button>
+                    <button class="detail-tag-button" value="Thymleaf">Thymleaf</button>
+                    <button class="detail-tag-button" value="JPA">JPA</button>
+                </div>
+                <div class="db-details detail-tags hidden">
+                    <button class="detail-tag-button" value="DB">DB</button>
+                    <button class="detail-tag-button" value="SQL">SQL</button>
+                    <button class="detail-tag-button" value="DDL">DDL</button>
+                    <button class="detail-tag-button" value="DCL">DCL</button>
+                    <button class="detail-tag-button" value="ERD">ERD</button>
+                </div>
+                <div class="aws-details detail-tags hidden">
+                    <button class="detail-tag-button" value="AWS">AWS</button>
+                    <button class="detail-tag-button" value="EC2">EC2</button>
+                    <button class="detail-tag-button" value="RDS">RDS</button>
+                </div>
+                <div class="frontend-details detail-tags hidden">
+                    <button class="detail-tag-button" value="FrontEnd">FrontEnd</button>
+                    <button class="detail-tag-button" value="html">html</button>
+                    <button class="detail-tag-button" value="css">css</button>
+                    <button class="detail-tag-button" value="javascript">javascript</button>
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <div class="quiz-container">
+                <h1>Quiz</h1>
+                <textarea class="quiz-input" placeholder="퀴즈 문제를 내주세요." onkeyup="autoResize(this)" onkeydown="autoResize(this)"></textarea>
+            </div>
+            <div class="answer-container">
+                <h1>Answer</h1>
+                <textarea class="answer-input" placeholder="정답을 적어주세요." onkeyup="autoResize(this)" onkeydown="autoResize(this)"></textarea>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="cancel-button">취소</button>
+            <button class="submit-button">등록</button>
+        </div>
+    </form>
+</main>
+<footer></footer>
+<script src="../static/Js/reSizeTextarea.js"></script>
+<script src="../static/Js/quizForm.js"></script>
+</body>
+</html>
