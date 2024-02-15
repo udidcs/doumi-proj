@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,11 +19,16 @@ public class QuizController {
     private final QuizService quizService;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(defaultValue = "1") int page, Model model) {
 
-        List<PostDto> posts = quizService.getAllPost();
+        int pageSize = 5;
+        int totalPages = quizService.getTotalPages(pageSize);
+
+        List<PostDto> posts = quizService.getAllPost(page, pageSize);
 
         model.addAttribute("posts", posts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
 
         return "quiz/index";
     }
