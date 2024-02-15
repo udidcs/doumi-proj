@@ -9,6 +9,5 @@ public interface QuizService {
 
     public List<PostDto> getAllQuiz(int page, int pageSize);
     public List<PostDto> getAllQuiz();
-    @Cacheable
     public int getTotalPages(int pageSize);
 }

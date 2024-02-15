@@ -2,7 +2,9 @@ package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.PostDto;
 import com.example.doumiproject.service.QuizService;
+import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,20 +23,10 @@ public class QuizController {
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "1") int page, Model model) {
 
-        int pageSize = 5;
+        int pageSize = 10;
         int totalPages = quizService.getTotalPages(pageSize);
-        int startIdx = page - 2;
-        int endIdx = page + 2;
-
-        if(startIdx <= 0) {
-            startIdx = 1;
-            endIdx = pageSize;
-        }
-
-        if(endIdx >= totalPages) {
-            startIdx = totalPages - pageSize + 1;
-            endIdx = totalPages;
-        }
+        int startIdx = PaginationUtil.calculateStartIndex(page, totalPages);
+        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
 
         List<PostDto> quizs = quizService.getAllQuiz(page, pageSize);
 
