@@ -23,11 +23,25 @@ public class QuizController {
 
         int pageSize = 5;
         int totalPages = quizService.getTotalPages(pageSize);
+        int startIdx = page - 2;
+        int endIdx = page + 2;
+
+        if(startIdx <= 0) {
+            startIdx = 1;
+            endIdx = pageSize;
+        }
+
+        if(endIdx >= totalPages) {
+            startIdx = totalPages - pageSize;
+            endIdx = totalPages;
+        }
 
         List<PostDto> quizs = quizService.getAllQuiz(page, pageSize);
 
         model.addAttribute("quizs", quizs);
         model.addAttribute("currentPage", page);
+        model.addAttribute("startIdx", startIdx);
+        model.addAttribute("endIdx", endIdx);
         model.addAttribute("totalPages", totalPages);
 
         return "quiz/index";

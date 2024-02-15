@@ -20,6 +20,7 @@ public interface PostRepository {
             postDto.setUserId(rs.getString("author"));
             postDto.setTitle(rs.getString("title"));
             postDto.setContents(rs.getString("contents"));
+            postDto.setCreatedAt(rs.getTimestamp("created_at"));
 
             return postDto;
         });
