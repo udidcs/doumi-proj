@@ -24,9 +24,9 @@ public class QuizController {
         int pageSize = 5;
         int totalPages = quizService.getTotalPages(pageSize);
 
-        List<PostDto> posts = quizService.getAllPost(page, pageSize);
+        List<PostDto> quizs = quizService.getAllQuiz(page, pageSize);
 
-        model.addAttribute("posts", posts);
+        model.addAttribute("quizs", quizs);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
 

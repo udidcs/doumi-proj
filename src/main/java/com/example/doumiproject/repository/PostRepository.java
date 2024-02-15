@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface PostRepository {
 
-    public List<PostDto> findAllPost(int page, int pageSize);
-    public List<PostDto> findAllPost();
+    public List<PostDto> findAllQuiz(int page, int pageSize);
+    public List<PostDto> findAllQuiz();
     public int getTotalPages(int pageSize);
 
     default RowMapper<PostDto> postDtoRowMapper() {

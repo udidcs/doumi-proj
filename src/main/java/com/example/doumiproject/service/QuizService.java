@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface QuizService {
 
-    public List<PostDto> getAllPost(int page, int pageSize);
-    public List<PostDto> getAllPost();
+    public List<PostDto> getAllQuiz(int page, int pageSize);
+    public List<PostDto> getAllQuiz();
     @Cacheable
     public int getTotalPages(int pageSize);
 }
