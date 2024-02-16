@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface PostRepository {
 
-    public List<PostDto> findAllPost(int page, int pageSize);
-    public List<PostDto> findAllPost();
+    public List<PostDto> findAllQuiz(int page, int pageSize);
+    public List<PostDto> findAllQuiz();
     public int getTotalPages(int pageSize);
 
     default RowMapper<PostDto> postDtoRowMapper() {
@@ -20,6 +20,7 @@ public interface PostRepository {
             postDto.setUserId(rs.getString("author"));
             postDto.setTitle(rs.getString("title"));
             postDto.setContents(rs.getString("contents"));
+            postDto.setCreatedAt(rs.getTimestamp("created_at"));
 
             return postDto;
         });

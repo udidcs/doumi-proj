@@ -18,7 +18,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
-    public List<PostDto> findAllPost(int page, int pageSize) {
+    public List<PostDto> findAllQuiz(int page, int pageSize) {
 
         int offset = (page - 1) * pageSize;
 
@@ -37,7 +37,7 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
-    public List<PostDto> findAllPost() {
+    public List<PostDto> findAllQuiz() {
 
         String sql = "select p.id," +
                 "u.nickname as author," +

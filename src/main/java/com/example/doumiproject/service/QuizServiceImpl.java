@@ -14,15 +14,15 @@ public class QuizServiceImpl implements QuizService{
     private final PostRepository postRepository;
 
     @Override
-    public List<PostDto> getAllPost(int page, int pageSize) {
+    public List<PostDto> getAllQuiz(int page, int pageSize) {
 
-        return postRepository.findAllPost(page, pageSize);
+        return postRepository.findAllQuiz(page, pageSize);
     }
 
     @Override
-    public List<PostDto> getAllPost() {
+    public List<PostDto> getAllQuiz() {
 
-        return postRepository.findAllPost();
+        return postRepository.findAllQuiz();
     }
 
     @Override
