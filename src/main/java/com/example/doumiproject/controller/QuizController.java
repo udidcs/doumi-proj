@@ -23,22 +23,36 @@ public class QuizController {
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
-        if(page < 1) {
+        if (page < 1) {
             page = 1;
         }
 
-        int totalPages = quizService.getTotalPages(pageSize);
+        setPaginationAttributes(model, page,
+                quizService.getTotalPages(pageSize), quizService.getAllQuiz(page, pageSize));
+
+        return "quiz/index";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "keyword") String keyword,
+                         @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+
+        setPaginationAttributes(model, page,
+                quizService.getTotalPages(pageSize, keyword), quizService.getSearchQuiz(keyword, page, pageSize));
+        model.addAttribute("keyword", keyword);
+
+        return "quiz/search";
+    }
+
+    private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> quizs) {
+
         int startIdx = PaginationUtil.calculateStartIndex(page);
         int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
-
-        List<PostDto> quizs = quizService.getAllQuiz(page, pageSize);
 
         model.addAttribute("quizs", quizs);
         model.addAttribute("currentPage", page);
         model.addAttribute("startIdx", startIdx);
         model.addAttribute("endIdx", endIdx);
         model.addAttribute("totalPages", totalPages);
-
-        return "quiz/index";
     }
 }

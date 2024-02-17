@@ -10,4 +10,6 @@ public interface QuizService {
     public List<PostDto> getAllQuiz(int page, int pageSize);
     public List<PostDto> getAllQuiz();
     public int getTotalPages(int pageSize);
+    public int getTotalPages(int pageSize, String keyword);
+    public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize);
 }
