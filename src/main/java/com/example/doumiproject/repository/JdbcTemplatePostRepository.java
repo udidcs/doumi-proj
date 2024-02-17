@@ -82,4 +82,19 @@ public class JdbcTemplatePostRepository implements PostRepository{
 
         return jdbcTemplate.query(sql, postDtoRowMapper(), param, param, pageSize, offset);
     }
+
+    @Override
+    public int getTotalPages(int pageSize, String keyword) {
+
+        String param = "%"+keyword+"%";
+
+        String sql = "select ceil(count(*) / ?) " +
+                "from post p " +
+                "inner join " +
+                "user u on p.user_id = u.id " +
+                "where p.title like ? " +
+                "or u.nickname like ? ";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, param, param);
+    }
 }

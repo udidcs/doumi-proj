@@ -56,4 +56,13 @@ class PostRepositoryTest {
             System.out.println(postDto.getId()+" "+postDto.getTitle()+" "+postDto.getContents());
         }
     }
+
+    @Test
+    @DisplayName("제목 or 작성자 검색시 총 페이지 수 출력하기")
+    public void getTotalPagesFindByTitleOrAuthorTest() {
+
+        String keyword = "user1";
+
+        Assertions.assertEquals(5, postRepository.getTotalPages(10, keyword));
+    }
 }
