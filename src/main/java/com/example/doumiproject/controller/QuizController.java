@@ -1,15 +1,13 @@
 package com.example.doumiproject.controller;
 
-import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.dto.*;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +35,16 @@ public class QuizController {
         model.addAttribute("totalPages", totalPages);
 
         return "quiz/index";
+    }
+
+    @GetMapping("/{id}")
+    public String getQuizDetail(@PathVariable Long id, Model model){
+        QuizDto quizDetail=quizService.getQuizDetail(id);
+        List<String> tags=quizService.getTags(id);
+        List<CommentDto> comments=quizService.getComments(id);
+        model.addAttribute("quiz",quizDetail);
+        model.addAttribute("tags",tags);
+        model.addAttribute("comments",comments);
+        return "quiz/board";
     }
 }
