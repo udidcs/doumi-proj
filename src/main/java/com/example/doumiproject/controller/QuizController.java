@@ -37,6 +37,10 @@ public class QuizController {
     public String search(@RequestParam(value = "keyword") String keyword,
                          @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
 
+        if (page < 1) {
+            page = 1;
+        }
+
         setPaginationAttributes(model, page,
                 quizService.getTotalPages(pageSize, keyword), quizService.getSearchQuiz(keyword, page, pageSize));
         model.addAttribute("keyword", keyword);
