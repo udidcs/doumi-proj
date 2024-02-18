@@ -35,12 +35,11 @@ const selectedTagsContainer = document.querySelector('.selected-tags');
 //세부과목 버튼 누를때마다 색깔 바뀜, 태그 생성 기능
 detailsTagButtons.forEach(button => {
     button.addEventListener('click', () => {
-        const buttonText = button.textContent;
         // 세부과목 버튼 색깔 바뀜
         button.classList.toggle('selected');
         //태그 추가 / 제거
         if (button.classList.contains('selected')) {
-            const selectedTag=createSelectedTag(buttonText);
+            const selectedTag=createSelectedTag(button);
             // 생성된 태그를 '선택된 태그들:'뒤에 태그 추가
             selectedTagsContainer.appendChild(selectedTag);
         } else {
@@ -52,11 +51,12 @@ detailsTagButtons.forEach(button => {
 });
 
 // 선택한 태그 생성 메서드
-function createSelectedTag(buttonText){
+function createSelectedTag(button){
+    const buttonText = button.textContent;
     const selectedTag = document.createElement('button');
     selectedTag.classList.add('selected-tag');
     selectedTag.textContent = buttonText;
-    selectedTag.value = buttonText;
+    selectedTag.value = button.value;
     return selectedTag;
 }
 
@@ -65,7 +65,7 @@ selectedTagsContainer.addEventListener('click',(event)=>{
     let clickElement = event.target;
     if(clickElement.classList.contains('selected-tag')){
         //삭제할 태그와 같은 이름의 태그 버튼 가져오기
-        const detailTag=document.querySelector(`.detail-tag-button[value="${clickElement.textContent}"]`);
+        const detailTag=document.querySelector(`.detail-tag-button[value="${clickElement.value}"]`);
         //버튼 색깔 원상복구
         detailTag.classList.toggle('selected');
         //선택된 태그 삭제
