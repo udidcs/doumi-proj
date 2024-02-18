@@ -13,7 +13,7 @@ subjectTagButtons.forEach((button)=>{
 function showDetailTagButtons(subject){
     // 클릭한 과목 꺼내오기
     const subjectName = subject.textContent.toLowerCase();
-    const selectedTagsContainer = document.querySelector(`.${subjectName}-details`);
+    const selectedTagsContainer = document.querySelector(`.${subjectName}`);
 
     // 모든 detailTagsContainer에 hidden 클래스 추가
     detailTagsContainer.forEach(tag => tag.classList.add('hidden'));
@@ -82,3 +82,5 @@ resetButton.addEventListener('click',()=>{
         button.classList.remove('selected');
     })
 })
+
+//---------------서버 전송 기능---------

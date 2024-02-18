@@ -4,7 +4,6 @@ import com.example.doumiproject.dto.*;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +45,13 @@ public class QuizController {
         model.addAttribute("tags",tags);
         model.addAttribute("comments",comments);
         return "quiz/board";
+    }
+
+    @GetMapping("/post")
+    public String createQuiz(Model model){
+        List<TagDto> tags = quizService.getAllTags();
+        System.out.println(tags);
+        model.addAttribute("tags",tags);
+        return "quiz/form";
     }
 }

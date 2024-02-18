@@ -66,8 +66,8 @@
                 <a href="" class="comment-writer-name" th:text="${comment.userId}"></a>
                 <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
-            <div class="comment-item-body">
-                <div class="comment-item" th:text="${comment.contents}">
+            <div th:class="${comment.display == 1} ? 'comment-item-body' : 'hidden-comment-item-body hide-place'">
+                <div class="comment-item" th:classappend="${comment.display==1? '': 'hide-text'}" th:text="${comment.contents}">
                 </div>
             </div>
             <div class="comment-item-bottom">

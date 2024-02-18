@@ -12,7 +12,7 @@ public interface QuizService {
     public int getTotalPages(int pageSize);
     public QuizDto getQuizDetail(long postId);
     public List<String> getTags(long postId);
-
     public List<CommentDto> getComments(long postId);
+    public List<TagDto> getAllTags();
 }
 
