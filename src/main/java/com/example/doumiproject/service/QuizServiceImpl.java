@@ -30,4 +30,16 @@ public class QuizServiceImpl implements QuizService{
 
         return postRepository.getTotalPages(pageSize);
     }
+
+    @Override
+    public int getTotalPages(int pageSize, String keyword) {
+
+        return postRepository.getTotalPages(pageSize, keyword);
+    }
+
+    @Override
+    public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize) {
+
+        return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
+    }
 }
