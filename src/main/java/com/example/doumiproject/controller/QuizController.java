@@ -50,8 +50,15 @@ public class QuizController {
     @GetMapping("/post")
     public String createQuiz(Model model){
         List<TagDto> tags = quizService.getAllTags();
-        System.out.println(tags);
         model.addAttribute("tags",tags);
+        model.addAttribute("QuizVO",new QuizVO());
         return "quiz/form";
+    }
+
+    @PostMapping("/quiz/post")
+    public String postQuiz(QuizVO quizVO) {
+        System.out.println(quizVO);
+        Long postId = quizService.saveQuiz(quizVO, 1l);
+        return "redirect:/quiz/";
     }
 }

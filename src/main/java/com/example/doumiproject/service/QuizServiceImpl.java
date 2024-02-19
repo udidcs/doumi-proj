@@ -52,4 +52,9 @@ public class QuizServiceImpl implements QuizService{
     public List<TagDto> getAllTags() {
         return tagRepository.findAll();
     }
+
+    @Override
+    public Long saveQuiz(QuizVO quizVO, Long userId) {
+        return quizRepository.saveQuiz(quizVO,userId);
+    }
 }

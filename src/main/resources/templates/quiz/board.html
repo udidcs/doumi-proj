@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Doumi</title>
-    <link href="../../static/css/quizBoard.css" th:href = "@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../static/css/quizBoard.css" th:href="@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.0.2/toastui-editor.min.css">
 </head>
 <body>
 <header></header>
@@ -12,17 +13,18 @@
         <a class="back-button" href="/quiz/">< 목록으로 </a>
         <h1 class="title" th:text="${quiz.title}"></h1>
         <div class="content-info">
-            <a href="" class="board-writer-name"  th:text="${quiz.userId}"></a>
+            <a href="" class="board-writer-name" th:text="${quiz.userId}"></a>
             <p class="content-createdAt" th:text="${#dates.format(quiz.createdAt,'yyyy-MM-dd HH:mm')}"></p>
         </div>
     </section>
     <section class="content-main">
         <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
-        <div class="content-detail" th:text="${quiz.contents}">
+        <div class="content-detail">
+            <!--            th:text="${quiz.contents}">-->
         </div>
         <h3>정답</h3>
         <div class="content-answer-container hide-place">
-            <div class="content-answer hide-text" th:text="${quiz.answer}">
+            <div class="content-answer hide-text">
             </div>
         </div>
         <button class="btn likes-button content-likes">
@@ -67,7 +69,8 @@
                 <p class="comment-createdAt" th:text="${#dates.format(comment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
             </div>
             <div th:class="${comment.display == 1} ? 'comment-item-body' : 'hidden-comment-item-body hide-place'">
-                <div class="comment-item" th:classappend="${comment.display==1? '': 'hide-text'}" th:text="${comment.contents}">
+                <div class="comment-item" th:classappend="${comment.display==1? '': 'hide-text'}"
+                     th:text="${comment.contents}">
                 </div>
             </div>
             <div class="comment-item-bottom">
@@ -88,7 +91,8 @@
                 <div class="re-comment-item-container" th:each="reComment:${comment.reComments}">
                     <div class="comment-item-header">
                         <a href="" class="comment-writer-name" th:text="${reComment.userId}"></a>
-                        <p class="comment-createdAt" th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
+                        <p class="comment-createdAt"
+                           th:text="${#dates.format(reComment.createdAt,'yyyy-MM-dd HH:mm')}"></p>
                     </div>
                     <div class="comment-item-body" th:text="${reComment.contents}">
                     </div>
@@ -103,7 +107,25 @@
         </div>
     </section>
 </main>
-
+<script src="https://uicdn.toast.com/editor/3.0.2/toastui-editor-all.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/quizBoard.js}"></script>
+<script th:inline="javascript" type="module">
+    $(document).ready(function () {
+            const content = toastui.Editor.factory({
+                el: document.querySelector(".content-detail"),
+                viewer: true,
+                useScript: true,
+                initialValue: [[${quiz.contents}]],
+            });
+            const answer = toastui.Editor.factory({
+                el: document.querySelector(".content-answer"),
+                viewer: true,
+                useScript: true,
+                initialValue: [[${quiz.answer}]],
+            });
+        }
+    );
+</script>
 </body>
 </html>

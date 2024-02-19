@@ -57,6 +57,8 @@ function createSelectedTag(button){
     selectedTag.classList.add('selected-tag');
     selectedTag.textContent = buttonText;
     selectedTag.value = button.value;
+    selectedTag.name= "tags";
+
     return selectedTag;
 }
 
@@ -84,3 +86,12 @@ resetButton.addEventListener('click',()=>{
 })
 
 //---------------서버 전송 기능---------
+const cancelButton = document.querySelector('.cancel-button');
+const submitButton = document.querySelector('.submit-button');
+
+// 취소 버튼 클릭
+cancelButton.addEventListener('click', () => {
+    // 취소
+    location.href = '/quiz/';
+});
+

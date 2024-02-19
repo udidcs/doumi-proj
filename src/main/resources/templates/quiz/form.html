@@ -9,10 +9,10 @@
 <body>
 <header></header>
 <main class="cont-main">
-    <form action="" class="quiz" onsubmit="return false;">
+    <form action="quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${QuizVO}">
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
-                      onkeydown="autoResize(this)"></textarea>
+                      onkeydown="autoResize(this)" th:field="*{title}"></textarea>
         </div>
         <div class="tag-select-container">
             <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
@@ -61,6 +61,7 @@
     </form>
 </main>
 <footer></footer>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/quizForm.js}"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script th:src="@{/Js/toastApi.js}"></script>

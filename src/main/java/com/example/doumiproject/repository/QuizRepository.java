@@ -1,10 +1,12 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.QuizDto;
+import com.example.doumiproject.dto.QuizVO;
 import org.springframework.jdbc.core.RowMapper;
 
 public interface QuizRepository {
     public QuizDto getByQuizId(long id);
+    public Long saveQuiz(QuizVO quiz, long userId);
 
     default RowMapper<QuizDto> quizDtoRowMapper() {
         return ((rs, rowNum) -> {

@@ -14,5 +14,6 @@ public interface QuizService {
     public List<String> getTags(long postId);
     public List<CommentDto> getComments(long postId);
     public List<TagDto> getAllTags();
+    public Long saveQuiz(QuizVO quizVO,Long userId);
 }
 
