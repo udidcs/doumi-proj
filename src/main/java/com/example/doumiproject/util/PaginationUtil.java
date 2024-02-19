@@ -5,21 +5,25 @@ public class PaginationUtil {
     private static int pageCriteria = 5;
     private static int PageCriteriaOffset = 2;
 
-    public static int calculateStartIndex(int currentPage, int totalPages) {
+    public static int calculateStartIndex(int currentPage) {
 
-        if (currentPage >= totalPages - PageCriteriaOffset) {
-            return totalPages - pageCriteria + 1;
+        if(currentPage % pageCriteria == 0) {
+
+            return currentPage - pageCriteria + 1;
         }
 
-        return Math.max(1, currentPage - PageCriteriaOffset);
+        return (currentPage/pageCriteria) * pageCriteria + 1;
     }
 
     public static int calculateEndIndex(int currentPage, int totalPages) {
 
-        if (currentPage <= PageCriteriaOffset) {
-            return pageCriteria;
+        int endIdx = (currentPage/pageCriteria) * pageCriteria + pageCriteria;
+
+        if(currentPage % pageCriteria == 0) {
+
+            return currentPage;
         }
 
-        return Math.min(totalPages, currentPage + PageCriteriaOffset);
+        return (endIdx > totalPages) ? totalPages : endIdx;
     }
 }

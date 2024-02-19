@@ -33,6 +33,7 @@ public class QuizServiceImpl implements QuizService{
 
         return postRepository.getTotalPages(pageSize);
     }
+
     @Override
     public QuizDto getQuizDetail(long postId){
         return quizRepository.getByQuizId(postId);
@@ -56,5 +57,16 @@ public class QuizServiceImpl implements QuizService{
     @Override
     public Long saveQuiz(QuizVO quizVO, Long userId) {
         return quizRepository.saveQuiz(quizVO,userId);
+
+    @Override
+    public int getTotalPages(int pageSize, String keyword) {
+
+        return postRepository.getTotalPages(pageSize, keyword);
+    }
+
+    @Override
+    public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize) {
+
+        return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
     }
 }
