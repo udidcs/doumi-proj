@@ -12,6 +12,8 @@ public interface PostRepository {
     public List<PostDto> findAllQuiz(int page, int pageSize);
     public List<PostDto> findAllQuiz();
     public int getTotalPages(int pageSize);
+    public int getTotalPages(int pageSize, String keyword);
+    public List<PostDto> findByTitleOrAuthor(String keyword, int page, int pageSize);
 
     default RowMapper<PostDto> postDtoRowMapper() {
         return ((rs, rowNum) -> {

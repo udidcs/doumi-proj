@@ -6,7 +6,6 @@ import org.springframework.cache.annotation.Cacheable;
 import java.util.List;
 
 public interface QuizService {
-
     public List<PostDto> getAllQuiz(int page, int pageSize);
     public List<PostDto> getAllQuiz();
     public int getTotalPages(int pageSize);
@@ -15,5 +14,7 @@ public interface QuizService {
     public List<CommentDto> getComments(long postId);
     public List<TagDto> getAllTags();
     public Long saveQuiz(QuizVO quizVO,Long userId);
+    public int getTotalPages(int pageSize, String keyword);
+    public List<PostDto> getSearchQuiz(String keyword, int page, int pageSize);
 }
 
