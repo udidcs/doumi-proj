@@ -33,11 +33,11 @@ submitButton.addEventListener('click', () => {
     // 폼 데이터를 서버로 전송
     $.ajax({
         type: 'POST',
-        url: 'quiz/post',
+        url: '/quiz/post',
         data: formData,
         contentType: false,
         processData: false,
-        success: function (postId){
+        success: function (html){
             location.href="/quiz/";
         },
         error: function(error) {

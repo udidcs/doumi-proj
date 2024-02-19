@@ -24,7 +24,7 @@ public class JdbcTemplateTagRepository implements TagRepository{
 
     @Override
     public List<TagDto> findAll() {
-        String sql="select type, GROUP_CONCAT(name) as names, GROUP_CONCAT(id) as ids "+
+        String sql="select type, GROUP_CONCAT(name ORDER BY id) as names, GROUP_CONCAT(id ORDER BY id) as ids "+
                 "from tag "+
                 "group by type";
         List<TagDto> tags = jdbcTemplate.query(sql, TagRowMapper());

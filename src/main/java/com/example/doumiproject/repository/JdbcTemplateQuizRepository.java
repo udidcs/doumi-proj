@@ -41,7 +41,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(postSql, new String[]{"id"}); // "id"는 자동 생성된 키의 컬럼명
             ps.setLong(1, userId);
-            ps.setString(2, "QUIZ");
+            ps.setString(2, "퀴즈");
             ps.setString(3, quiz.getTitle());
             ps.setString(4, quiz.getQuizContent());
             ps.setObject(5, LocalDateTime.now());
@@ -54,16 +54,25 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         Long postId = keyHolder.getKey().longValue();
 
         //퀴즈 답변 저장
-        String answerSql="insert into answer(post_id, answer) "+
+        String answerSql = "insert into answer(post_id, answer) " +
                 "values (?,?)";
-        jdbcTemplate.update(answerSql,postId, quiz.getAnswerContent());
+        String answer = quiz.getAnswerContent();
+
+        if (answer.isEmpty()) {
+            jdbcTemplate.update(answerSql,postId,null);
+        } else {
+            jdbcTemplate.update(answerSql, postId, answer);
+        }
 
         //태그 저장
-        String tagSql="insert into quiztag (post_id, tag_id) "+
+        String tagSql = "insert into quiztag (post_id, tag_id) " +
                 "values (?,?)";
-        String[] tagStrings = quiz.getTags().split(",");
-        for(String tag:tagStrings){
-            jdbcTemplate.update(tagSql,postId,Integer.parseInt(tag));
+        String tags = quiz.getTags();
+        if (!tags.isEmpty()) {
+            String[] tagStrings = quiz.getTags().split(",");
+            for (String tag : tagStrings) {
+                jdbcTemplate.update(tagSql, postId, Integer.parseInt(tag));
+            }
         }
         return postId;
     }

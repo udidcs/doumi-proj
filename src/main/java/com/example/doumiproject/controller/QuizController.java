@@ -36,8 +36,8 @@ public class QuizController {
         return "quiz/index";
     }
 
-    @GetMapping("/{id}")
-    public String getQuizDetail(@PathVariable Long id, Model model){
+    @GetMapping("")
+    public String getQuizDetail(@RequestParam("board") Long id, Model model){
         QuizDto quizDetail=quizService.getQuizDetail(id);
         List<String> tags=quizService.getTags(id);
         List<CommentDto> comments=quizService.getComments(id);
@@ -55,10 +55,9 @@ public class QuizController {
         return "quiz/form";
     }
 
-    @PostMapping("/quiz/post")
+    @PostMapping("/post")
     public String postQuiz(QuizVO quizVO) {
-        System.out.println(quizVO);
         Long postId = quizService.saveQuiz(quizVO, 1l);
-        return "redirect:/quiz/";
+        return "redirect:/quiz?board="+postId;
     }
 }
