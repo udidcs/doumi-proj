@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/quiz")
 @RequiredArgsConstructor
+@RequestMapping("/quiz")
 public class QuizController {
 
     private final QuizService quizService;
 
-    @GetMapping("/")
+
     public String index(@RequestParam(defaultValue = "1") int page, Model model) {
 
         int pageSize = 10;
