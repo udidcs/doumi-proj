@@ -18,8 +18,6 @@
                 <div><a href="/quiz/" class="move_to_quiz">퀴즈</a></div>
             </div>
             <div class="navbar-right">
-                <div><button type="button" class="login_btn">로그인</button></div>
-                <div><button type="button" class="join_btn">회원가입</button></div>
                 <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
                 <div><button type="button" class="logout_btn">로그아웃</button></div>
             </div>
@@ -82,16 +80,5 @@
 <footer>
 
 </footer>
-<script>
-    // 비회원은 퀴즈 출제하기와 게시판의 게시글 제목을 클릭시 로그인이 필요합니다! 알람이 뜬다
-    const selectors = ['.quiz_question', '.title a'];
-
-    document.querySelectorAll(selectors).forEach(element => {
-        element.addEventListener('click', function (e) {
-            e.preventDefault();
-            alert("로그인이 필요합니다!");
-        })
-    })
-</script>
 </body>
 </html>
