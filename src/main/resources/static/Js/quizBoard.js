@@ -9,7 +9,7 @@ function updateHideButton(reCommentItemsContainer, button) {
     if (reCommentItemsContainer.classList.contains('hidden')) {
         button.innerHTML = count + "개 답변";
     } else {
-        button.innerHTML = `<img src="../static/images/icon_up_arrow.png" alt="숨기기 버튼"> 숨기기`;
+        button.innerHTML = `<img src="/images/icon_up_arrow.png" alt="숨기기 버튼"> 숨기기`;
     }
 }
 

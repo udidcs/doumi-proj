@@ -28,6 +28,10 @@ p{
     line-height: 200%;
 }
 
+div{
+    font-size: 16px;
+    line-height: 200%;
+}
 
 .hidden{
     display: none;

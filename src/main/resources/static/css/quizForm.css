@@ -133,27 +133,13 @@ textarea{
 }
 
 /*quiz 문제 작성 부분*/
-.quiz-input{
-    border: 1px solid #C4C4C4;
-    min-height: 450px;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 20px;
-    font-family: 'Wemakeprice';
-}
-.quiz-input::placeholder, .answer-input::placeholder{
-    color: #C4C4C4;
-}
-.answer-input{
-    border: 1px solid #C4C4C4;
-    min-height: 300px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Wemakeprice';
-}
-.answer-container>h1, .quiz-container>h1{
+.quiz-container h1, .answer-container h1{
+    text-align: center;
     font-size: 24px;
     line-height: 200%;
+}
+.answer-container{
+    margin-top: 30px;
 }
 
 /*footer*/
