@@ -1,15 +1,12 @@
 package com.example.doumiproject.controller;
 
-import com.example.doumiproject.dto.PostDto;
+import com.example.doumiproject.dto.*;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,23 +16,70 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
-
+    private int pageSize = 10;
 
     public String index(@RequestParam(defaultValue = "1") int page, Model model) {
 
-        int pageSize = 10;
-        int totalPages = quizService.getTotalPages(pageSize);
-        int startIdx = PaginationUtil.calculateStartIndex(page, totalPages);
-        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
+        if (page < 1) {
+            page = 1;
+        }
 
-        List<PostDto> quizs = quizService.getAllQuiz(page, pageSize);
+        setPaginationAttributes(model, page,
+                quizService.getTotalPages(pageSize), quizService.getAllQuiz(page, pageSize));
+
+        return "quiz/index";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "keyword") String keyword,
+                         @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+
+        if (page < 1) {
+            page = 1;
+        }
+
+        setPaginationAttributes(model, page,
+                quizService.getTotalPages(pageSize, keyword), quizService.getSearchQuiz(keyword, page, pageSize));
+        model.addAttribute("keyword", keyword);
+
+        return "quiz/search";
+    }
+
+    private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> quizs) {
+
+        int startIdx = PaginationUtil.calculateStartIndex(page);
+        int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
 
         model.addAttribute("quizs", quizs);
         model.addAttribute("currentPage", page);
         model.addAttribute("startIdx", startIdx);
         model.addAttribute("endIdx", endIdx);
         model.addAttribute("totalPages", totalPages);
+    }
 
-        return "quiz/index";
+    @GetMapping("/{id}")
+    public String getQuizDetail(@PathVariable Long id, Model model){
+        QuizDto quizDetail=quizService.getQuizDetail(id);
+        List<String> tags=quizService.getTags(id);
+        List<CommentDto> comments=quizService.getComments(id);
+        model.addAttribute("quiz",quizDetail);
+        model.addAttribute("tags",tags);
+        model.addAttribute("comments",comments);
+        return "quiz/board";
+    }
+
+    @GetMapping("/post")
+    public String createQuiz(Model model){
+        List<TagDto> tags = quizService.getAllTags();
+        model.addAttribute("tags",tags);
+        model.addAttribute("QuizVO",new QuizVO());
+        return "quiz/form";
+    }
+
+    @PostMapping("/quiz/post")
+    public String postQuiz(QuizVO quizVO) {
+        System.out.println(quizVO);
+        Long postId = quizService.saveQuiz(quizVO, 1l);
+        return "redirect:/quiz/";
     }
 }
