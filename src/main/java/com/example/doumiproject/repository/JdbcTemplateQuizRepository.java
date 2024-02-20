@@ -58,11 +58,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
                 "values (?,?)";
         String answer = quiz.getAnswerContent();
 
-        if (answer.isEmpty()) {
-            jdbcTemplate.update(answerSql,postId,null);
-        } else {
-            jdbcTemplate.update(answerSql, postId, answer);
-        }
+        jdbcTemplate.update(answerSql, postId, answer);
 
         //태그 저장
         String tagSql = "insert into quiztag (post_id, tag_id) " +

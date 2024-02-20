@@ -43,8 +43,9 @@ detailsTagButtons.forEach(button => {
             // 생성된 태그를 '선택된 태그들:'뒤에 태그 추가
             selectedTagsContainer.appendChild(selectedTag);
         } else {
+            const buttonValue=button.value;
             // 태그 버튼을 한 번 더 눌렀을 경우 삭제
-            const removeTag = document.querySelector(`.selected-tag[value="${buttonText}"]`);
+            const removeTag = document.querySelector(`.selected-tag[value="${buttonValue}"]`);
             selectedTagsContainer.removeChild(removeTag);
         }
     });

@@ -1,7 +1,6 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.entity.Tag;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

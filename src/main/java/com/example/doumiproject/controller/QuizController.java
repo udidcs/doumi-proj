@@ -4,6 +4,7 @@ import com.example.doumiproject.dto.*;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,8 @@ public class QuizController {
         model.addAttribute("totalPages", totalPages);
     }
 
-    @GetMapping("")
-    public String getQuizDetail(@RequestParam("board") Long id, Model model){
+    @GetMapping("/board")
+    public String getQuizDetail(@RequestParam("id") Long id, Model model){
         QuizDto quizDetail=quizService.getQuizDetail(id);
         List<String> tags=quizService.getTags(id);
         List<CommentDto> comments=quizService.getComments(id);
@@ -78,8 +79,8 @@ public class QuizController {
     }
 
     @PostMapping("/post")
-    public String postQuiz(QuizVO quizVO) {
+    public ResponseEntity<String> postQuiz(QuizVO quizVO) {
         Long postId = quizService.saveQuiz(quizVO, 1l);
-        return "redirect:/quiz?board="+postId;
+        return ResponseEntity.ok("/quiz/board?id="+postId);
     }
 }

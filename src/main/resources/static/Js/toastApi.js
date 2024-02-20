@@ -37,8 +37,8 @@ submitButton.addEventListener('click', () => {
         data: formData,
         contentType: false,
         processData: false,
-        success: function (html){
-            location.href="/quiz/";
+        success: function (redirectUrl){
+            location.href=redirectUrl;
         },
         error: function(error) {
             console.error(error);
