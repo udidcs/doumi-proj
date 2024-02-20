@@ -1,3 +1,10 @@
+//제목 칸 늘리기
+function autoResize(textarea) {
+    //height초기화
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight+ 'px';
+}
+
 // 과목별로 세무과목 바꿔주기
 const subjectTagButtons=document.querySelectorAll('.subject-tag-button');
 const detailTagsContainer = document.querySelectorAll('.detail-tags');
@@ -86,13 +93,9 @@ resetButton.addEventListener('click',()=>{
     })
 })
 
-//---------------서버 전송 기능---------
-const cancelButton = document.querySelector('.cancel-button');
-const submitButton = document.querySelector('.submit-button');
-
 // 취소 버튼 클릭
+const cancelButton = document.querySelector('.cancel-button');
 cancelButton.addEventListener('click', () => {
     // 취소
     location.href = '/quiz/';
 });
-

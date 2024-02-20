@@ -20,7 +20,6 @@
     <section class="content-main">
         <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
         <div class="content-detail">
-            <!--            th:text="${quiz.contents}">-->
         </div>
         <h3>정답</h3>
         <div class="content-answer-container hide-place">
@@ -109,25 +108,11 @@
 </main>
 <script src="https://uicdn.toast.com/editor/3.0.2/toastui-editor-all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/Js/quizBoard.js}"></script>
-<script th:inline="javascript" type="module">
+<script th:src="@{/Js/quiz/board.js}"></script>
+<script th:inline="javascript">
     let quizContent=[[${quiz.contents}]];
     let answerContent=[[${quiz.answer}]];
-    $(document).ready(function () {
-            const content = toastui.Editor.factory({
-                el: document.querySelector(".content-detail"),
-                viewer: true,
-                useScript: true,
-                initialValue: quizContent,
-            });
-            const answer = toastui.Editor.factory({
-                el: document.querySelector(".content-answer"),
-                viewer: true,
-                useScript: true,
-                initialValue: answerContent,
-            });
-        }
-    );
 </script>
+<script th:inline="javascript" th:src="@{/Js/quiz/viewer.js}"></script>
 </body>
 </html>

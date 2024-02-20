@@ -13,6 +13,7 @@
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
+            <div class="title-text-count"></div>
         </div>
         <div class="tag-select-container">
             <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
@@ -47,10 +48,12 @@
         <div class="input-container">
             <div class="quiz-container">
                 <h1>Quiz</h1>
+                <div class="quiz-text-count"></div>
                 <div class="quiz-content"></div>
             </div>
             <div class="answer-container">
                 <h1>Answer</h1>
+                <div class="answer-text-count"></div>
                 <div class="answer-content"></div>
             </div>
         </div>
@@ -62,8 +65,10 @@
 </main>
 <footer></footer>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/Js/quizForm.js}"></script>
+<script th:src="@{/Js/quiz/form.js}"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script th:src="@{/Js/toastApi.js}"></script>
+<script th:src="@{/Js/quiz/toastApi.js}"></script>
+<script th:src="@{/Js/quiz/wordCount.js}"></script>
+<script th:src="@{/Js/quiz/ajaxRequest.js}"></script>
 </body>
 </html>
