@@ -3,13 +3,22 @@ const byteLimit = 2000;
 const titleByteLimit = 250;
 
 // 글자 바이트 세기
+function countUtf8Bytes(str) {
+    let byteCount = 0;
+
+    for (let i = 0; i < str.length; i++) {
+        const charCode = str.charCodeAt(i);
+        //줄바꿈일 경우 바이트2, 아니라면 1
+        (charCode==10) ? byteCount+=2: byteCount+=1;
+    }
+
+    return byteCount;
+}
 function countBytes(editor, containerSelector, limit) {
     //toast api일땐 getMarkdown 그냥 input일 경우 value
     const content = editor.getMarkdown ? editor.getMarkdown() : editor.value;
-    const encoder = new TextEncoder("utf-8");
-    //문자열을 utf-8바이트로 변환
-    const byteCount = encoder.encode(content).length;
-
+    //문자열을 바이트로 변환
+    const byteCount =countUtf8Bytes(content);
     // 글자 수를 표시할 요소에 업데이트
     $(containerSelector).text(byteCount + "/"+limit);
 
@@ -24,8 +33,8 @@ function countBytes(editor, containerSelector, limit) {
 // 문자열을 주어진 바이트 수에 맞게 자르는 함수
 function cutByLen(str, maxByte) {
     for (let b = i = 0; c = str.charCodeAt(i);) {
-        //유니코드를 128로 나눴을때 1이면 한글(3바이트), 0이면 1바이트로 표현됨
-        b += c >> 7 ? 3 : 1;
+        //줄 바꿈(/n)일 경우 byte 2, 나머지 1
+        b+=c==10?2:1;
         if (b > maxByte) break;
         i++;
     }

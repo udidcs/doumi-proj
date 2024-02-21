@@ -19,6 +19,7 @@ public class QuizController {
     private final QuizService quizService;
     private int pageSize = 10;
 
+    @GetMapping("")
     public String index(@RequestParam(defaultValue = "1") int page, Model model) {
 
         if (page < 1) {

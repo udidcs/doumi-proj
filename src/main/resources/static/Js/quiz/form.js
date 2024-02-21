@@ -97,5 +97,5 @@ resetButton.addEventListener('click',()=>{
 const cancelButton = document.querySelector('.cancel-button');
 cancelButton.addEventListener('click', () => {
     // 취소
-    location.href = '/quiz/';
+    location.href = '/quiz';
 });
