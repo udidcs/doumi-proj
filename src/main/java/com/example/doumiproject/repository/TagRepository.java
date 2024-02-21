@@ -3,7 +3,6 @@ package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.entity.Tag;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.*;

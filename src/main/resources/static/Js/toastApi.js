@@ -10,7 +10,41 @@ const editor = new toastui.Editor({
             console.log(editor.getMarkdown());
         }
     },
+    hooks: {
+        addImageBlobHook: (blob, callback) => {
+
+            const formData = new FormData();
+            formData.append('file', blob);
+
+            let url = 'http://localhost:8080/images/quiz/';
+
+            $.ajax({
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                url: '/board/file',
+                data: formData,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+
+                    console.log('ajax 이미지 업로드 성공');
+                    console.log(data);
+                    //url += data.fileName;
+                    callback(url, '사진 대체 텍스트 입력');
+                },
+                error: function (e) {
+                    console.log('ajax 이미지 업로드 실패');
+
+                    callback('image_load_fail', '사진 대체 텍스트 입력');
+                }
+            });
+        }
+    }
 });
+
 const editor2 = new toastui.Editor({
     el: document.querySelector('.answer-content'), // 에디터를 적용할 요소 (컨테이너)
     height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)

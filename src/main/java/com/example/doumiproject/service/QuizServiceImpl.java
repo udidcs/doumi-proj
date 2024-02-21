@@ -36,28 +36,33 @@ public class QuizServiceImpl implements QuizService{
 
     @Override
     public QuizDto getQuizDetail(long postId){
+
         return quizRepository.getByQuizId(postId);
     }
 
     @Override
     public List<String> getTags(long postId) {
+
         return tagRepository.getByQuizId(postId);
     }
 
     @Override
     public List<CommentDto> getComments(long postId) {
+
         return commentRepository.getByQuizId(postId);
     }
 
     @Override
     public List<TagDto> getAllTags() {
+
         return tagRepository.findAll();
     }
 
     @Override
     public Long saveQuiz(QuizVO quizVO, Long userId) {
-        return quizRepository.saveQuiz(quizVO,userId);
 
+        return quizRepository.saveQuiz(quizVO, userId);
+    }
     @Override
     public int getTotalPages(int pageSize, String keyword) {
 
