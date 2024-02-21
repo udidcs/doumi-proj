@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('password').value;
         const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-        // 아이디 유효성 검사
+        // 닉네임 유효성 검사
         const idRegex = /^[a-zA-Z0-9]{5,}$/;
         if (!idRegex.test(id)) {
-            alert('아이디는 5글자 이상이며 영문자와 숫자만 가능합니다.');
+            alert('닉네임은 5글자 이상이며 영문자와 숫자만 가능합니다.');
             return;
         }
 
