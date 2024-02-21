@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/quiz")
 @RequiredArgsConstructor
+@RequestMapping("/quiz")
 public class QuizController {
 
     private final QuizService quizService;
     private int pageSize = 10;
 
-    @GetMapping("/")
-    public String index(@RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+    public String index(@RequestParam(defaultValue = "1") int page, Model model) {
 
         if (page < 1) {
             page = 1;

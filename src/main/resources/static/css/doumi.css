@@ -1,4 +1,7 @@
-
+a{
+    text-decoration: none;
+    color: inherit;
+}
 
 html {
     background: #add7f3;
@@ -6,8 +9,45 @@ html {
     text-align: center;
 }
 
-header{
-    margin-top:20vh;
+/*header*/
+.nav-bar{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-right: 20vw;
+    padding-top:50px;
+    gap:20px;
+}
+
+.login,.join,.logout_btn{
+    padding: 5px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color:#363636;
+    cursor: pointer;
+    text-align: center;
+    background-color: #FFFFFF;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+}
+
+.login:hover,.join:hover,.logout_btn{
+    background-color: #f6f5f5;
+}
+
+/*비회원과 회원일때 display를 바꾸면된다*/
+.login, .join{
+    /*display: none;*/
+}
+
+.logout_btn,.user_info{
+    display: none;
+}
+
+/*main*/
+h1{
+    margin-top:10vh;
+    margin-bottom:10vh;
     font-family: 'Poor Story', system-ui;
 }
 
@@ -64,7 +104,6 @@ main a{
     vertical-align: bottom;
     font-size: 30px;
     font-family: 'Poor Story', system-ui;
-    text-decoration: none;
     transition: color 0.3s ease;
 }
 
