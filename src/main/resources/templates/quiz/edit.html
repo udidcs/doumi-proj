@@ -2,14 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>퀴즈 작성</title>
+    <title>퀴즈 수정</title>
     <link href="../../static/css/quizForm.css" th:href="@{/css/quizForm.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
 </head>
 <body>
 <header></header>
 <main class="cont-main">
-    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${QuizVO}">
+    <input class="quiz-id hidden" th:value="${quiz.id}" />
+    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${quiz}">
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
@@ -19,7 +20,11 @@
             <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
             <div class="selected-tags-container">
                 <p>선택된 태그들:</p>
-                <div class="selected-tags"></div>
+                <div class="selected-tags">
+                    <th:block th:each="selectedTag : ${selectedTags}">
+                        <button class="selected-tag" th:name="${name}" th:value="${selectedTag.getId()}" th:text="${selectedTag.getName()}"></button>
+                    </th:block>
+                </div>
                 <button class="reset-button">
                     <img th:src="@{/images/icon_reset.png}" alt="초기화 버튼">
                     초기화
@@ -39,7 +44,7 @@
                          th:classappend="${tag.type == 'Java' ? '' : 'hidden '}+${tag.type.toLowerCase()}">
                         <!--태그 생성-->
                         <th:block th:each="detailTag : ${tag.detailTags}">
-                            <button class="detail-tag-button" th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
+                            <button th:class="detail-tag-button" th:classappend="${selectedTags.contains(detailTag)? 'selected': ''}" th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
                         </th:block>
                     </div>
                 </th:block>
@@ -59,16 +64,16 @@
         </div>
         <div class="button-container">
             <button class="cancel-button">취소</button>
-            <button class="submit-button">등록</button>
-            <button class="edit-button hidden">수정</button>
+            <button class="edit-button">수정</button>
+            <button class="submit-button hidden">등록</button>
         </div>
     </form>
 </main>
 <footer></footer>
 
 <script th:inline="javascript">
-    let quizContent="";
-    let answerContent="";
+    let quizContent=[[${quiz.contents}]];
+    let answerContent=[[${quiz.answer}]];
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script th:src="@{/Js/quiz/form.js}"></script>

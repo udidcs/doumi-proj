@@ -61,8 +61,11 @@ public class QuizController {
 
     @GetMapping("/board")
     public String getQuizDetail(@RequestParam("id") Long id, Model model){
+        //글의 상세 정보 가져오기
         QuizDto quizDetail=quizService.getQuizDetail(id);
-        List<String> tags=quizService.getTags(id);
+        //글에 연결된 태그들 가져오기
+        List<TagDetailDto> tags=quizService.getTags(id);
+        //글에 연결된 댓글들 가져오기
         List<CommentDto> comments=quizService.getComments(id);
         model.addAttribute("quiz",quizDetail);
         model.addAttribute("tags",tags);
@@ -72,6 +75,7 @@ public class QuizController {
 
     @GetMapping("/post")
     public String createQuiz(Model model){
+        //타입별 태그 모두 불러오기
         List<TagDto> tags = quizService.getAllTags();
         model.addAttribute("tags",tags);
         model.addAttribute("QuizVO",new QuizVO());
@@ -82,5 +86,30 @@ public class QuizController {
     public ResponseEntity<String> postQuiz(QuizVO quizVO) {
         Long postId = quizService.saveQuiz(quizVO, 1l);
         return ResponseEntity.ok("/quiz/board?id="+postId);
+    }
+
+    @GetMapping("/edit")
+    public String editQuiz(@RequestParam("id") Long id, Model model){
+        //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요
+        QuizDto quizDetail=quizService.getQuizDetail(id);
+        List<TagDetailDto> selectedTags=quizService.getTags(id);
+        List<TagDto> tags = quizService.getAllTags();
+        model.addAttribute("quiz",quizDetail);
+        model.addAttribute("selectedTags",selectedTags);
+        model.addAttribute("tags",tags);
+        return "quiz/edit";
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizVO quizVO){
+        //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
+        quizService.updateQuiz(quizVO, id, 1l);
+        return ResponseEntity.ok("/quiz/board?id="+id);
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteQuiz(@RequestParam("id") long id){
+        quizService.deleteQuiz(id);
+        return "redirect:/quiz";
     }
 }

@@ -9,6 +9,7 @@
 <body>
 <header></header>
 <main class="cont-main">
+    <input class="quiz-id hidden" th:value="${quiz.id}" />
     <section class="content-header">
         <a class="back-button" href="/quiz">< 목록으로 </a>
         <h1 class="title" th:text="${quiz.title}"></h1>
@@ -32,7 +33,7 @@
         </button>
         <ul class="content-tags-container">
             <li class="content-detail-tag" th:each="tag:${tags}">
-                <a href="" th:text="${tag}"></a>
+                <a href="" th:value="${tag.getId()}" th:text="${tag.getName()}"></a>
             </li>
         </ul>
     </section>

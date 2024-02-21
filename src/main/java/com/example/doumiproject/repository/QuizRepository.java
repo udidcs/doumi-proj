@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.RowMapper;
 public interface QuizRepository {
     public QuizDto getByQuizId(long id);
     public Long saveQuiz(QuizVO quiz, long userId);
+    void updateQuiz(QuizVO quiz,long postId, long userId);
+    void deleteQuiz(long postId);
 
     default RowMapper<QuizDto> quizDtoRowMapper() {
         return ((rs, rowNum) -> {

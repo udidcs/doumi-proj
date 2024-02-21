@@ -61,6 +61,40 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         jdbcTemplate.update(answerSql, postId, answer);
 
         //태그 저장
+        saveTags(quiz,postId);
+        return postId;
+    }
+
+    @Override
+    public void updateQuiz(QuizVO quiz, long postId, long userId) {
+        //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
+        String postSql="update post "+
+                "set title=?, contents=?, updated_at = ? "+
+                "where id = ?";
+        jdbcTemplate.update(postSql,
+                quiz.getTitle(),quiz.getQuizContent(),LocalDateTime.now()
+                ,postId,userId);
+
+        String answerSql="update answer "+
+                "set answer=? "+
+                "where post_id=?";
+        jdbcTemplate.update(answerSql,quiz.getAnswerContent(),postId);
+
+        // 기존 태그 삭제 후 새로운 태그 추가
+        String deleteTagsSql = "delete from quiztag where post_id = ?";
+        jdbcTemplate.update(deleteTagsSql, postId);
+
+        saveTags(quiz,postId);
+    }
+
+    @Override
+    public void deleteQuiz(long postId) {
+        String sql="delete from post where id=?";
+        jdbcTemplate.update(sql, postId);
+    }
+
+    //태그 저장
+    public void saveTags(QuizVO quiz,long postId){
         String tagSql = "insert into quiztag (post_id, tag_id) " +
                 "values (?,?)";
         String tags = quiz.getTags();
@@ -70,6 +104,6 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
                 jdbcTemplate.update(tagSql, postId, Integer.parseInt(tag));
             }
         }
-        return postId;
     }
+
 }

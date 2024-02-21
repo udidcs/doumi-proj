@@ -4,6 +4,9 @@ function autoResize(textarea) {
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight+ 'px';
 }
+window.onload = function() {
+    autoResize(document.querySelector('.title'));
+};
 
 // 과목별로 세무과목 바꿔주기
 const subjectTagButtons=document.querySelectorAll('.subject-tag-button');
@@ -65,7 +68,6 @@ function createSelectedTag(button){
     selectedTag.classList.add('selected-tag');
     selectedTag.textContent = buttonText;
     selectedTag.value = button.value;
-    selectedTag.name= "tags";
 
     return selectedTag;
 }

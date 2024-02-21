@@ -26,7 +26,7 @@ function countBytes(editor, containerSelector, limit) {
     if (byteCount > limit) {
         alert('허용된 글자수가 초과되었습니다.')
         const truncatedContent = cutByLen(content, limit);
-        editor.setMarkdown ? editor.setMarkdown(truncatedContent) : editor.value = truncatedContent; // 넘어간 부분을 잘라냄
+        editor.setMarkdown ? editor.setMarkdown(truncatedContent,false) : editor.value = truncatedContent; // 넘어간 부분을 잘라냄
     }
 }
 

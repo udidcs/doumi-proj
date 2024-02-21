@@ -41,7 +41,7 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public List<String> getTags(long postId) {
+    public List<TagDetailDto> getTags(long postId) {
         return tagRepository.getByQuizId(postId);
     }
 
@@ -73,4 +73,15 @@ public class QuizServiceImpl implements QuizService{
 
         return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
     }
+
+    @Override
+    public void updateQuiz(QuizVO quizVO, Long postId, Long userId) {
+        quizRepository.updateQuiz(quizVO, postId, userId);
+    }
+
+    @Override
+    public void deleteQuiz(long postId) {
+        quizRepository.deleteQuiz(postId);
+    }
+
 }
