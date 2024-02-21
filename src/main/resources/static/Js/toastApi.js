@@ -7,40 +7,31 @@ const editor = new toastui.Editor({
     placeholder: '퀴즈 문제를 내주세요.',
     events: {
         change: function () {
-            console.log(editor.getMarkdown());
+
         }
     },
     hooks: {
-        addImageBlobHook: (blob, callback) => {
 
-            const formData = new FormData();
-            formData.append('file', blob);
+        async addImageBlobHook(blob, callback) {
+            try{
 
-            let url = 'http://localhost:8080/images/quiz/';
+                const formData = new FormData();
+                formData.append('file', blob);
 
-            $.ajax({
-                type: 'POST',
-                enctype: 'multipart/form-data',
-                url: '/board/file',
-                data: formData,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                cache: false,
-                timeout: 600000,
-                success: function (data) {
+                const response = await fetch('/board/file', {
+                    method : 'POST',
+                    body : formData,
+                });
 
-                    console.log('ajax 이미지 업로드 성공');
-                    console.log(data);
-                    //url += data.fileName;
-                    callback(url, '사진 대체 텍스트 입력');
-                },
-                error: function (e) {
-                    console.log('ajax 이미지 업로드 실패');
+                const fileName = await response.text();
 
-                    callback('image_load_fail', '사진 대체 텍스트 입력');
-                }
-            });
+                const imageUrl = `/image-print?fileName=${fileName}`;
+
+                callback(imageUrl, 'image alt attribute');
+
+            }catch (error) {
+                console.error('파일 업로드 실패 : ',error);
+            }
         }
     }
 });

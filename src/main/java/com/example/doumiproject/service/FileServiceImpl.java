@@ -13,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class FileServiceImpl implements FileService{
 
+    private FileDto fileDto;
     @Override
     public FileDto fileWrite(MultipartFile file) throws IOException {
 
@@ -26,7 +27,7 @@ public class FileServiceImpl implements FileService{
 
         file.transferTo(savefile);
 
-        FileDto fileDto = new FileDto("id", fileName, "");
+        fileDto = new FileDto("id", fileName, "");
 
         return fileDto;
     }
