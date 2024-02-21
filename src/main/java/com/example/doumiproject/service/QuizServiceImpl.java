@@ -74,6 +74,7 @@ public class QuizServiceImpl implements QuizService{
         return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
     }
 
+    @Transactional
     @Override
     public void updateQuiz(QuizVO quizVO, Long postId, Long userId) {
         quizRepository.updateQuiz(quizVO, postId, userId);
