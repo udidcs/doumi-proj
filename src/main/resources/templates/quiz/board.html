@@ -32,8 +32,8 @@
             <p class="likes-number" th:text="${quiz.like}"></p>
         </button>
         <ul class="content-tags-container">
-            <li class="content-detail-tag" th:each="tag:${tags}">
-                <a href="" th:value="${tag.getId()}" th:text="${tag.getName()}"></a>
+            <li class="content-detail-tag" th:each="tag:${quiz.tags}">
+                <a href="" th:value="${tag.id}" th:text="${tag.name}"></a>
             </li>
         </ul>
     </section>

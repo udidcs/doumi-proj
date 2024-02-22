@@ -1,7 +1,8 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.QuizDto;
-import com.example.doumiproject.dto.QuizVO;
+import com.example.doumiproject.dto.TagDetailDto;
+import com.example.doumiproject.entity.Quiz;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class JdbcTemplateQuizRepository implements QuizRepository {
@@ -21,17 +23,32 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
 
     @Override
     public QuizDto getByQuizId(long id) {
+        //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select p.id as post_id, p.user_id, p.title, p.contents, p.created_at, p.like, a.answer, " +
-                "u.nickname " +
+                "u.user_id as nickname " +
                 "from post p " +
                 "inner join answer a on p.id = a.post_id " +
                 "inner join user u on p.user_id = u.id " +
                 "where p.id = ?";
-        return jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), id);
+        //퀴즈 내용 가져오기
+        QuizDto quizDto = jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), id);
+        System.out.println(quizDto);
+        //퀴즈와 연결된 태그들 가져오기
+        List<TagDetailDto> tags = getTags(id);
+        quizDto.setTags(tags);
+        return quizDto;
     }
 
     @Override
-    public Long saveQuiz(QuizVO quiz, long userId) {
+    public List<TagDetailDto> getTags(long id) {
+        String sql = "select t.id, t.name "+
+                "from tag t inner join quiztag qt on t.id = qt.tag_id "+
+                "where qt.post_id = ?";
+        return jdbcTemplate.query(sql, TagRowMapper(), id);
+    }
+
+    @Override
+    public Long saveQuiz(Quiz quiz, long userId) {
         //게시글 저장
         String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at, `like`) " +
                 "values (?, ?, ?, ?, ?, ?, ?)";
@@ -41,7 +58,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(postSql, new String[]{"id"}); // "id"는 자동 생성된 키의 컬럼명
             ps.setLong(1, userId);
-            ps.setString(2, "퀴즈");
+            ps.setString(2, "QUIZ");
             ps.setString(3, quiz.getTitle());
             ps.setString(4, quiz.getQuizContent());
             ps.setObject(5, LocalDateTime.now());
@@ -66,7 +83,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     @Override
-    public void updateQuiz(QuizVO quiz, long postId, long userId) {
+    public void updateQuiz(Quiz quiz, long postId, long userId) {
         //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
         String postSql="update post "+
                 "set title=?, contents=?, updated_at = ? "+
@@ -94,7 +111,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     }
 
     //태그 저장
-    public void saveTags(QuizVO quiz,long postId){
+    public void saveTags(Quiz quiz, long postId){
         String tagSql = "insert into quiztag (post_id, tag_id) " +
                 "values (?,?)";
         String tags = quiz.getTags();

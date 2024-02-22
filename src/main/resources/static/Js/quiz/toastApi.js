@@ -10,31 +10,31 @@ const contentEditor = new toastui.Editor({
             //wordCount.js 파일
             countBytes(contentEditor, ".quiz-text-count", byteLimit);
         },
-        hooks: {
+    },
+    hooks: {
 
-            async addImageBlobHook(blob, callback) {
-                try{
+        async addImageBlobHook(blob, callback) {
+            try {
 
-                    const formData = new FormData();
-                    formData.append('file', blob);
+                const formData = new FormData();
+                formData.append('file', blob);
 
-                    const response = await fetch('/board/file', {
-                        method : 'POST',
-                        body : formData,
-                    });
+                const response = await fetch('/board/file', {
+                    method: 'POST',
+                    body: formData,
+                });
 
-                    const fileName = await response.text();
+                const fileName = await response.text();
 
-                    const imageUrl = `/image-print?fileName=${fileName}`;
+                const imageUrl = `/image-print?fileName=${fileName}`;
 
-                    callback(imageUrl, 'image alt attribute');
+                callback(imageUrl, 'image alt attribute');
 
-                }catch (error) {
-                    console.error('파일 업로드 실패 : ',error);
-                }
+            } catch (error) {
+                console.error('파일 업로드 실패 : ', error);
             }
         }
-    },
+    }
 });
 
 const answerEditor = new toastui.Editor({
@@ -49,4 +49,28 @@ const answerEditor = new toastui.Editor({
             countBytes(answerEditor, ".answer-text-count", byteLimit);
         }
     },
+    hooks: {
+
+        async addImageBlobHook(blob, callback) {
+            try {
+
+                const formData = new FormData();
+                formData.append('file', blob);
+
+                const response = await fetch('/board/file', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const fileName = await response.text();
+
+                const imageUrl = `/image-print?fileName=${fileName}`;
+
+                callback(imageUrl, 'image alt attribute');
+
+            } catch (error) {
+                console.error('파일 업로드 실패 : ', error);
+            }
+        }
+    }
 });

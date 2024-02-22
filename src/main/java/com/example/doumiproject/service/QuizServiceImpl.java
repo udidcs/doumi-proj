@@ -1,6 +1,7 @@
 package com.example.doumiproject.service;
 
 import com.example.doumiproject.dto.*;
+import com.example.doumiproject.entity.Quiz;
 import com.example.doumiproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,30 +37,29 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public QuizDto getQuizDetail(long postId){
+    public QuizDto getQuiz(long postId){
+
         return quizRepository.getByQuizId(postId);
     }
 
     @Override
-    public List<TagDetailDto> getTags(long postId) {
-        return tagRepository.getByQuizId(postId);
-    }
-
-    @Override
     public List<CommentDto> getComments(long postId) {
+
         return commentRepository.getByQuizId(postId);
     }
 
     @Override
     public List<TagDto> getAllTags() {
+
         return tagRepository.findAll();
     }
 
     //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
     @Transactional
     @Override
-    public Long saveQuiz(QuizVO quizVO, Long userId) {
-        return quizRepository.saveQuiz(quizVO, userId);
+    public Long saveQuiz(Quiz quiz, Long userId) {
+
+        return quizRepository.saveQuiz(quiz, userId);
     }
 
     @Override
@@ -76,12 +76,14 @@ public class QuizServiceImpl implements QuizService{
 
     @Transactional
     @Override
-    public void updateQuiz(QuizVO quizVO, Long postId, Long userId) {
-        quizRepository.updateQuiz(quizVO, postId, userId);
+    public void updateQuiz(Quiz quiz, Long postId, Long userId) {
+
+        quizRepository.updateQuiz(quiz, postId, userId);
     }
 
     @Override
     public void deleteQuiz(long postId) {
+        
         quizRepository.deleteQuiz(postId);
     }
 

@@ -14,7 +14,7 @@ public interface CommentRepository {
         return (rs,rowNum)->{
             CommentDto commentDto = new CommentDto();
             commentDto.setId(rs.getLong("id"));
-            commentDto.setUserId(rs.getString("nickname"));
+            commentDto.setUserId(rs.getString("user_id"));
             commentDto.setContents(rs.getString("contents"));
             commentDto.setLike(rs.getInt("like"));
             commentDto.setDisplay(rs.getInt("display"));
