@@ -41,6 +41,8 @@ class PostRepositoryTest {
     @DisplayName("총 페이지 수 출력하기")
     public void getTotalPagesTest() {
 
+        System.out.println(postRepository.getTotalPages(10));
+
         Assertions.assertEquals(8, postRepository.getTotalPages(10));
     }
 
