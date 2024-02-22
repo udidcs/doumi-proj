@@ -28,8 +28,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // 여기에서 서버로의 폼 제출 로직을 구현할 수 있음
-        // 예: fetch()를 사용한 비동기 제출 등
+        fetch('http://localhost:8080/user/signup', {//url을 어떻게 해야할지?...
+            method:'POST', //HTTP 요청 메서드
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({//JS객체를 JSON문자열로 변환한다
+                id: id,
+                password: password,
+            })
+        })
+        .then(response => response.json())//서버에서 받은 객체를 json으로 변환한다
+        .then(data => {
+            console.log(data); //로그 출력
+            if(data.success) {
+                alert(data.message);
+                window.location.href = '/quiz/';
+            }else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:',error));
 
-        alert('회원가입이 완료되었습니다.');
     });
 });
