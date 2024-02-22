@@ -1,3 +1,13 @@
+//제목 칸 늘리기
+function autoResize(textarea) {
+    //height초기화
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight+ 'px';
+}
+window.onload = function() {
+    autoResize(document.querySelector('.title'));
+};
+
 // 과목별로 세무과목 바꿔주기
 const subjectTagButtons=document.querySelectorAll('.subject-tag-button');
 const detailTagsContainer = document.querySelectorAll('.detail-tags');
@@ -43,8 +53,9 @@ detailsTagButtons.forEach(button => {
             // 생성된 태그를 '선택된 태그들:'뒤에 태그 추가
             selectedTagsContainer.appendChild(selectedTag);
         } else {
+            const buttonValue=button.value;
             // 태그 버튼을 한 번 더 눌렀을 경우 삭제
-            const removeTag = document.querySelector(`.selected-tag[value="${buttonText}"]`);
+            const removeTag = document.querySelector(`.selected-tag[value="${buttonValue}"]`);
             selectedTagsContainer.removeChild(removeTag);
         }
     });
@@ -57,7 +68,6 @@ function createSelectedTag(button){
     selectedTag.classList.add('selected-tag');
     selectedTag.textContent = buttonText;
     selectedTag.value = button.value;
-    selectedTag.name= "tags";
 
     return selectedTag;
 }
@@ -85,13 +95,9 @@ resetButton.addEventListener('click',()=>{
     })
 })
 
-//---------------서버 전송 기능---------
-const cancelButton = document.querySelector('.cancel-button');
-const submitButton = document.querySelector('.submit-button');
-
 // 취소 버튼 클릭
+const cancelButton = document.querySelector('.cancel-button');
 cancelButton.addEventListener('click', () => {
     // 취소
-    location.href = '/quiz/';
+    location.href = '/quiz';
 });
-

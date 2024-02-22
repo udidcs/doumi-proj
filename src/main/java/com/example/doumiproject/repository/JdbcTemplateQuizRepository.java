@@ -41,7 +41,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(postSql, new String[]{"id"}); // "id"는 자동 생성된 키의 컬럼명
             ps.setLong(1, userId);
-            ps.setString(2, "QUIZ");
+            ps.setString(2, "퀴즈");
             ps.setString(3, quiz.getTitle());
             ps.setString(4, quiz.getQuizContent());
             ps.setObject(5, LocalDateTime.now());
@@ -54,17 +54,56 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
         Long postId = keyHolder.getKey().longValue();
 
         //퀴즈 답변 저장
-        String answerSql="insert into answer(post_id, answer) "+
+        String answerSql = "insert into answer(post_id, answer) " +
                 "values (?,?)";
-        jdbcTemplate.update(answerSql,postId, quiz.getAnswerContent());
+        String answer = quiz.getAnswerContent();
+
+        jdbcTemplate.update(answerSql, postId, answer);
 
         //태그 저장
-        String tagSql="insert into quiztag (post_id, tag_id) "+
-                "values (?,?)";
-        String[] tagStrings = quiz.getTags().split(",");
-        for(String tag:tagStrings){
-            jdbcTemplate.update(tagSql,postId,Integer.parseInt(tag));
-        }
+        saveTags(quiz,postId);
         return postId;
     }
+
+    @Override
+    public void updateQuiz(QuizVO quiz, long postId, long userId) {
+        //로그인 생기면 수정 권한 있는지 확인 로직 where에 추가
+        String postSql="update post "+
+                "set title=?, contents=?, updated_at = ? "+
+                "where id = ?";
+        jdbcTemplate.update(postSql,
+                quiz.getTitle(),quiz.getQuizContent(),LocalDateTime.now()
+                ,postId,userId);
+
+        String answerSql="update answer "+
+                "set answer=? "+
+                "where post_id=?";
+        jdbcTemplate.update(answerSql,quiz.getAnswerContent(),postId);
+
+        // 기존 태그 삭제 후 새로운 태그 추가
+        String deleteTagsSql = "delete from quiztag where post_id = ?";
+        jdbcTemplate.update(deleteTagsSql, postId);
+
+        saveTags(quiz,postId);
+    }
+
+    @Override
+    public void deleteQuiz(long postId) {
+        String sql="delete from post where id=?";
+        jdbcTemplate.update(sql, postId);
+    }
+
+    //태그 저장
+    public void saveTags(QuizVO quiz,long postId){
+        String tagSql = "insert into quiztag (post_id, tag_id) " +
+                "values (?,?)";
+        String tags = quiz.getTags();
+        if (!tags.isEmpty()) {
+            String[] tagStrings = quiz.getTags().split(",");
+            for (String tag : tagStrings) {
+                jdbcTemplate.update(tagSql, postId, Integer.parseInt(tag));
+            }
+        }
+    }
+
 }

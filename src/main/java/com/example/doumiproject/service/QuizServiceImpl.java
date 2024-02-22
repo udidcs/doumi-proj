@@ -4,6 +4,7 @@ import com.example.doumiproject.dto.*;
 import com.example.doumiproject.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,33 +37,31 @@ public class QuizServiceImpl implements QuizService{
 
     @Override
     public QuizDto getQuizDetail(long postId){
-
         return quizRepository.getByQuizId(postId);
     }
 
     @Override
-    public List<String> getTags(long postId) {
-
+    public List<TagDetailDto> getTags(long postId) {
         return tagRepository.getByQuizId(postId);
     }
 
     @Override
     public List<CommentDto> getComments(long postId) {
-
         return commentRepository.getByQuizId(postId);
     }
 
     @Override
     public List<TagDto> getAllTags() {
-
         return tagRepository.findAll();
     }
 
+    //데이터 저장 도중 에러가 생길 경우 원 상태로 복귀
+    @Transactional
     @Override
     public Long saveQuiz(QuizVO quizVO, Long userId) {
-
         return quizRepository.saveQuiz(quizVO, userId);
     }
+
     @Override
     public int getTotalPages(int pageSize, String keyword) {
 
@@ -74,4 +73,16 @@ public class QuizServiceImpl implements QuizService{
 
         return postRepository.findByTitleOrAuthor(keyword, page, pageSize);
     }
+
+    @Transactional
+    @Override
+    public void updateQuiz(QuizVO quizVO, Long postId, Long userId) {
+        quizRepository.updateQuiz(quizVO, postId, userId);
+    }
+
+    @Override
+    public void deleteQuiz(long postId) {
+        quizRepository.deleteQuiz(postId);
+    }
+
 }
