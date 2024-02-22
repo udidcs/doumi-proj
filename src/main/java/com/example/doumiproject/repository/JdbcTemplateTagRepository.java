@@ -1,7 +1,7 @@
 package com.example.doumiproject.repository;
 
+import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.entity.Tag;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +15,8 @@ public class JdbcTemplateTagRepository implements TagRepository{
         this.jdbcTemplate=jdbcTemplate;
     }
     @Override
-    public List<String> getByQuizId(long id) {
-        String sql = "select t.name "+
+    public List<TagDetailDto> getByQuizId(long id) {
+        String sql = "select t.id, t.name "+
                 "from tag t inner join quiztag qt on t.id = qt.tag_id "+
                 "where qt.post_id = ?";
         return jdbcTemplate.query(sql, QuizDetailTagRowMapper(), id);
@@ -24,10 +24,11 @@ public class JdbcTemplateTagRepository implements TagRepository{
 
     @Override
     public List<TagDto> findAll() {
-        String sql="select type, GROUP_CONCAT(name) as names, GROUP_CONCAT(id) as ids "+
+        String sql="select type, GROUP_CONCAT(name ORDER BY id) as names, GROUP_CONCAT(id ORDER BY id) as ids "+
                 "from tag "+
                 "group by type";
         List<TagDto> tags = jdbcTemplate.query(sql, TagRowMapper());
+
         List<String> order= Arrays.asList("Java", "Spring", "DB", "AWS", "FrontEnd");
         //order로 정의한 순으로 정렬
         tags.sort(Comparator.comparingInt(tagDto->order.indexOf(tagDto.getType())));

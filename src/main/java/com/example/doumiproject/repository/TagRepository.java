@@ -3,19 +3,20 @@ package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.TagDetailDto;
 import com.example.doumiproject.dto.TagDto;
-import com.example.doumiproject.entity.Tag;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.*;
 
 public interface TagRepository {
-    List<String> getByQuizId(long id);
+    List<TagDetailDto> getByQuizId(long id);
     List<TagDto> findAll();
 
-    default RowMapper<String> QuizDetailTagRowMapper() {
+    default RowMapper<TagDetailDto> QuizDetailTagRowMapper() {
         return (rs,rowNum)->{
-          String tagName=rs.getString("name");
-          return tagName;
+            TagDetailDto tagDetailDto = new TagDetailDto();
+            tagDetailDto.setId(rs.getLong("id"));
+            tagDetailDto.setName(rs.getString("name"));
+          return tagDetailDto;
         };
     }
 
@@ -29,7 +30,7 @@ public interface TagRepository {
             for(int i=0;i<nameStrings.length;i++){
                 TagDetailDto tagDetailDto = new TagDetailDto();
                 tagDetailDto.setName(nameStrings[i]);
-                tagDetailDto.setIds(Integer.parseInt(idStrings[i]));
+                tagDetailDto.setId(Long.parseLong(idStrings[i]));
                 tagDetailDtos.add(tagDetailDto);
             }
             tagDto.setDetailTags(tagDetailDtos);

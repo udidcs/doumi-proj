@@ -8,5 +8,5 @@ import lombok.*;
 @Data
 public class TagDetailDto {
     String name;
-    Integer ids;
+    long id;
 }

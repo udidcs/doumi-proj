@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Doumi</title>
-    <link href="../../static/css/quizBoard.css" th:href="@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.0.2/toastui-editor.min.css">
+    <link href="../../static/css/quizBoard.css" th:href="@{/css/quizBoard.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header></header>
 <main class="cont-main">
+    <input class="quiz-id hidden" th:value="${quiz.id}" />
     <section class="content-header">
-        <a class="back-button" href="/quiz/">< 목록으로 </a>
+        <a class="back-button" href="/quiz">< 목록으로 </a>
         <h1 class="title" th:text="${quiz.title}"></h1>
         <div class="content-info">
             <a href="" class="board-writer-name" th:text="${quiz.userId}"></a>
@@ -20,7 +21,6 @@
     <section class="content-main">
         <h2 class="a11y">퀴즈 게시판 본문 내용</h2>
         <div class="content-detail">
-            <!--            th:text="${quiz.contents}">-->
         </div>
         <h3>정답</h3>
         <div class="content-answer-container hide-place">
@@ -33,7 +33,7 @@
         </button>
         <ul class="content-tags-container">
             <li class="content-detail-tag" th:each="tag:${tags}">
-                <a href="" th:text="${tag}"></a>
+                <a href="" th:value="${tag.getId()}" th:text="${tag.getName()}"></a>
             </li>
         </ul>
     </section>
@@ -109,23 +109,11 @@
 </main>
 <script src="https://uicdn.toast.com/editor/3.0.2/toastui-editor-all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/Js/quizBoard.js}"></script>
-<script th:inline="javascript" type="module">
-    $(document).ready(function () {
-            const content = toastui.Editor.factory({
-                el: document.querySelector(".content-detail"),
-                viewer: true,
-                useScript: true,
-                initialValue: [[${quiz.contents}]],
-            });
-            const answer = toastui.Editor.factory({
-                el: document.querySelector(".content-answer"),
-                viewer: true,
-                useScript: true,
-                initialValue: [[${quiz.answer}]],
-            });
-        }
-    );
+<script th:src="@{/Js/quiz/board.js}"></script>
+<script th:inline="javascript">
+    let quizContent=[[${quiz.contents}]];
+    let answerContent=[[${quiz.answer}]];
 </script>
+<script th:inline="javascript" th:src="@{/Js/quiz/viewer.js}"></script>
 </body>
 </html>
