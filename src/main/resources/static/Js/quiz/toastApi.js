@@ -16,7 +16,6 @@ const contentEditor = new toastui.Editor({
 
         async addImageBlobHook(blob, callback) {
             try{
-
                 const formData = new FormData();
                 formData.append('file', blob);
 
@@ -26,7 +25,6 @@ const contentEditor = new toastui.Editor({
                 });
 
                 const fileName = await response.text();
-
                 const imageUrl = `/image-print?fileName=${fileName}`;
 
                 callback(imageUrl, 'image alt attribute');
