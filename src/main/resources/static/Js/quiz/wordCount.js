@@ -1,5 +1,5 @@
 //글자수 제한 길이
-const byteLimit = 2000;
+const byteLimit = 3000;
 const titleByteLimit = 250;
 
 // 글자 바이트 세기

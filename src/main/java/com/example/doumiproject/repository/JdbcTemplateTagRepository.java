@@ -14,13 +14,6 @@ public class JdbcTemplateTagRepository implements TagRepository{
     public JdbcTemplateTagRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate=jdbcTemplate;
     }
-    @Override
-    public List<TagDetailDto> getByQuizId(long id) {
-        String sql = "select t.id, t.name "+
-                "from tag t inner join quiztag qt on t.id = qt.tag_id "+
-                "where qt.post_id = ?";
-        return jdbcTemplate.query(sql, QuizDetailTagRowMapper(), id);
-    }
 
     @Override
     public List<TagDto> findAll() {

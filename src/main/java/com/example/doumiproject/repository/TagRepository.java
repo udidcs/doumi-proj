@@ -8,17 +8,8 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.*;
 
 public interface TagRepository {
-    List<TagDetailDto> getByQuizId(long id);
     List<TagDto> findAll();
 
-    default RowMapper<TagDetailDto> QuizDetailTagRowMapper() {
-        return (rs,rowNum)->{
-            TagDetailDto tagDetailDto = new TagDetailDto();
-            tagDetailDto.setId(rs.getLong("id"));
-            tagDetailDto.setName(rs.getString("name"));
-          return tagDetailDto;
-        };
-    }
 
     default RowMapper<TagDto> TagRowMapper(){
         return (rs, rowNum)->{

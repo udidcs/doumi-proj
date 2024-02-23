@@ -1,6 +1,7 @@
 package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.*;
+import com.example.doumiproject.entity.Quiz;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
@@ -61,55 +62,65 @@ public class QuizController {
 
     @GetMapping("/board")
     public String getQuizDetail(@RequestParam("id") Long id, Model model){
+
         //글의 상세 정보 가져오기
-        QuizDto quizDetail=quizService.getQuizDetail(id);
-        //글에 연결된 태그들 가져오기
-        List<TagDetailDto> tags=quizService.getTags(id);
+        QuizDto quiz=quizService.getQuiz(id);
         //글에 연결된 댓글들 가져오기
         List<CommentDto> comments=quizService.getComments(id);
-        model.addAttribute("quiz",quizDetail);
-        model.addAttribute("tags",tags);
+
+        model.addAttribute("quiz",quiz);
         model.addAttribute("comments",comments);
+
         return "quiz/board";
     }
 
     @GetMapping("/post")
     public String createQuiz(Model model){
+
         //타입별 태그 모두 불러오기
         List<TagDto> tags = quizService.getAllTags();
+
         model.addAttribute("tags",tags);
-        model.addAttribute("QuizVO",new QuizVO());
+        model.addAttribute("quiz",new Quiz());
+
         return "quiz/form";
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> postQuiz(QuizVO quizVO) {
-        Long postId = quizService.saveQuiz(quizVO, 1l);
+    public ResponseEntity<String> postQuiz(Quiz quiz) {
+
+        Long postId = quizService.saveQuiz(quiz, 1l);
+
         return ResponseEntity.ok("/quiz/board?id="+postId);
     }
 
     @GetMapping("/edit")
     public String editQuiz(@RequestParam("id") Long id, Model model){
+
         //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요
-        QuizDto quizDetail=quizService.getQuizDetail(id);
-        List<TagDetailDto> selectedTags=quizService.getTags(id);
+        QuizDto quiz=quizService.getQuiz(id);
         List<TagDto> tags = quizService.getAllTags();
-        model.addAttribute("quiz",quizDetail);
-        model.addAttribute("selectedTags",selectedTags);
+
+        model.addAttribute("quiz",quiz);
         model.addAttribute("tags",tags);
+
         return "quiz/edit";
     }
 
     @PostMapping("/edit")
-    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, QuizVO quizVO){
+    public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Quiz quiz){
+
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
-        quizService.updateQuiz(quizVO, id, 1l);
+        quizService.updateQuiz(quiz, id, 1l);
+
         return ResponseEntity.ok("/quiz/board?id="+id);
     }
 
     @DeleteMapping("/delete")
     public String deleteQuiz(@RequestParam("id") long id){
+
         quizService.deleteQuiz(id);
+
         return "redirect:/quiz";
     }
 }

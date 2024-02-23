@@ -9,7 +9,7 @@
 <body>
 <header></header>
 <main class="cont-main">
-    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${QuizVO}">
+    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${quiz}">
         <div class="title-container">
             <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)" th:field="*{title}"></textarea>
@@ -75,6 +75,6 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script th:src="@{/Js/quiz/toastApi.js}"></script>
 <script th:src="@{/Js/quiz/wordCount.js}"></script>
-<script th:src="@{/Js/quiz/ajaxRequest.js}"></script>
+<script th:src="@{/Js/quiz/ajaxCreateUpdateRequest.js}"></script>
 </body>
 </html>
