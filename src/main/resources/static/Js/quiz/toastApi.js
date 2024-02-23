@@ -9,32 +9,33 @@ const contentEditor = new toastui.Editor({
         change: function () {
             //wordCount.js 파일
             countBytes(contentEditor, ".quiz-text-count", byteLimit);
-        },
-        hooks: {
-
-            async addImageBlobHook(blob, callback) {
-                try{
-
-                    const formData = new FormData();
-                    formData.append('file', blob);
-
-                    const response = await fetch('/board/file', {
-                        method : 'POST',
-                        body : formData,
-                    });
-
-                    const fileName = await response.text();
-
-                    const imageUrl = `/image-print?fileName=${fileName}`;
-
-                    callback(imageUrl, 'image alt attribute');
-
-                }catch (error) {
-                    console.error('파일 업로드 실패 : ',error);
-                }
-            }
         }
     },
+
+    hooks: {
+
+        async addImageBlobHook(blob, callback) {
+            try{
+
+                const formData = new FormData();
+                formData.append('file', blob);
+
+                const response = await fetch('/board/file', {
+                    method : 'POST',
+                    body : formData,
+                });
+
+                const fileName = await response.text();
+
+                const imageUrl = `/image-print?fileName=${fileName}`;
+
+                callback(imageUrl, 'image alt attribute');
+
+            }catch (error) {
+                console.error('파일 업로드 실패 : ',error);
+            }
+        }
+    }
 });
 
 const answerEditor = new toastui.Editor({
