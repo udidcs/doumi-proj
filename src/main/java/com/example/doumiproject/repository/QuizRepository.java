@@ -19,7 +19,7 @@ public interface QuizRepository {
         return ((rs, rowNum) -> {
             QuizDto quizDto=new QuizDto();
             quizDto.setId(rs.getLong("post_id"));
-            quizDto.setUserId(rs.getString("nickname"));
+            quizDto.setUserId(rs.getString("userId"));
             quizDto.setTitle(rs.getString("title"));
             quizDto.setContents(rs.getString("contents"));
             quizDto.setCreatedAt(rs.getTimestamp("created_at"));

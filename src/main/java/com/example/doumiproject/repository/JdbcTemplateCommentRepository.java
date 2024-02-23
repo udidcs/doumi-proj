@@ -16,7 +16,6 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
     }
     @Override
     public List<CommentDto> getByQuizId(long postId) {
-
         String sql="select c.id, u.user_id as nickname , c.contents, c.created_at, c.like, c.display "+
                 "from comment c "+
                 "inner join user u on u.id=c.user_id "+
