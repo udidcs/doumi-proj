@@ -22,7 +22,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     @Override
     public QuizDto getByQuizId(long id) {
         String sql = "select p.id as post_id, p.user_id, p.title, p.contents, p.created_at, p.like, a.answer, " +
-                "u.nickname " +
+                "u.userId " +
                 "from post p " +
                 "inner join answer a on p.id = a.post_id " +
                 "inner join user u on p.user_id = u.id " +

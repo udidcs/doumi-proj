@@ -16,7 +16,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
     }
     @Override
     public List<CommentDto> getByQuizId(long postId) {
-        String sql="select c.id, u.nickname, c.contents, c.created_at, c.like, c.display "+
+        String sql="select c.id, u.userId, c.contents, c.created_at, c.like, c.display "+
                 "from comment c "+
                 "inner join user u on u.id=c.user_id "+
                 "where c.post_id=? "+
@@ -35,7 +35,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
     public List<ReCommentDto> getByParentCommentId(long parentCommentId) {
         // 1. 부모 댓글 ID에 해당하는 모든 대댓글 목록을 조회
         //대댓글 시간순 정렬
-        String sql="select c.id, u.nickname, c.contents, c.created_at, c.like, c.display "+
+        String sql="select c.id, u.userId, c.contents, c.created_at, c.like, c.display "+
                 "from comment c "+
                 "inner join user u on u.id=c.user_id "+
                 "where c.parent_comment_id=? "+

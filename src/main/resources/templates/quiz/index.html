@@ -16,7 +16,7 @@
         <div class="navbar-menu">
             <div class="navbar-left">
                 <div><a href="/doumiAlgorithm" class="move_to_algorithm">코딩테스트</a></div>
-                <div><a href="/quiz/" class="move_to_quiz">퀴즈</a></div>
+                <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
             </div>
             <div class="navbar-right">
                 <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
@@ -66,20 +66,20 @@
     <nav class="page">
         <ul class="page_list" th:unless="${quizs.isEmpty()}">
             <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/quiz/?page=1}">처음</a>
+                <a th:href="@{/quiz?page=1}">처음</a>
             </li>
             <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/quiz/(page = ${startIdx - 1})}"><<</a>
+                <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
             </li>
             <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
                 th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-                <a th:href="@{/quiz/(page = ${page})}" th:text="${page}"></a>
+                <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
             </li>
             <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/quiz/(page = ${endIdx + 1})}">>></a>
+                <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
             </li>
             <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/quiz/(page = ${totalPages})}">마지막</a>
+                <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
             </li>
         </ul>
     </nav>
