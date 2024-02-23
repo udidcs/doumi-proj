@@ -32,7 +32,6 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
                 "where p.id = ?";
         //퀴즈 내용 가져오기
         QuizDto quizDto = jdbcTemplate.queryForObject(sql, quizDtoRowMapper(), id);
-        System.out.println(quizDto);
         //퀴즈와 연결된 태그들 가져오기
         List<TagDetailDto> tags = getTags(id);
         quizDto.setTags(tags);
