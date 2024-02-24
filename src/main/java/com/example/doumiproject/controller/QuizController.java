@@ -48,6 +48,22 @@ public class QuizController {
         return "quiz/search";
     }
 
+    @GetMapping("/tag")
+    public String searchTags(@RequestParam(value = "name") String tag,
+                             @RequestParam(defaultValue = "1", value = "page") int page, Model model) {
+
+        if (page < 1) {
+            page = 1;
+        }
+
+        setPaginationAttributes(model, page,
+                quizService.getTotalPagesForSelectedTag(pageSize, tag),
+                quizService.getQuizForSelectedTag(tag, page, pageSize));
+        model.addAttribute("tag", tag);
+
+        return "quiz/tag";
+    }
+
     private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> quizs) {
 
         int startIdx = PaginationUtil.calculateStartIndex(page);

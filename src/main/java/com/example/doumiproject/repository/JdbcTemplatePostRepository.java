@@ -94,6 +94,45 @@ public class JdbcTemplatePostRepository implements PostRepository{
     }
 
     @Override
+    public List<PostDto> findByTag(String tag, int page, int pageSize) {
+
+        String type = "QUIZ";
+        int offset = (page - 1) * pageSize;
+
+        String sql = "select p.id, p.title, p.user_id as author, p.contents, p.created_at " +
+                "from post p " +
+                "left join " +
+                "quiztag qt on p.id = qt.post_id " +
+                "left join " +
+                "tag t on qt.tag_id = t.id " +
+                "where " +
+                "p.type = ? AND " +
+                "t.name = ? " +
+                "order by p.id desc " +
+                "limit ? offset ?";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper(), type, tag, pageSize, offset);
+    }
+
+    @Override
+    public int getTotalPagesForTag(int pageSize, String tag) {
+
+        String type = "QUIZ";
+
+        String sql = "select ceil(count(*) / ?) " +
+                "from post p " +
+                "left join " +
+                "quiztag qt on p.id = qt.post_id " +
+                "left join " +
+                "tag t on qt.tag_id = t.id " +
+                "where " +
+                "p.type = ? AND " +
+                "t.name = ? ";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, type, tag);
+    }
+
+    @Override
     public int getTotalPages(int pageSize, String keyword) {
 
         String param = "%"+keyword+"%";

@@ -1,8 +1,6 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.dto.PostDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;
@@ -14,6 +12,8 @@ public interface PostRepository {
     public int getTotalPages(int pageSize);
     public int getTotalPages(int pageSize, String keyword);
     public List<PostDto> findByTitleOrAuthor(String keyword, int page, int pageSize);
+    public List<PostDto> findByTag(String tag, int page, int pageSize);
+    public int getTotalPagesForTag(int pageSize, String tag);
 
     default RowMapper<PostDto> postDtoRowMapper() {
         return ((rs, rowNum) -> {
@@ -26,5 +26,5 @@ public interface PostRepository {
 
             return postDto;
         });
-    };
+    }
 }

@@ -67,4 +67,23 @@ class PostRepositoryTest {
 
         Assertions.assertEquals(5, postRepository.getTotalPages(10, keyword));
     }
+
+    @Test
+    @DisplayName("태그에 해당하는 게시물 가져오기")
+    public void findByTagTest() {
+
+        String tag = "Java";
+        List<PostDto> quizs = postRepository.findByTag(tag, 1, 10);
+
+        for(PostDto postDto : quizs) {
+            System.out.println(postDto.getId()+" "+postDto.getTitle()+" "+postDto.getUserId());
+        }
+    }
+    @Test
+    @DisplayName("태그에 해당하는 게시물 총 페이지 수 출력하기")
+    public void getTotalPagesForTagTest() {
+
+        String tag = "Java";
+        Assertions.assertEquals(2, postRepository.getTotalPagesForTag(10, tag));
+    }
 }
