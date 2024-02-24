@@ -19,7 +19,7 @@ function submitCommentForm(commentForm) {
         processData: false,
         contentType: false,
         success: function (data) {
-            $('.comment-section').html(data);
+            $('.comment-container').html(data);
         },
         error: function (error) {
             console.log(error);

@@ -38,6 +38,6 @@ public class CommentController {
         model.addAttribute("newComment",new Comment());
 
 
-        return "comment/comment::comment-cont";
+        return "comment/comment";
     }
 }

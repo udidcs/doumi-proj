@@ -37,8 +37,9 @@
             </li>
         </ul>
     </section>
-    <section class="comment-section">
-        <div th:replace="~{comment/comment.html::comment-cont}"></div>
+    <section class="comment-container">
+        <div th:replace="~{comment/comment.html::comment-header}"></div>
+        <div th:replace="~{comment/comment.html::comment-main}"></div>
     </section>
 </main>
 <script src="https://uicdn.toast.com/editor/3.0.2/toastui-editor-all.min.js"></script>
