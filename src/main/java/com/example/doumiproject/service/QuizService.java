@@ -10,7 +10,6 @@ public interface QuizService {
     public List<PostDto> getAllQuiz();
     public int getTotalPages(int pageSize);
     public QuizDto getQuiz(long postId);
-    public List<CommentDto> getComments(long postId);
     public List<TagDto> getAllTags();
     public Long saveQuiz(Quiz quiz, Long userId);
     public int getTotalPages(int pageSize, String keyword);

@@ -165,11 +165,11 @@ div{
     justify-content: flex-end;
     gap:10px
 }
-.cancel-button,.submit-button{
+.cancel-button,.submit-button, .re-comment-cancel-button, .re-comment-submit-button{
     padding: 10px 20px;
     font-size: 16px;
 }
-.submit-button{
+.submit-button, .re-comment-submit-button{
     background-color: #04B45F;
     color: white;
     border: none;
@@ -227,6 +227,7 @@ div{
 .comment-item-bottom{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 }
 .etc-button-container{
     display: flex;

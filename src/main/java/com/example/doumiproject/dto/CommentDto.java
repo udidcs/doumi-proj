@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 public class CommentDto {
     private long id;
-    private String userId;
+    private long userId;
+    private String author;
     private String contents;
     private java.sql.Timestamp createdAt;
     private long like;

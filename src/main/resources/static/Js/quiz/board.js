@@ -86,13 +86,29 @@ const commentEditor = document.querySelector('.comment-editor');
 commentEditorOpener.addEventListener('click', () => {
     commentEditorOpener.classList.toggle('hidden');
     commentEditor.classList.toggle('hidden');
+});
+
+//대댓글 작성
+const reCommentEditorOpener=document.querySelector('.re-comment-editor-opener');
+const reCommentEditor=document.querySelector('.re-comment-editor');
+reCommentEditorOpener.addEventListener('click',()=>{
+    reCommentEditor.classList.toggle('hidden');
 })
+
+
+
 // 취소 버튼을 누르면 사라진다.
 const cancelButton = document.querySelector('.cancel-button');
 cancelButton.addEventListener('click', () => {
     commentEditorOpener.classList.toggle('hidden');
     commentEditor.classList.toggle('hidden');
 })
+
+//대댓글 취소 버튼 사라짐
+const reCommentCancelButton = document.querySelector('.re-comment-cancel-button');
+reCommentCancelButton.addEventListener('click',()=>{
+    reCommentEditor.classList.toggle('hidden');
+});
 
 
 // 좋아요순 최신순 클릭
