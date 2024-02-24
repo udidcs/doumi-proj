@@ -6,7 +6,6 @@ import com.example.doumiproject.entity.Comment;
 import java.util.List;
 
 public interface CommentService {
-    Long saveComment(Comment comment, long userId, String type);
+    void saveComment(Comment comment, long userId, String type);
     public List<CommentDto> getAllComments(long postId);
-    public CommentDto getComment(long commentId);
 }

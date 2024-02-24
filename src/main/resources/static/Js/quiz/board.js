@@ -1,6 +1,4 @@
 // 대댓글 숨기기 기능
-const hideButton = document.querySelectorAll('.re-comment-display-control');
-
 function updateHideButton(reCommentItemsContainer, button) {
     //대댓글 div안에 있는 댓글들
     const recommentItems = reCommentItemsContainer.querySelectorAll('.re-comment-item-container');
@@ -13,18 +11,15 @@ function updateHideButton(reCommentItemsContainer, button) {
     }
 }
 
-
-hideButton.forEach((button) => {
-    button.addEventListener('click', () => {
-        //closest 메서드를 사용하여 각 버튼에 가장 가까운 .comment-item-container를 찾고, 해당 컨테이너 내부에서 .re-comment-items-container를 선택
-        const reCommentItemsContainer = button.closest('.comment-item-container').querySelector('.re-comment-items-container');
-        //대댓글이 하나도 없을 수도 있다.
-        // 대댓글 div hidden
-        reCommentItemsContainer.classList.toggle("hidden");
-        updateHideButton(reCommentItemsContainer, button);
-
-    });
-});
+//숨기기 버튼 눌렀을 때
+function clickHideReComment(button) {
+    //closest 메서드를 사용하여 각 버튼에 가장 가까운 .comment-item-container를 찾고, 해당 컨테이너 내부에서 .re-comment-items-container를 선택
+    const reCommentItemsContainer = button.closest('.comment-item-container').querySelector('.re-comment-items-container');
+    //대댓글이 하나도 없을 수도 있다.
+    // 대댓글 div hidden
+    reCommentItemsContainer.classList.toggle("hidden");
+    updateHideButton(reCommentItemsContainer, button);
+}
 
 
 //게시글 정답 보기
@@ -36,10 +31,6 @@ answerContainer.addEventListener('click', () => {
     // 정답 text가 가려진다.
     answer.classList.toggle('hide-text');
 });
-
-
-// 게시물 좋아요 누르기
-const likeButton = document.querySelector('.content-likes');
 
 // 좋아요 개수 늘리기, 이미지 바꾸기 메서드
 function likeControl(likeImage, likeNumber) {
@@ -53,62 +44,49 @@ function likeControl(likeImage, likeNumber) {
     }
 }
 
-// 게시글 좋아요 누르기
-likeButton.addEventListener('click', (event) => {
-    const likeNumber = likeButton.querySelector('.likes-number');
-    const likeImage = likeButton.querySelector('img');
+// 좋아요 누르기
+function clickLike(button){
+    const likeNumber = button.querySelector('.likes-number');
+    const likeImage = button.querySelector('img');
     likeControl(likeImage, likeNumber);
-});
+}
 
-// 댓글 좋아요 누르기
-const commentLikeButtons = document.querySelectorAll('.comment-likes')
-commentLikeButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        const likeNumber = button.querySelector('.likes-number');
-        const likeImage = button.querySelector('img');
-        likeControl(likeImage, likeNumber);
-    })
-})
 // 댓글 정답 보기
-const commentAnswers = document.querySelectorAll('.hidden-comment-item-body');
-commentAnswers.forEach((answer) => {
-    answer.addEventListener('click', () => {
-        answer.classList.toggle('hide-place');
-        const comment = answer.querySelector('.comment-item');
+function clickComment(commentContainer){
+        commentContainer.classList.toggle('hide-place');
+        const comment = commentContainer.querySelector('.comment-item');
         comment.classList.toggle('hide-text');
-    });
-})
+}
 
 //정답 댓글 작성
-const commentEditorOpener = document.querySelector('.comment-editor-opener');
-const commentEditor = document.querySelector('.comment-editor');
 // 홍길동님,답변을 작성해보세요를 누르면 댓글 입력칸이 나온다.
-commentEditorOpener.addEventListener('click', () => {
+function clickCommentEditorOpener(commentEditorOpener){
+    const commentEditor = document.querySelector('.comment-editor');
     commentEditorOpener.classList.toggle('hidden');
     commentEditor.classList.toggle('hidden');
-});
+}
 
 //대댓글 작성
-const reCommentEditorOpener=document.querySelector('.re-comment-editor-opener');
-const reCommentEditor=document.querySelector('.re-comment-editor');
-reCommentEditorOpener.addEventListener('click',()=>{
+function clickReCommentEditorOpener(button){
+    let commentContainer = button.closest('.comment-item-container');
+    const reCommentEditor = commentContainer.querySelector('.re-comment-editor');
     reCommentEditor.classList.toggle('hidden');
-})
-
+}
 
 
 // 취소 버튼을 누르면 사라진다.
-const cancelButton = document.querySelector('.cancel-button');
-cancelButton.addEventListener('click', () => {
+function clickCommentCancel(){
+    const commentEditorOpener = document.querySelector('.comment-editor-opener');
+    const commentEditor = document.querySelector('.comment-editor');
     commentEditorOpener.classList.toggle('hidden');
     commentEditor.classList.toggle('hidden');
-})
+}
 
 //대댓글 취소 버튼 사라짐
-const reCommentCancelButton = document.querySelector('.re-comment-cancel-button');
-reCommentCancelButton.addEventListener('click',()=>{
+function clickReCommentCancel(button){
+    const reCommentEditor = button.closest('.re-comment-editor');
     reCommentEditor.classList.toggle('hidden');
-});
+}
 
 
 // 좋아요순 최신순 클릭

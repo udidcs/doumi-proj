@@ -14,20 +14,14 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     @Override
-    public Long saveComment(Comment comment, long userId, String type) {
+    public void saveComment(Comment comment, long userId, String type) {
 
-        return commentRepository.saveComment(comment, userId, type);
+        commentRepository.saveComment(comment, userId, type);
     }
 
     @Override
     public List<CommentDto> getAllComments(long postId) {
 
         return commentRepository.getByQuizId(postId);
-    }
-
-    @Override
-    public CommentDto getComment(long commentId) {
-
-        return commentRepository.getByCommentId(commentId);
     }
 }

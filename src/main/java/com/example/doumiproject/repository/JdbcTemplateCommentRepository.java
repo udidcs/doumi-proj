@@ -27,7 +27,7 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
                 "inner join user u on u.id=c.user_id " +
                 "where c.post_id=? " +
                 "and c.parent_comment_id=0 " +
-                "order by c.created_at ASC";
+                "order by c.created_at DESC ";
 
         List<CommentDto> comments = jdbcTemplate.query(sql, commentRowMapper(), postId);
 
@@ -54,46 +54,20 @@ public class JdbcTemplateCommentRepository implements CommentRepository {
     }
 
     @Override
-    public Long saveComment(Comment comment, long userId, String type) {
+    public void saveComment(Comment comment, long userId, String type) {
 
         String sql = "insert into comment(user_id, post_id, type, contents, created_at, updated_at, `like`, display, parent_comment_id) " +
                 "values (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
-        int display;
+        //0이면 공개
+        int display=0;
         //체크 박스 선택한 상태이면
         if (comment.isDisplay()) {
             //1로 바꿔줌(비공개 설정)
             display = 1;
-        } else {
-            //체크 해제 상태면 0(공개 설정)
-            display = 0;
         }
 
-        //생성된 키 값 받아오기
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
-            ps.setLong(1, userId);
-            ps.setLong(2, comment.getPostId());
-            ps.setString(3, "QUIZ");
-            ps.setString(4, comment.getContents());
-            ps.setObject(5, LocalDateTime.now());
-            ps.setObject(6, LocalDateTime.now());
-            ps.setInt(7, 0);
-            ps.setInt(8, display);
-            ps.setLong(9, comment.getParentCommentId());
-            return ps;
-        },keyHolder);
-
-        return keyHolder.getKey().longValue();
-    }
-
-    @Override
-    public CommentDto getByCommentId(long commentId) {
-        String sql = "select c.id as comment_id ,u.id as user_id, u.user_id as author , c.contents, c.created_at, c.like, c.display " +
-                "from comment c " +
-                "inner join user u on c.user_id=u.id "+
-                "where c.id=?";
-        return jdbcTemplate.queryForObject(sql, commentRowMapper(), commentId);
+        jdbcTemplate.update(sql, userId, comment.getPostId(), type, comment.getContents(),
+                LocalDateTime.now(),LocalDateTime.now(),0,display,comment.getParentCommentId());
     }
 }

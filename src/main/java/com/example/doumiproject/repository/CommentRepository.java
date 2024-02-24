@@ -10,8 +10,7 @@ import java.util.List;
 public interface CommentRepository {
     public List<CommentDto> getByQuizId(long postId);
     public List<ReCommentDto> getByParentCommentId(long parentCommentId);
-    public Long saveComment(Comment comment, long userId, String type);
-    public CommentDto getByCommentId(long commentId);
+    public void saveComment(Comment comment, long userId, String type);
 
     default RowMapper<CommentDto> commentRowMapper(){
         return (rs,rowNum)->{
