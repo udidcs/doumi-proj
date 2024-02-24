@@ -217,8 +217,16 @@ div{
 .comment-item-header{
     margin-bottom: 15px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+}
+.comment-info{
+    display: flex;
+    gap: 10px;
+}
+.comment-edit-button{
+    display: flex;
+    gap: 10px;
 }
 .comment-item-body, .hidden-comment-item-body{
     border-radius: 7px;
