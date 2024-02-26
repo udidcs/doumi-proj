@@ -1,7 +1,9 @@
 package com.example.doumiproject.controller;
 
 import com.example.doumiproject.dto.*;
+import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.QuizService;
 import com.example.doumiproject.util.PaginationUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,8 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+    private final CommentService commentService;
+
     private int pageSize = 10;
 
     @GetMapping("")
@@ -66,10 +70,11 @@ public class QuizController {
         //글의 상세 정보 가져오기
         QuizDto quiz=quizService.getQuiz(id);
         //글에 연결된 댓글들 가져오기
-        List<CommentDto> comments=quizService.getComments(id);
+        List<CommentDto> comments=commentService.getAllComments(id);
 
         model.addAttribute("quiz",quiz);
         model.addAttribute("comments",comments);
+        model.addAttribute("newComment",new Comment());
 
         return "quiz/board";
     }

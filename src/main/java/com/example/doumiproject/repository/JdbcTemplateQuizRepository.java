@@ -25,7 +25,7 @@ public class JdbcTemplateQuizRepository implements QuizRepository {
     public QuizDto getByQuizId(long id) {
         //post의 user_id(squence값)과 user의 user_id(nickname용)이 아주 헷갈린다;
         String sql = "select p.id as post_id, p.user_id, p.title, p.contents, p.created_at, p.like, a.answer, " +
-                "u.user_id as nickname " +
+                "u.user_id as author " +
                 "from post p " +
                 "inner join answer a on p.id = a.post_id " +
                 "inner join user u on p.user_id = u.id " +

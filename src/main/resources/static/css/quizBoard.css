@@ -42,7 +42,7 @@ div{
 }
 
 
-.btn:hover {
+button:hover {
     filter: brightness(90%); // 10% 어둡게
 }
 
@@ -76,7 +76,7 @@ div{
 
 /*main 게시글 정보 파트*/
 .cont-main{
-    max-width: 900px;
+    max-width: 1100px;
     margin:0 auto;
     border-left: 1px solid #C4C4C4;
     border-right: 1px solid #C4C4C4;
@@ -165,11 +165,11 @@ div{
     justify-content: flex-end;
     gap:10px
 }
-.cancel-button,.submit-button{
+.cancel-button,.submit-button, .re-comment-cancel-button, .re-comment-submit-button{
     padding: 10px 20px;
     font-size: 16px;
 }
-.submit-button{
+.submit-button, .re-comment-submit-button{
     background-color: #04B45F;
     color: white;
     border: none;
@@ -177,7 +177,7 @@ div{
 
 /*main 댓글 입력창 파트*/
 .comment-header{
-    margin-top: 40px;
+    margin: 40px 0;
 }
 .comment-header h2{
     font-size: 23px;
@@ -201,7 +201,7 @@ div{
 }
 
 .comment-editor-opener{
-    margin:25px 0;
+    margin-top:25px;
     padding: 12px 16px;
     border-radius: 5px;
     border: 1px solid #C4C4C4;
@@ -217,8 +217,16 @@ div{
 .comment-item-header{
     margin-bottom: 15px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+}
+.comment-info{
+    display: flex;
+    gap: 10px;
+}
+.comment-edit-container{
+    display: flex;
+    gap: 5px;
 }
 .comment-item-body, .hidden-comment-item-body{
     border-radius: 7px;
@@ -227,6 +235,7 @@ div{
 .comment-item-bottom{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
 }
 .etc-button-container{
     display: flex;

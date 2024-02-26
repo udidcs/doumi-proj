@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 public class QuizDto {
     private long id;
-    private String userId;
+    private long userId;
+    private String author;
     private String title;
     private String contents;
     private  String answer;

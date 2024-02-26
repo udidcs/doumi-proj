@@ -8,7 +8,8 @@ import lombok.*;
 @Data
 public class ReCommentDto {
     private long id;
-    private String userId;
+    private long userId;
+    private String author;
     private String contents;
     private java.sql.Timestamp createdAt;
     private long like;

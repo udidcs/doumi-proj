@@ -19,7 +19,8 @@ public interface QuizRepository {
         return ((rs, rowNum) -> {
             QuizDto quizDto=new QuizDto();
             quizDto.setId(rs.getLong("post_id"));
-            quizDto.setUserId(rs.getString("user_id"));
+            quizDto.setUserId(rs.getLong("user_id"));
+            quizDto.setAuthor(rs.getString("author"));
             quizDto.setTitle(rs.getString("title"));
             quizDto.setContents(rs.getString("contents"));
             quizDto.setCreatedAt(rs.getTimestamp("created_at"));
@@ -27,7 +28,7 @@ public interface QuizRepository {
             quizDto.setAnswer(rs.getString("answer"));
             return quizDto;
         });
-    };
+    }
 
     default RowMapper<TagDetailDto> TagRowMapper() {
         return (rs,rowNum)->{

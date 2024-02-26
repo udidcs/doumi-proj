@@ -1,7 +1,3 @@
-//글자수 제한 길이
-const byteLimit = 3000;
-const titleByteLimit = 250;
-
 // 글자 바이트 세기
 function countUtf8Bytes(str) {
     let byteCount = 0;
@@ -19,8 +15,8 @@ function countBytes(editor, containerSelector, limit) {
     const content = editor.getMarkdown ? editor.getMarkdown() : editor.value;
     //문자열을 바이트로 변환
     const byteCount =countUtf8Bytes(content);
-    // 글자 수를 표시할 요소에 업데이트
-    $(containerSelector).text(byteCount + "/"+limit);
+
+    containerSelector.textContent = byteCount + "/" + limit;
 
     // 제한을 넘으면 에디터 사용 막기
     if (byteCount > limit) {
@@ -40,14 +36,3 @@ function cutByLen(str, maxByte) {
     }
     return str.substring(0, i);
 }
-
-//제목 글자수 제한
-document.querySelector(".title").addEventListener('input', function() {
-    countBytes(this, ".title-text-count", titleByteLimit);
-});
-
-
-// 초기화시 글자 수 업데이트
-countBytes(contentEditor, ".quiz-text-count", byteLimit);
-countBytes(answerEditor, ".answer-text-count", byteLimit);
-countBytes(document.querySelector('.title'), ".title-text-count", titleByteLimit);

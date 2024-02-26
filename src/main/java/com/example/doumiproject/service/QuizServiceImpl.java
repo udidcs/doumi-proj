@@ -43,12 +43,6 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public List<CommentDto> getComments(long postId) {
-
-        return commentRepository.getByQuizId(postId);
-    }
-
-    @Override
     public List<TagDto> getAllTags() {
 
         return tagRepository.findAll();
