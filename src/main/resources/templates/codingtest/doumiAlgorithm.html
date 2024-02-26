@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DoumiQuizMain</title>
-    <link href="/css/doumiAlgorithm.css" th:href = "@{/css/doumiAlgorithm.css}" rel="stylesheet" type="text/css"/>
+    <link href="../../css/codingtest/doumiAlgorithm.css" th:href = "@{/css/codingtest/doumiAlgorithm.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header class="doumi_header">
@@ -18,7 +18,7 @@
                 <div><a href="/doumiQuiz" class="move_to_quiz">퀴즈</a></div>
             </div>
             <div class="navbar-right">
-                <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
+                <a href="#none" class="user_info"><strong th:text="${userName}" >유저1</strong>님 안녕하세요!</a>
                 <div><button type="button" class="logout_btn">로그아웃</button></div>
             </div>
         </div>
@@ -35,6 +35,8 @@
         </div>
     </form>
 
+    <a href="/codingtest/board"><button type="button" class="logout_btn" style="margin-bottom:40px">질문게시판</button></a>
+
     <div class="table_container">
         <li class="quiz_container_header">
             <div class="sequence">번호</div>
@@ -42,43 +44,15 @@
             <div class="author">작성자</div>
             <div class="create_time">작성일</div>
         </li>
-        <!--            서버로 받은 post 컬렉션에 반복문을돌려 각 게시글에 정보를 테이블 행으로 생성한다-->
-        <ul th:each="post:${posts}">
-            <li class="quiz_container">
-                <div class="sequence" th:text="${post.index}">1</div>
-                <div class="title">
-                    <!--                    href에 무슨링크를 넣어야하지?-->
-                    <a href="#none" th:text="${post.title}">게시글 제목</a>
-                </div>
-                <div class="author" th:text="${post.author}">작성자</div>
-                <div class="create_time" th:text="${post.currentDate}">작성일</div>
-            </li>
-
-        </ul>
+        <li class="quiz_container_header">
+            <div class="sequence">1</div>
+            <div class="title">
+                <a href="/codingtest/timecomplexity">시간 복잡도</a>
+            </div>
+            <div class="author">도우미</div>
+            <div class="create_time">2024-02-25</div>
+        </li>
     </div>
-
-    <nav class="page">
-        <ul class="page_list">
-            <li class="page_current">
-                <a href="#none1">1</a>
-            </li>
-            <li class="page_link">
-                <a href="#none1">2</a>
-            </li>
-            <li class="page_link">
-                <a href="#none1">3</a>
-            </li>
-            <li class="page_link">
-                <a href="#none1">4</a>
-            </li>
-            <li class="page_link">
-                <a href="#none1">5</a>
-            </li>
-            <li class="page_link">
-                <a href="#none1">6</a>
-            </li>
-        </ul>
-    </nav>
 </main>
 <footer>
 
