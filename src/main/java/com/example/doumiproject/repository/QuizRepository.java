@@ -28,7 +28,7 @@ public interface QuizRepository {
             quizDto.setAnswer(rs.getString("answer"));
             return quizDto;
         });
-    };
+    }
 
     default RowMapper<TagDetailDto> TagRowMapper() {
         return (rs,rowNum)->{

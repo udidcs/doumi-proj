@@ -20,7 +20,11 @@
             <input type="checkbox" class="display-check" th:field="${newComment.display}"> 비공개
 
             <textarea class="answer-input" placeholder="정답을 작성해보세요" rows="30"
-                      th:field="${newComment.contents}"></textarea>
+                      th:field="${newComment.contents}"
+                      onchange="commentWordCount(this);"
+                      oninput="commentWordCount(this);"></textarea>
+
+            <div class="comment-text-count">0/1500</div>
 
             <div class="comment-editor-bottom">
                 <button class="cancel-button" type="button" onclick="clickCommentCancel()">취소</button>
@@ -76,8 +80,10 @@
                 <input type="hidden" name="parentCommentId" th:value="${comment.id}"/>
 
                 <textarea class="answer-input" placeholder="댓글을 작성해보세요" rows="30"
-                          th:field="${newComment.contents}"></textarea>
-
+                          th:field="${newComment.contents}"
+                          onchange="reCommentWordCount(this)"
+                          oninput="reCommentWordCount(this)"></textarea>
+                <div class="re-comment-text-count">0/1500</div>
 
                 <div class="comment-editor-bottom">
                     <button class="re-comment-cancel-button" type="button" onclick="clickReCommentCancel(this)">

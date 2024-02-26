@@ -1,3 +1,5 @@
+const quizTextCount=document.querySelector('.quiz-text-count');
+const answerTextCount=document.querySelector('.answer-text-count');
 const contentEditor = new toastui.Editor({
     el: document.querySelector('.quiz-content'), // 에디터를 적용할 요소 (컨테이너)
     height: '700px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
@@ -9,7 +11,7 @@ const contentEditor = new toastui.Editor({
     events: {
         change: function () {
             //wordCount.js 파일
-            countBytes(contentEditor, ".quiz-text-count", byteLimit);
+            countBytes(contentEditor, quizTextCount, byteLimit);
         }
     },
 
@@ -47,7 +49,7 @@ const answerEditor = new toastui.Editor({
     autofocus: false,
     events: {
         change: function () {
-            countBytes(answerEditor, ".answer-text-count", byteLimit);
+            countBytes(answerEditor, answerTextCount, byteLimit);
         }
     },
     hooks: {
