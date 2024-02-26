@@ -33,7 +33,7 @@
         </button>
         <ul class="content-tags-container">
             <li class="content-detail-tag" th:each="tag:${quiz.tags}">
-                <a href="" th:value="${tag.id}" th:text="${tag.name}"></a>
+                <a th:href="@{/quiz/tag(name = ${tag.name})}" th:text="${tag.name}"></a>
             </li>
         </ul>
     </section>

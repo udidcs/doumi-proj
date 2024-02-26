@@ -81,4 +81,16 @@ public class QuizServiceImpl implements QuizService{
         quizRepository.deleteQuiz(postId);
     }
 
+    @Override
+    public int getTotalPagesForSelectedTag(int pageSize, String tag) {
+
+        return postRepository.getTotalPagesForTag(pageSize, tag);
+    }
+
+    @Override
+    public List<PostDto> getQuizForSelectedTag(String tag, int page, int pageSize) {
+
+        return postRepository.findByTag(tag, page, pageSize);
+    }
+
 }

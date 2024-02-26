@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DoumiQuizMain</title>
-    <link href="/static/css/quiz/index.css" th:href = "@{/css/quiz/index.css}" rel="stylesheet" type="text/css"/>
+    <link href="/css/quiz/index.css" th:href = "@{/css/quiz/index.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header class="doumi_header">
@@ -18,6 +18,8 @@
                 <div><a href="/quiz" class="move_to_quiz">퀴즈</a></div>
             </div>
             <div class="navbar-right">
+                <div><button type="button" class="login_btn">로그인</button></div>
+                <div><button type="button" class="join_btn">회원가입</button></div>
                 <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
                 <div><button type="button" class="logout_btn">로그아웃</button></div>
             </div>
@@ -65,20 +67,20 @@
     <nav class="page">
         <ul class="page_list" th:unless="${quizs.isEmpty()}">
             <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/quiz?page=1}">처음</a>
+                <a th:href="@{/quiz/tag(name = ${tag}, page = 1)}">처음</a>
             </li>
             <li class="page_link" th:unless="${startIdx == 1}">
-                <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
+                <a th:href="@{/quiz/tag(name = ${tag}, page = ${startIdx - 1})}"><<</a>
             </li>
             <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
                 th:class="${page == currentPage} ? 'page_current' : 'page_link'">
-                <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
+                <a th:href="@{/quiz/tag(name = ${tag}, page = ${page})}" th:text="${page}"></a>
             </li>
             <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
+                <a th:href="@{/quiz/tag(name = ${tag}, page = ${endIdx + 1})}">>></a>
             </li>
             <li class="page_link" th:unless="${endIdx == totalPages}">
-                <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
+                <a th:href="@{/quiz/tag(name = ${tag}, page = ${totalPages})}">마지막</a>
             </li>
         </ul>
     </nav>
@@ -86,5 +88,16 @@
 <footer>
 
 </footer>
+<script>
+    // 비회원은 퀴즈 출제하기와 게시판의 게시글 제목을 클릭시 로그인이 필요합니다! 알람이 뜬다
+    // const selectors = ['.quiz_question', '.title a'];
+    //
+    // document.querySelectorAll(selectors).forEach(element => {
+    //     element.addEventListener('click', function (e) {
+    //         e.preventDefault();
+    //         alert("로그인이 필요합니다!");
+    //     })
+    // })
+</script>
 </body>
 </html>
