@@ -5,8 +5,8 @@ import lombok.*;
 @Data
 public class User {
 
-  private long id;
-  private String nickName;
-  private String password;
-  private String role;
+    private long id;
+    private String userId;
+    private String password;
+    private String role;
 }
