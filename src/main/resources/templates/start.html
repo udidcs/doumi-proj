@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doumi</title>
+    <link href="/static/css/start.css" th:href = "@{/css/start.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="doumi_header">
+    <div class="box-header">
+        <h1><a href="/">Bend Doumi</a></h1>
+        <div class="navbar-menu">
+            <div class="navbar-left">
+                <div><a href="/quiz" class="move_to_quiz">코딩테스트</a></div>
+                <div><a href="/codingtest/board" class="move_to_algorithm">게시판</a></div>
+            </div>
+            <div class="navbar-right">
+                <a href="#none" class="user_info"><strong th:text="${userName}"  >유저1</strong>님 안녕하세요!</a>
+                <div><button type="button" class="logout_btn">로그아웃</button></div>
+
+            </div>
+        </div>
+    </div>
+</header>
+<main class="doumi_main">
+시작페이지
+</main>
+<footer>
+
+</footer>
+</body>
+</html>

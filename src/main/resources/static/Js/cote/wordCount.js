@@ -49,5 +49,4 @@ document.querySelector(".title").addEventListener('input', function() {
 
 // 초기화시 글자 수 업데이트
 countBytes(contentEditor, ".quiz-text-count", byteLimit);
-countBytes(answerEditor, ".answer-text-count", byteLimit);
 countBytes(document.querySelector('.title'), ".title-text-count", titleByteLimit);

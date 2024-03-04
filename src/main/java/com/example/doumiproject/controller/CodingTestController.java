@@ -27,19 +27,23 @@ public class CodingTestController {
 
         return "codingtest/doumiAlgorithm";
     }
+    
+    @GetMapping("/board")
+    public String getCoteDetail(@RequestParam("id") Long id, Model model){
 
-    @GetMapping("/codingtest/board")
-    public String board(@RequestParam(defaultValue = "1") int page, Model model) {
-        if (page < 1) {
-            page = 1;
-        }
 
-        setPaginationAttributes(model, page,
-                coteService.getTotalPages(pageSize), coteService.getAllQuiz(page, pageSize));
+        //글의 상세 정보 가져오기
+        CoteDto quiz = coteService.getCote(id);
+        //글에 연결된 댓글들 가져오기
 
-        return "codingtest/board";
+
+        model.addAttribute("quiz",quiz);
+        model.addAttribute("postId", quiz.getId());
+//        model.addAttribute("comments",comments);
+//        model.addAttribute("newComment",new Comment());
+
+        return "quiz/board";
     }
-
     @GetMapping("/codingtest/timecomplexity")
     public String timecomplexity() {
 
@@ -58,9 +62,9 @@ public class CodingTestController {
         return "codingtest/form";
     }
     @PostMapping("/codingtest/post")
-    public ResponseEntity<String> postQuiz(Cote quiz) {
+    public ResponseEntity<String> postCote(Cote quiz) {
 
-        Long postId = coteService.saveQuiz(quiz, 1l);
+        Long postId = coteService.saveCote(quiz, 1l);
 
         return ResponseEntity.ok("/codingtest/board?id="+postId);
     }
@@ -69,7 +73,7 @@ public class CodingTestController {
     public String editQuiz(@RequestParam("id") Long id, Model model){
 
         //로그인 생기면 현재 로그인된 유저의 nickname과 quizDetail의 userId가 일치한지 검증 필요
-        CoteDto quiz=coteService.getQuiz(id);
+        CoteDto quiz=coteService.getCote(id);
 
         model.addAttribute("quiz",quiz);
 
@@ -80,7 +84,7 @@ public class CodingTestController {
     public ResponseEntity<String> updateQuiz(@RequestParam("id") Long id, Cote quiz){
 
         //수정 권한있는 사용자인지 검증 로직 repository에 수정필요
-        coteService.updateQuiz(quiz, id, 1l);
+        coteService.updateCote(quiz, id, 1l);
 
         return ResponseEntity.ok("/codingtest/board?id="+id);
     }
@@ -88,16 +92,16 @@ public class CodingTestController {
     @DeleteMapping("/delete")
     public String deleteQuiz(@RequestParam("id") long id){
 
-        coteService.deleteQuiz(id);
+        coteService.deleteCote(id);
 
         return "redirect:/doumiAlgorithm";
     }
-    private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> quizs) {
+    private void setPaginationAttributes(Model model, int page, int totalPages, List<PostDto> cotes) {
 
         int startIdx = PaginationUtil.calculateStartIndex(page);
         int endIdx = PaginationUtil.calculateEndIndex(page, totalPages);
 
-        model.addAttribute("quizs", quizs);
+        model.addAttribute("cotes", cotes);
         model.addAttribute("currentPage", page);
         model.addAttribute("startIdx", startIdx);
         model.addAttribute("endIdx", endIdx);

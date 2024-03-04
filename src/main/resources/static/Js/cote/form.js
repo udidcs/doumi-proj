@@ -72,29 +72,6 @@ function createSelectedTag(button){
     return selectedTag;
 }
 
-//선택한 태그 삭제
-selectedTagsContainer.addEventListener('click',(event)=>{
-    let clickElement = event.target;
-    if(clickElement.classList.contains('selected-tag')){
-        //삭제할 태그와 같은 이름의 태그 버튼 가져오기
-        const detailTag=document.querySelector(`.detail-tag-button[value="${clickElement.value}"]`);
-        //버튼 색깔 원상복구
-        detailTag.classList.toggle('selected');
-        //선택된 태그 삭제
-        clickElement.remove();
-    }
-})
-
-//초기화
-const resetButton = document.querySelector('.reset-button');
-resetButton.addEventListener('click',()=>{
-    // 여기서 부터 수정 필요
-    selectedTagsContainer.innerHTML="";
-    detailsTagButtons.forEach((button)=>{
-        button.classList.remove('selected');
-    })
-})
-
 // 취소 버튼 클릭
 const cancelButton = document.querySelector('.cancel-button');
 cancelButton.addEventListener('click', () => {
