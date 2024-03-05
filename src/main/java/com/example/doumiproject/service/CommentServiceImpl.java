@@ -1,6 +1,6 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.CommentDto;
+import com.example.doumiproject.responsedto.CommentDto;
 import com.example.doumiproject.entity.Comment;
 import com.example.doumiproject.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,4 +24,5 @@ public class CommentServiceImpl implements CommentService{
 
         return commentRepository.getByQuizId(postId);
     }
+
 }

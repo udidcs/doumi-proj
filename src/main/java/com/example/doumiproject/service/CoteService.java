@@ -1,9 +1,9 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.CoteDto;
-import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.dto.TagDto;
+import com.example.doumiproject.responsedto.CommentDto;
+import com.example.doumiproject.responsedto.CoteDto;
+import com.example.doumiproject.responsedto.PostDto;
+import com.example.doumiproject.responsedto.TagDto;
 import com.example.doumiproject.entity.Cote;
 
 import java.util.List;

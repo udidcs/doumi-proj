@@ -1,8 +1,8 @@
 package com.example.doumiproject.repository;
 
 
-import com.example.doumiproject.dto.TagDetailDto;
-import com.example.doumiproject.dto.TagDto;
+import com.example.doumiproject.responsedto.TagDetailDto;
+import com.example.doumiproject.responsedto.TagDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.ArrayList;

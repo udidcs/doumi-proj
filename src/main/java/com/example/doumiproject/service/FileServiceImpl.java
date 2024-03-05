@@ -1,6 +1,6 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.FileDto;
+import com.example.doumiproject.responsedto.FileDto;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

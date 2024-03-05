@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doumi</title>
+    <link href="/static/css/coteboard/board.css" th:href = "@{/css/coteboard/board.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="doumi_header">
+    <div class="box-header">
+        <h1><a href="/">Bend Doumi</a></h1>
+        <div class="navbar-menu">
+            <div class="navbar-left">
+                <div><a href="/coteboard" class="move_to_cote">코딩테스트</a></div>
+                <div><a href="/coteqnaboard/board" class="move_to_algorithm">게시판</a></div>
+            </div>
+            <div class="navbar-right">
+                <a href="#none" class="user_info"><strong th:text="${userName}">유저1</strong>님 안녕하세요!</a>
+                <div><button type="button" class="logout_btn">로그아웃</button></div>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="doumi_main">
+
+    <!--        href 바꾸기-->
+    <a href="/cote/post" class="cote_question">글 작성 ➡</a>&nbsp;&nbsp;
+
+    <form class="form" action="/coteboard/search">
+        <div class="search_form">
+                <span class="search_image">
+                    <img src="/images/search.png" width="17px">
+                </span>
+            <label for="search"></label>
+            <input class="input" type="text" required="" placeholder="제목,내용 검색하기" id="search" name="keyword">
+        </div>
+    </form>
+
+    <div class="table_container">
+        <li class="cote_container_header">
+            <div class="sequence">번호</div>
+            <div class="title">제목</div>
+            <div class="author">작성자</div>
+            <div class="viewcount">조회</div>
+        </li>
+        <li class="cote_container" th:each="cote:${cotes}">
+            <div class="sequence" th:text="${cote.boardNum}"></div>
+            <div class="titlecontent">
+                <a th:href="@{'/coteboard/detail?id='+${cote.id}}" th:text="${cote.title}">게시글 제목</a>
+            </div>
+            <div class="author" th:text="${cote.userId}">작성자</div>
+            <div class="viewcount" th:text="${cote.viewCount}">조회</div>
+        </li>
+    </div>
+
+    <!--        페이지 링크-->
+    <nav class="page">
+        <ul class="page_list" th:unless="${cotes.isEmpty()}">
+            <li class="page_link" th:unless="${startIdx == 1}">
+                <a th:href="@{/coteboard?page=1}">처음</a>
+            </li>
+            <li class="page_link" th:unless="${startIdx == 1}">
+                <a th:href="@{/coteboard(page = ${startIdx - 1})}"><<</a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+                th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+                <a th:href="@{/coteboard(page = ${page})}" th:text="${page}"></a>
+            </li>
+            <li class="page_link" th:unless="${endIdx == totalPages}">
+                <a th:href="@{/coteboard(page = ${endIdx + 1})}">>></a>
+            </li>
+            <li class="page_link" th:unless="${endIdx == totalPages}">
+                <a th:href="@{/coteboard(page = ${totalPages})}">마지막</a>
+            </li>
+        </ul>
+    </nav>
+</main>
+<footer>
+
+</footer>
+</body>
+</html>

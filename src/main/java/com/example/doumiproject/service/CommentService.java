@@ -1,6 +1,6 @@
 package com.example.doumiproject.service;
 
-import com.example.doumiproject.dto.CommentDto;
+import com.example.doumiproject.responsedto.CommentDto;
 import com.example.doumiproject.entity.Comment;
 
 import java.util.List;

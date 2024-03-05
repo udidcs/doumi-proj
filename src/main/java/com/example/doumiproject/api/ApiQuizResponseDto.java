@@ -1,10 +1,8 @@
 package com.example.doumiproject.api;
 
-import com.example.doumiproject.dto.PostDto;
-import com.example.doumiproject.entity.Quiz;
+import com.example.doumiproject.responsedto.PostDto;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

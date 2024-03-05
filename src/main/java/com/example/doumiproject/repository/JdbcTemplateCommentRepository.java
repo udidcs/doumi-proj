@@ -1,14 +1,11 @@
 package com.example.doumiproject.repository;
 
-import com.example.doumiproject.dto.CommentDto;
-import com.example.doumiproject.dto.ReCommentDto;
+import com.example.doumiproject.responsedto.CommentDto;
+import com.example.doumiproject.responsedto.ReCommentDto;
 import com.example.doumiproject.entity.Comment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.List;
 
