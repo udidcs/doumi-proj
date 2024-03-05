@@ -25,10 +25,7 @@
     </div>
 </header>
 <main class="doumi_main">
-
-    <!--        href 바꾸기-->
-    <a href="/cote/post" class="cote_question">글 작성 ➡</a>&nbsp;&nbsp;
-
+    <a href="/coteboard/form" class="cote_question">글 작성 ➡</a><br>
     <form class="form" action="/coteboard/search">
         <div class="search_form">
                 <span class="search_image">
@@ -51,7 +48,7 @@
             <div class="titlecontent">
                 <a th:href="@{'/coteboard/detail?id='+${cote.id}}" th:text="${cote.title}">게시글 제목</a>
             </div>
-            <div class="author" th:text="${cote.userId}">작성자</div>
+            <div class="author" th:text="${cote.writer}">작성자</div>
             <div class="viewcount" th:text="${cote.viewCount}">조회</div>
         </li>
     </div>

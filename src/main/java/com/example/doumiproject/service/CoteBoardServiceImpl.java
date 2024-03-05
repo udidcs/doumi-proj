@@ -3,7 +3,9 @@ package com.example.doumiproject.service;
 
 import com.example.doumiproject.entity.CoteBoard;
 import com.example.doumiproject.repository.CoteBoardRepository;
-import com.example.doumiproject.responsedto.CoteBoardDto;
+
+import com.example.doumiproject.requestdto.CoteBoardRequestDto;
+import com.example.doumiproject.responsedto.CoteBoardResponseDto;
 import com.example.doumiproject.staticvalue.coteBoard.CoteBoardStatic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,21 +19,19 @@ public class CoteBoardServiceImpl implements CoteBoardService{
     private final CoteBoardRepository coteBoardRepository;
 
     @Override
-    public List<CoteBoardDto> getAllCoteBoards(int page, int pageSize) {
+    public List<CoteBoardResponseDto> getAllCoteBoards(int page, int pageSize) {
         AtomicInteger boardNum = new AtomicInteger((page-1)*CoteBoardStatic.PAGESIZE+1);
-        List<CoteBoardDto> list = coteBoardRepository.selectAllCoteBaords(page, pageSize).stream()
-                .map(coteBoard -> new CoteBoardDto(boardNum.getAndIncrement(), coteBoard.getId(), coteBoard.getUser_id(),
-                coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getView_count())).toList();
-        return list;
+        List<CoteBoardResponseDto> coteBoardResponseDtos = coteBoardRepository.selectAllCoteBaords(page, pageSize);
+        coteBoardResponseDtos.stream().forEach(coteBoardResponseDto -> coteBoardResponseDto.setBoardNum(boardNum.getAndIncrement()));
+        return coteBoardResponseDtos;
     }
 
     @Override
-    public List<CoteBoardDto> getAllCoteBoards(int page, int pageSize, String keyword) {
+    public List<CoteBoardResponseDto> getAllCoteBoards(int page, int pageSize, String keyword) {
         AtomicInteger boardNum = new AtomicInteger((page-1)*CoteBoardStatic.PAGESIZE+1);
-        List<CoteBoardDto> list = coteBoardRepository.selectAllCoteBaords(page, pageSize, keyword).stream()
-                .map(coteBoard -> new CoteBoardDto(boardNum.getAndIncrement(), coteBoard.getId(), coteBoard.getUser_id(),
-                        coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getView_count())).toList();
-        return list;
+        List<CoteBoardResponseDto> coteBoardResponseDtos = coteBoardRepository.selectAllCoteBaords(page, pageSize, keyword);
+        coteBoardResponseDtos.stream().forEach(coteBoardResponseDto -> coteBoardResponseDto.setBoardNum(boardNum.getAndIncrement()));
+        return coteBoardResponseDtos;
     }
 
     @Override
@@ -45,11 +45,17 @@ public class CoteBoardServiceImpl implements CoteBoardService{
     }
 
     @Override
-    public CoteBoardDto getCoteBoard(long postId) {
+    public int setCoteBoard(CoteBoardRequestDto coteBoardRequestDto) {
+        CoteBoard coteBoard = coteBoardRequestDto.toEntity();
+        return coteBoardRepository.insertCoteBoard(coteBoard);
+    }
+
+    @Override
+    public CoteBoardResponseDto getCoteBoard(long postId) {
         AtomicInteger boardNum = new AtomicInteger();
-        CoteBoard coteBoard = coteBoardRepository.selectCoteBoardById(postId);
-        return new CoteBoardDto(boardNum.getAndIncrement(), coteBoard.getId(), coteBoard.getUser_id(),
-                coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getView_count());
+        CoteBoardResponseDto coteBoard = coteBoardRepository.selectCoteBoardById(postId);
+        return new CoteBoardResponseDto(boardNum.getAndIncrement(), coteBoard.getId(), coteBoard.getWriter(),
+                coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getViewCount());
     }
 //
 //    @Override

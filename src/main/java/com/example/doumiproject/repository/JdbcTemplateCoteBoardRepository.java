@@ -1,12 +1,18 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.entity.CoteBoard;
-import com.example.doumiproject.responsedto.CoteBoardDto;
+import com.example.doumiproject.requestdto.CoteBoardRequestDto;
+import com.example.doumiproject.responsedto.CoteBoardResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -18,14 +24,14 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     }
 
     @Override
-    public CoteBoard selectCoteBoardById(long post_id) {
+    public CoteBoardResponseDto selectCoteBoardById(long post_id) {
 
-        String sql = "select id, user_id, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
                 "where id = ?";
 
-        CoteBoard coteBoard = jdbcTemplate.queryForObject(sql, coteBoardDtoRowMapper(), post_id);
-        return coteBoard;
+        CoteBoardResponseDto coteBoardResponseDto = jdbcTemplate.queryForObject(sql, coteBoardDtoRowMapper(), post_id);
+        return coteBoardResponseDto;
     }
 
     @Override
@@ -49,84 +55,72 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     }
 
     @Override
-    public List<CoteBoard> selectAllCoteBaords() {
+    public List<CoteBoardResponseDto> selectAllCoteBaords() {
 
-        String sql = "select id, user_id, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
                 "order by " +
                 "id desc";
 
-        List<CoteBoard> coteBoardList = jdbcTemplate.query(sql, coteBoardDtoRowMapper());
-        return coteBoardList;
+        List<CoteBoardResponseDto> coteBoardDtoList = jdbcTemplate.query(sql, coteBoardDtoRowMapper());
+        return coteBoardDtoList;
     }
 
     @Override
-    public List<CoteBoard> selectAllCoteBaords(int page, int pageSize) {
+    public List<CoteBoardResponseDto> selectAllCoteBaords(int page, int pageSize) {
 
         int offset = (page - 1) * pageSize;
-        String sql = "select id, user_id, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
                 "order by " +
                 "id desc " +
                 "limit ? offset ?";
 
-        List<CoteBoard> coteBoardList = jdbcTemplate.query(sql, coteBoardDtoRowMapper(), pageSize, offset);
-        return coteBoardList;
+        List<CoteBoardResponseDto> coteBoardResponseDtos = jdbcTemplate.query(sql, coteBoardDtoRowMapper(), pageSize, offset);
+        return coteBoardResponseDtos;
     }
 
 
     @Override
-    public List<CoteBoard> selectAllCoteBaords(int page, int pageSize, String keyword) {
+    public List<CoteBoardResponseDto> selectAllCoteBaords(int page, int pageSize, String keyword) {
 
         String param = "%"+keyword+"%";
         int offset = (page - 1) * pageSize;
 
-        String sql = "select id, user_id, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
                 "where title like ? or user_id like ? " +
                 "order by " +
                 "id desc " +
                 "limit ? offset ?";
 
-        List<CoteBoard> coteBoardList = jdbcTemplate.query(sql, coteBoardDtoRowMapper(), param, param, pageSize, offset);
-        return coteBoardList;
+        List<CoteBoardResponseDto> coteBoardResponseDtos = jdbcTemplate.query(sql, coteBoardDtoRowMapper(), param, param, pageSize, offset);
+        return coteBoardResponseDtos;
     }
 
 
-//    @Override
-//    public Long saveQuiz(Quiz quiz, long userId) {
-//        //게시글 저장
-//        String postSql = "insert into post (user_id, type, title, contents, created_at, updated_at, `like`) " +
-//                "values (?, ?, ?, ?, ?, ?, ?)";
-//
-//        //생성된 키 값 받아오기
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(connection -> {
-//            PreparedStatement ps = connection.prepareStatement(postSql, new String[]{"id"}); // "id"는 자동 생성된 키의 컬럼명
-//            ps.setLong(1, userId);
-//            ps.setString(2, "QUIZ");
-//            ps.setString(3, quiz.getTitle());
-//            ps.setString(4, quiz.getQuizContent());
-//            ps.setObject(5, LocalDateTime.now());
-//            ps.setObject(6, LocalDateTime.now());
-//            ps.setInt(7, 0);
-//            return ps;
-//        }, keyHolder);
-//
-//        //게시글을 저장한 후 생성된 postId 가져오기
-//        Long postId = keyHolder.getKey().longValue();
-//
-//        //퀴즈 답변 저장
-//        String answerSql = "insert into answer(post_id, answer) " +
-//                "values (?,?)";
-//        String answer = quiz.getAnswerContent();
-//
-//        jdbcTemplate.update(answerSql, postId, answer);
-//
-//        //태그 저장
-//        saveTags(quiz,postId);
-//        return postId;
-//    }
+    @Override
+    public int insertCoteBoard(CoteBoard coteBoard) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                connection -> {
+                    PreparedStatement ps = connection.prepareStatement("insert into coteboard(writer, board_password, title, contents, view_count) " +
+                            "values (?, ?, ?, ?, ?)", new String[]{"id"});
+                    ps.setString(1, coteBoard.getWriter());
+                    ps.setString(2, coteBoard.getBoardPassword());
+                    ps.setString(3, coteBoard.getTitle());
+                    ps.setString(4, coteBoard.getContents());
+                    ps.setInt(5, coteBoard.getViewCount());
+                    return ps;
+                },
+                keyHolder
+        );
+
+        int generatedId = keyHolder.getKey().intValue();
+        return generatedId;
+
+
+    }
 //
 //    @Override
 //    public void updateQuiz(Quiz quiz, long postId, long userId) {

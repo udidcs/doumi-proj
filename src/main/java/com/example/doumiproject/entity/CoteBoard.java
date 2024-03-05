@@ -6,9 +6,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CoteBoard {
-    private long id;
-    private long user_id;
+    private int id;
+    private String writer;
+    private String boardPassword;
     private String title;
     private String contents;
-    private long view_count;
+    private int viewCount;
 }

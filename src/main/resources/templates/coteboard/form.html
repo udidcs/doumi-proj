@@ -2,60 +2,33 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>퀴즈 작성</title>
-    <link href="../../static/css/quizForm.css" th:href="@{/css/quizForm.css}" rel="stylesheet" type="text/css"/>
+    <title>글 작성</title>
+    <link href="../../static/css/coteboard/form.css" th:href="@{/css/coteboard/form.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
 </head>
 <body>
 <header></header>
 <main class="cont-main">
-    <form action="/quiz/post" method="post" class="quizForm" onsubmit="return false;" th:object="${quiz}">
+    <form action="/coteboard/post" method="post" class="coteForm" onsubmit="return false;">
         <div class="title-container">
-            <textarea class="title" placeholder="퀴즈 제목을 작성해주세요." rows="1" onkeyup="autoResize(this)"
-                      onkeydown="autoResize(this)" th:field="*{title}"></textarea>
+            <textarea class="title" placeholder="제목을 적어 주세요." rows="1" onkeyup="autoResize(this)"
+                      onkeydown="autoResize(this)"></textarea>
             <div class="title-text-count">0/250</div>
         </div>
-        <div class="tag-select-container">
-            <h1>과목을 선택해주세요! 중복 선택 가능합니다.</h1>
-            <div class="selected-tags-container">
-                <p>선택된 태그들:</p>
-                <div class="selected-tags"></div>
-                <button class="reset-button">
-                    <img th:src="@{/images/icon_reset.png}" alt="초기화 버튼">
-                    초기화
-                </button>
-            </div>
-            <div class="subject-tags-container">
-                <button class="subject-tag-button selected-subject">JAVA</button>
-                <button class="subject-tag-button">SPRING</button>
-                <button class="subject-tag-button">DB</button>
-                <button class="subject-tag-button">AWS</button>
-                <button class="subject-tag-button">FrontEnd</button>
-            </div>
-            <div class="detail-tags-container">
-                <th:block th:each="tag:${tags}">
-                    <!--Java일땐 hidden tag없애기-->
-                    <div th:class="detail-tags"
-                         th:classappend="${tag.type == 'Java' ? '' : 'hidden '}+${tag.type.toLowerCase()}">
-                        <!--태그 생성-->
-                        <th:block th:each="detailTag : ${tag.detailTags}">
-                            <button class="detail-tag-button" th:value="${detailTag.getId()}" th:text="${detailTag.getName()}"></button>
-                        </th:block>
-                    </div>
-                </th:block>
+        <div class="writer-container">
+            <textarea class="writer" placeholder="작성자 (영어 11글자 이내)" rows="1"></textarea>
+        </div>
+        <div class="boardPassword-container">
+            <textarea class="boardPassword" placeholder="게시글 비밀번호 (영어와 숫자 11글자 이내)" rows="1"></textarea>
+        </div>
+        <br>
+        <div class="input-container">
+            <div class="cote-container">
+                <h1>게시글</h1>
+                <div class="cote-text-count">0/3000</div>
+                <div class="cote-content"></div>
             </div>
         </div>
-        <div class="input-container">
-            <div class="quiz-container">
-                <h1>Quiz</h1>
-                <div class="quiz-text-count">0/3000</div>
-                <div class="quiz-content"></div>
-            </div>
-            <div class="answer-container">
-                <h1>Answer</h1>
-                <div class="answer-text-count">0/3000</div>
-                <div class="answer-content"></div>
-            </div>
         </div>
         <div class="button-container">
             <button class="cancel-button">취소</button>
@@ -67,14 +40,13 @@
 <footer></footer>
 
 <script th:inline="javascript">
-    let quizContent="";
-    let answerContent="";
+    let coteContent="";
 </script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script th:src="@{/Js/quiz/form.js}"></script>
+<script th:src="@{/Js/coteboard/form.js}"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-<script th:src="@{/Js/quiz/toastApi.js}"></script>
-<script th:src="@{/Js/wordCount.js}"></script>
-<script th:src="@{/Js/quiz/ajaxCreateUpdateRequest.js}"></script>
+<script th:src="@{/Js/coteboard/toastApi.js}"></script>
+<script th:src="@{/Js/coteboard/wordCount.js}"></script>
+<script th:src="@{/Js/coteboard/ajaxCreateUpdateRequest.js}"></script>
 </body>
 </html>
