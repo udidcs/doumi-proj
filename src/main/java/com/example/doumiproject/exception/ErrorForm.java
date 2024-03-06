@@ -1,5 +1,8 @@
 package com.example.doumiproject.exception;
 
+import lombok.Data;
+
+@Data
 public class ErrorForm {
 
     String errormsg;

@@ -12,8 +12,8 @@
     <input class="cote-id hidden" th:value="${cote.id}"/>
     <section class="content-header">
         <div class="button-container">
-            <a class="back-button" href="/coteboard">< 목록으로</a>
-            <a class="back-button" href="/coteboard">수정</a>
+            <a class="back-button" href="/coteboard">목록으로</a>
+            <a class="back-button" href="/coteboard/edit" th:if="${session.admin}">수정</a>
         </div>
         <h1 class="title" th:text="${cote.title}"></h1>
         <div class="content-info">

@@ -20,24 +20,4 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user/signup")
-    //ResponseEntity는 스프링의 HTTP 응답을 나타내는 클래스다.이 클래스를 사용해 json응답을 반환한다
-    //fetch를 통해 전송된 JSON을  RequestBody를 통해 받는다
-    public ResponseEntity<?> save(@RequestBody Map<String, String> userData) {
-        //SignUpDto를 사용하지 않고 직접 User객체로 값을 넣는다
-        //UserService로 User를 회원가입시킨다
-        try {
-            userService.join(userData.get("id"), userData.get("password"));
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("message", "회원가입 성공!");
-            return ResponseEntity.ok(response);
-        } catch (IllegalStateException e) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("success", false);
-            errorResponse.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
-        }
-
-    }
 }

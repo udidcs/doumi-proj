@@ -8,12 +8,12 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.List;
 
 public interface CoteBoardRepository {
-    public CoteBoardResponseDto selectCoteBoardById(long post_id);
+    public CoteBoard selectCoteBoardById(long post_id);
     int selectTotalPages(int pageSize);
     int selectTotalPages(int pageSize, String keyword);
-    public List<CoteBoardResponseDto> selectAllCoteBaords();
-    public List<CoteBoardResponseDto> selectAllCoteBaords(int page, int pageSize);
-    public List<CoteBoardResponseDto> selectAllCoteBaords(int page, int pageSize, String keyword);
+    public List<CoteBoard> selectAllCoteBaords();
+    public List<CoteBoard> selectAllCoteBaords(int page, int pageSize);
+    public List<CoteBoard> selectAllCoteBaords(int page, int pageSize, String keyword);
     public int insertCoteBoard(CoteBoard coteBoard);
 
     //    public Long saveQuiz(Quiz quiz, long userId);
@@ -22,15 +22,16 @@ public interface CoteBoardRepository {
 //
 //    List<TagDetailDto> getTags(long id);
 //
-    default RowMapper<CoteBoardResponseDto> coteBoardDtoRowMapper() {
+    default RowMapper<CoteBoard> coteBoardRowMapper() {
         return ((rs, rowNum) -> {
-            CoteBoardResponseDto coteBoardResponseDto=new CoteBoardResponseDto();
-            coteBoardResponseDto.setId(rs.getLong("id"));
-            coteBoardResponseDto.setWriter(rs.getString("writer"));
-            coteBoardResponseDto.setTitle(rs.getString("title"));
-            coteBoardResponseDto.setContents(rs.getString("contents"));
-            coteBoardResponseDto.setViewCount(rs.getLong("view_count"));
-            return coteBoardResponseDto;
+            CoteBoard coteBoard = new CoteBoard();
+            coteBoard.setId(rs.getInt("id"));
+            coteBoard.setWriter(rs.getString("writer"));
+            coteBoard.setBoardPassword("board_password");
+            coteBoard.setTitle(rs.getString("title"));
+            coteBoard.setContents(rs.getString("contents"));
+            coteBoard.setViewCount(rs.getInt("view_count"));
+            return coteBoard;
         });
     }
 

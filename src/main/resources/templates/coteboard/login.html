@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DoumiQuizMain</title>
+  <link href="Js/coteboard/css/login.css" th:href="@{/css/coteboard/login.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<main>
+  <section class="login">
+    <div class="login_main">
+      <form class="login_form" action="/coteboard/login" method="post">
+        <div class="form_input-block">
+          <input class="input" name="userPassword" type="password">
+        </div>
+        <input type="submit" class="login_btn" value="로그인">
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>

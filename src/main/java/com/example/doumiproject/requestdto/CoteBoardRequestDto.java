@@ -12,12 +12,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class CoteBoardRequestDto {
 
+    private String userPassword;
     private String writer;
     private String boardPassword;
     private String title;
     private String contents;
 
-    public CoteBoard toEntity() {
-        return new CoteBoard(0, writer, boardPassword, title, contents, 0);
-    }
 }

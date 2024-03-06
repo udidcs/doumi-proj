@@ -33,6 +33,7 @@ function handleSubmit(url){
         contentType: false,
         processData: false,
         success: function (redirectUrl) {
+            console.log(redirectUrl);
             location.href = redirectUrl;
         },
         error: function (error) {

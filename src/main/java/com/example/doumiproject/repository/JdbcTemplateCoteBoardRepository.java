@@ -24,14 +24,14 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     }
 
     @Override
-    public CoteBoardResponseDto selectCoteBoardById(long post_id) {
+    public CoteBoard selectCoteBoardById(long id) {
 
         String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
                 "where id = ?";
 
-        CoteBoardResponseDto coteBoardResponseDto = jdbcTemplate.queryForObject(sql, coteBoardDtoRowMapper(), post_id);
-        return coteBoardResponseDto;
+        CoteBoard coteBoard = jdbcTemplate.queryForObject(sql, coteBoardRowMapper(), id);
+        return coteBoard;
     }
 
     @Override
@@ -55,19 +55,19 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     }
 
     @Override
-    public List<CoteBoardResponseDto> selectAllCoteBaords() {
+    public List<CoteBoard> selectAllCoteBaords() {
 
         String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
                 "order by " +
                 "id desc";
 
-        List<CoteBoardResponseDto> coteBoardDtoList = jdbcTemplate.query(sql, coteBoardDtoRowMapper());
-        return coteBoardDtoList;
+        List<CoteBoard> coteBoardList = jdbcTemplate.query(sql, coteBoardRowMapper());
+        return coteBoardList;
     }
 
     @Override
-    public List<CoteBoardResponseDto> selectAllCoteBaords(int page, int pageSize) {
+    public List<CoteBoard> selectAllCoteBaords(int page, int pageSize) {
 
         int offset = (page - 1) * pageSize;
         String sql = "select id, writer, title, contents, view_count " +
@@ -76,13 +76,13 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
                 "id desc " +
                 "limit ? offset ?";
 
-        List<CoteBoardResponseDto> coteBoardResponseDtos = jdbcTemplate.query(sql, coteBoardDtoRowMapper(), pageSize, offset);
-        return coteBoardResponseDtos;
+        List<CoteBoard> coteBoardList = jdbcTemplate.query(sql, coteBoardRowMapper(), pageSize, offset);
+        return coteBoardList;
     }
 
 
     @Override
-    public List<CoteBoardResponseDto> selectAllCoteBaords(int page, int pageSize, String keyword) {
+    public List<CoteBoard> selectAllCoteBaords(int page, int pageSize, String keyword) {
 
         String param = "%"+keyword+"%";
         int offset = (page - 1) * pageSize;
@@ -94,8 +94,8 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
                 "id desc " +
                 "limit ? offset ?";
 
-        List<CoteBoardResponseDto> coteBoardResponseDtos = jdbcTemplate.query(sql, coteBoardDtoRowMapper(), param, param, pageSize, offset);
-        return coteBoardResponseDtos;
+        List<CoteBoard> coteBoardList = jdbcTemplate.query(sql, coteBoardRowMapper(), param, param, pageSize, offset);
+        return coteBoardList;
     }
 
 

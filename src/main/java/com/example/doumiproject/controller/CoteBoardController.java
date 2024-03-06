@@ -1,17 +1,23 @@
 package com.example.doumiproject.controller;
 
+import com.example.doumiproject.exception.coteboard.CoteBoardAccessDeniedException;
+import com.example.doumiproject.requestdto.CoteBoardLoginRequestDto;
 import com.example.doumiproject.requestdto.CoteBoardRequestDto;
 import com.example.doumiproject.responsedto.*;
 import com.example.doumiproject.service.CommentService;
 import com.example.doumiproject.service.CoteBoardService;
+import com.example.doumiproject.service.UserService;
 import com.example.doumiproject.staticvalue.coteBoard.CoteBoardStatic;
 import com.example.doumiproject.util.PaginationUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Controller
@@ -20,6 +26,7 @@ public class CoteBoardController {
 
     private final CoteBoardService coteBoardService;
     private final CommentService commentService;
+    private final UserService userService;
 
     @GetMapping("/coteboard")
     public String coteboard(@RequestParam(defaultValue = "1") int page, Model model) {
@@ -89,25 +96,48 @@ public class CoteBoardController {
         return "coteboard/detail";
     }
 
-    @GetMapping("/coteboard/form")
-    public String form(Model model){
-
-        //타입별 태그 모두 불러오기
-//        List<TagDto> tags = coteBoardService.getAllTags();
-
-//        model.addAttribute("tags",tags);
-//        model.addAttribute("quiz",new Quiz());
-
-        return "coteboard/form";
+    @GetMapping("/coteboard/login")
+    public String form(){
+        return "coteboard/login";
     }
-//
-    @PostMapping("/coteboard/post")
-    public ResponseEntity<String> post(CoteBoardRequestDto coteBoardRequestDto) {
 
-        System.out.println(coteBoardRequestDto.toString());
+    @PostMapping("/coteboard/login")
+    public String form_post(@ModelAttribute CoteBoardLoginRequestDto coteBoardLoginRequestDto,
+                            HttpServletRequest req, Model model) {
+
+        UserDto user = userService.getUser(1);
+        if (coteBoardLoginRequestDto.getUserPassword().equals(user.getUserPassword())) {
+            HttpSession session = req.getSession(true);
+            session.setAttribute("admin", "true");
+
+            setPaginationAttributes(model, 1,
+                    coteBoardService.getTotalPages(CoteBoardStatic.PAGESIZE), coteBoardService.getAllCoteBoards(1, CoteBoardStatic.PAGESIZE));
+
+            return "coteboard/board";
+        }
+        return "coteboard/login";
+    }
+
+    @GetMapping("/coteboard/form")
+    public String form(CoteBoardRequestDto coteBoardRequestDto, HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+
+        if (session == null || !session.getAttribute("admin").equals("true")) {
+            throw new CoteBoardAccessDeniedException();
+        }
+
+        return "coteboard/board";
+    }
+
+    @PostMapping("/coteboard/form")
+    public ResponseEntity<String> form_post(CoteBoardRequestDto coteBoardRequestDto, HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+
+        if (session == null || session.getAttribute("admin") == null) {
+            throw new CoteBoardAccessDeniedException();
+        }
 
         int postId = coteBoardService.setCoteBoard(coteBoardRequestDto);
-
         return ResponseEntity.ok("/coteboard/detail?id="+postId);
     }
 //
