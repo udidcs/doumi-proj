@@ -5,7 +5,7 @@ const contentEditor = new toastui.Editor({
     initialEditType: 'markdown',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
     initialValue: coteContent,                       // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
     previewStyle: 'vertical', // 마크다운 프리뷰 스타일 (tab || vertical)
-    placeholder: '질문 내용을 적어주세요.',
+    placeholder: '게시 내용을 적어주세요.',
     autofocus: false,
     events: {
         change: function () {

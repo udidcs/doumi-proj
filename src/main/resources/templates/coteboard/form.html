@@ -13,13 +13,17 @@
         <div class="title-container">
             <textarea class="title" placeholder="제목을 적어 주세요." rows="1" onkeyup="autoResize(this)"
                       onkeydown="autoResize(this)"></textarea>
-            <div class="title-text-count">0/250</div>
+            <div class="title-text-count">0/30</div>
         </div>
         <div class="writer-container">
-            <textarea class="writer" placeholder="작성자 (영어 11글자 이내)" rows="1"></textarea>
+            <textarea class="writer" placeholder="작성자 (영어 11글자 이내)" rows="1" onkeyup="autoResize(this)"
+                      onkeydown="autoResize(this)"></textarea>
+            <div class="writer-text-count">0/11</div>
         </div>
         <div class="boardPassword-container">
-            <textarea class="boardPassword" placeholder="게시글 비밀번호 (영어와 숫자 11글자 이내)" rows="1"></textarea>
+            <textarea class="boardPassword" placeholder="게시글 비밀번호 (영어와 숫자 11글자 이내)" rows="1" onkeyup="autoResize(this)"
+                      onkeydown="autoResize(this)"></textarea>
+            <div class="boardPassword-text-count">0/11</div>
         </div>
         <br>
         <div class="input-container">
@@ -33,7 +37,6 @@
         <div class="button-container">
             <button class="cancel-button">취소</button>
             <button class="submit-button">등록</button>
-            <button class="edit-button hidden">수정</button>
         </div>
     </form>
 </main>

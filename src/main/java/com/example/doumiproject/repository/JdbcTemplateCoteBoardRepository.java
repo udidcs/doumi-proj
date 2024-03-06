@@ -49,7 +49,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
 
         String sql = "select ceil(count(*) / ?) as totalPages " +
                 "from coteboard " +
-                "where title like ? or user_id like ?";
+                "where title like ? or writer like ?";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, pageSize, param, param);
     }
@@ -89,7 +89,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
 
         String sql = "select id, writer, title, contents, view_count " +
                 "from coteboard " +
-                "where title like ? or user_id like ? " +
+                "where title like ? or writer like ? " +
                 "order by " +
                 "id desc " +
                 "limit ? offset ?";
