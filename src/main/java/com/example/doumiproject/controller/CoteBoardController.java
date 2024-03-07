@@ -1,10 +1,11 @@
 package com.example.doumiproject.controller;
 
+import com.example.doumiproject.entity.CoteBoardComment;
 import com.example.doumiproject.exception.coteboard.CoteBoardAccessDeniedException;
 import com.example.doumiproject.requestdto.CoteBoardLoginRequestDto;
 import com.example.doumiproject.requestdto.CoteBoardRequestDto;
 import com.example.doumiproject.responsedto.*;
-import com.example.doumiproject.service.CommentService;
+import com.example.doumiproject.service.CoteBoardCommentService;
 import com.example.doumiproject.service.CoteBoardService;
 import com.example.doumiproject.service.UserService;
 import com.example.doumiproject.staticvalue.coteBoard.CoteBoardStatic;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Controller
@@ -25,7 +25,7 @@ import java.util.List;
 public class CoteBoardController {
 
     private final CoteBoardService coteBoardService;
-    private final CommentService commentService;
+    private final CoteBoardCommentService commentService;
     private final UserService userService;
 
     @GetMapping("/coteboard")
@@ -85,60 +85,38 @@ public class CoteBoardController {
     }
 
     @GetMapping("/coteboard/detail")
-    public String detail(@RequestParam("id") Long postId, Model model){
+    public String detail(@RequestParam("id") int postId, Model model){
 
         CoteBoardResponseDto coteBoardResponseDto = coteBoardService.getCoteBoard(postId);
-        model.addAttribute("cote", coteBoardResponseDto);
+        List<CoteBoardCommentResponseDto> CoteBoardResponseComments = commentService.getAllCoteBoardComments(postId);
 
-//        model.addAttribute("comments",comments);
-//        model.addAttribute("newComment",new Comment());
+        //저장한 댓글 가져오기
+        model.addAttribute("cote", coteBoardResponseDto);
+        model.addAttribute("postId", postId);
+        model.addAttribute("comments", CoteBoardResponseComments);
+        model.addAttribute("newComment",new CoteBoardComment());
 
         return "coteboard/detail";
     }
 
-    @GetMapping("/coteboard/login")
-    public String form(){
-        return "coteboard/login";
-    }
-
-    @PostMapping("/coteboard/login")
-    public String form_post(@ModelAttribute CoteBoardLoginRequestDto coteBoardLoginRequestDto,
-                            HttpServletRequest req, Model model) {
-
-        UserDto user = userService.getUser(1);
-        if (coteBoardLoginRequestDto.getUserPassword().equals(user.getUserPassword())) {
-            HttpSession session = req.getSession(true);
-            session.setAttribute("admin", "true");
-
-            setPaginationAttributes(model, 1,
-                    coteBoardService.getTotalPages(CoteBoardStatic.PAGESIZE), coteBoardService.getAllCoteBoards(1, CoteBoardStatic.PAGESIZE));
-
-            return "coteboard/board";
-        }
-        return "coteboard/login";
-    }
-
     @GetMapping("/coteboard/form")
-    public String form(CoteBoardRequestDto coteBoardRequestDto, HttpServletRequest req) {
-        HttpSession session = req.getSession(false);
-
-        if (session == null || !session.getAttribute("admin").equals("true")) {
-            throw new CoteBoardAccessDeniedException();
-        }
-
-        return "coteboard/board";
+    public String form() {
+        return "coteboard/form";
     }
 
     @PostMapping("/coteboard/form")
     public ResponseEntity<String> form_post(CoteBoardRequestDto coteBoardRequestDto, HttpServletRequest req) {
-        HttpSession session = req.getSession(false);
 
-        if (session == null || session.getAttribute("admin") == null) {
-            throw new CoteBoardAccessDeniedException();
+        UserDto user = userService.getUser(1);
+        System.out.println(coteBoardRequestDto.getUserPassword());
+        System.out.println(user.getUserPassword());
+        if (coteBoardRequestDto.getUserPassword() != null && coteBoardRequestDto.getUserPassword().equals(user.getUserPassword())) {
+            int postId = coteBoardService.saveCoteBoard(coteBoardRequestDto);
+            System.out.println("???");
+            return ResponseEntity.ok("/coteboard/detail?id="+postId);
         }
-
-        int postId = coteBoardService.setCoteBoard(coteBoardRequestDto);
-        return ResponseEntity.ok("/coteboard/detail?id="+postId);
+        System.out.println("!!!");
+        throw new CoteBoardAccessDeniedException();
     }
 //
 //    @GetMapping("/edit")

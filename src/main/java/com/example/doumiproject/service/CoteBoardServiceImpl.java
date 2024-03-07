@@ -21,17 +21,17 @@ public class CoteBoardServiceImpl implements CoteBoardService{
     @Override
     public List<CoteBoardResponseDto> getAllCoteBoards(int page, int pageSize) {
         AtomicInteger boardNum = new AtomicInteger((page-1)*CoteBoardStatic.PAGESIZE+1);
-        List<CoteBoardResponseDto> coteBoardResponseDtoList = coteBoardRepository.selectAllCoteBaords(page, pageSize).stream().map(coteBoard -> new CoteBoardResponseDto(boardNum.getAndIncrement(),
+        List<CoteBoardResponseDto> coteBoardDtoList = coteBoardRepository.selectAllCoteBaords(page, pageSize).stream().map(coteBoard -> new CoteBoardResponseDto(boardNum.getAndIncrement(),
                 coteBoard.getId(), coteBoard.getWriter(), coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getViewCount())).toList();
-        return coteBoardResponseDtoList;
+        return coteBoardDtoList;
     }
 
     @Override
     public List<CoteBoardResponseDto> getAllCoteBoards(int page, int pageSize, String keyword) {
         AtomicInteger boardNum = new AtomicInteger((page-1)*CoteBoardStatic.PAGESIZE+1);
-        List<CoteBoardResponseDto> coteBoardResponseDtoList = coteBoardRepository.selectAllCoteBaords(page, pageSize, keyword).stream().map(coteBoard -> new CoteBoardResponseDto(boardNum.getAndIncrement(),
+        List<CoteBoardResponseDto> coteBoardDtoList = coteBoardRepository.selectAllCoteBaords(page, pageSize, keyword).stream().map(coteBoard -> new CoteBoardResponseDto(boardNum.getAndIncrement(),
                 coteBoard.getId(), coteBoard.getWriter(), coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getViewCount())).toList();
-        return coteBoardResponseDtoList;
+        return coteBoardDtoList;
     }
 
     @Override
@@ -45,9 +45,9 @@ public class CoteBoardServiceImpl implements CoteBoardService{
     }
 
     @Override
-    public int setCoteBoard(CoteBoardRequestDto coteBoardRequestDto) {
+    public int saveCoteBoard(CoteBoardRequestDto coteBoardRequestDto) {
         CoteBoard coteBoard = new CoteBoard(0, coteBoardRequestDto.getWriter(), coteBoardRequestDto.getBoardPassword(),
-                coteBoardRequestDto.getTitle(), coteBoardRequestDto.getContents(), 0);
+                coteBoardRequestDto.getTitle(), coteBoardRequestDto.getContents(), 0, null, null);
         return coteBoardRepository.insertCoteBoard(coteBoard);
     }
 

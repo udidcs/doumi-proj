@@ -1,7 +1,7 @@
 const submitButton = document.querySelector('.submit-button');
 // 등록 버튼 클릭
 submitButton.addEventListener('click', () => {
-    handleSubmit("/coteboard/post");
+    handleSubmit("/coteboard/form");
 });
 
 const editButton=document.querySelector('.edit-button');
@@ -14,6 +14,7 @@ function handleSubmit(url){
     const title = document.querySelector('.title').value.trim();
     const writer = document.querySelector('.writer').value.trim();
     const boardPassword = document.querySelector('.boardPassword').value.trim();
+    const userPassword = document.querySelector('.userPassword').value.trim();
 
     if (!title || !contentEditor.getMarkdown()) {
         alert('퀴즈 제목과 내용을 작성해주세요.');
@@ -24,6 +25,7 @@ function handleSubmit(url){
     formData.append('title', title);
     formData.append('writer', writer);
     formData.append('boardPassword', boardPassword);
+    formData.append('userPassword', userPassword);
     formData.append('contents', contentEditor.getMarkdown());
 
     $.ajax({
@@ -33,11 +35,10 @@ function handleSubmit(url){
         contentType: false,
         processData: false,
         success: function (redirectUrl) {
-            console.log(redirectUrl);
             location.href = redirectUrl;
         },
         error: function (error) {
-            console.error(error);
+            console.error('!!!!!');
         }
     });
 }

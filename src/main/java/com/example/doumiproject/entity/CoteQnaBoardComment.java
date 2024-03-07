@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoteQnaBoard {
-    private int id;
-    private String writer;
-    private String boardPassword;
-    private String title;
-    private String contents;
-    private int viewCount;
+public class CoteQnaBoardComment {
+    int id;
+    String writer;
+    int postId;
+    String contents;
+    int parentCommentId;
     private Timestamp createdAt;
-    private Timestamp updateddAt;
+    private Timestamp updatedAt;
 }
+

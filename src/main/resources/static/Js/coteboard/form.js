@@ -8,7 +8,7 @@ cancelButton.addEventListener('click', () => {
 
 //글자수 제한 길이
 const byteLimit = 3000;
-const titleByteLimit = 30;
+const titleByteLimit = 50;
 const writerByteLimit = 11;
 const boardPasswordByteLimit = 11;
 

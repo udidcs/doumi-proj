@@ -1,18 +1,13 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.entity.CoteBoard;
-import com.example.doumiproject.requestdto.CoteBoardRequestDto;
-import com.example.doumiproject.responsedto.CoteBoardResponseDto;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository

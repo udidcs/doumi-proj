@@ -1,8 +1,6 @@
 package com.example.doumiproject.repository;
 
 import com.example.doumiproject.entity.CoteBoard;
-import com.example.doumiproject.requestdto.CoteBoardRequestDto;
-import com.example.doumiproject.responsedto.CoteBoardResponseDto;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.util.List;

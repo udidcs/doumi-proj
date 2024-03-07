@@ -39,7 +39,7 @@
             <div class="author">작성자</div>
             <div class="viewcount">조회</div>
         </li>
-        <li class="cote_container" th:each="cote:${cotes}">
+        <li class="cote_container" th:each="cote:${cotes}" th:class="'cote_container'+(${cote.boardNum})%2">
             <div class="sequence" th:text="${cote.boardNum}"></div>
             <div class="titlecontent">
                 <a th:href="@{'/coteboard/detail?id='+${cote.id}}" th:text="${cote.title}">게시글 제목</a>

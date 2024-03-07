@@ -12,7 +12,7 @@ public interface CoteBoardService {
 
     public int getTotalPages(int pageSize);
     public int getTotalPages(int pageSize, String keyword);
-    public int setCoteBoard(CoteBoardRequestDto coteBoardRequestDto);
+    public int saveCoteBoard(CoteBoardRequestDto coteBoardRequestDto);
 
 
 

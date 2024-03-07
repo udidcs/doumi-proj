@@ -97,7 +97,7 @@ h1{
     width: 100%;
     border: 1px solid #dbdbdb;
     border-radius: 30px;
-    background:#f6f6f6;
+    background: white;
 }
 
 .search_image{
@@ -131,11 +131,12 @@ h1{
 
 /*게시판*/
 .table_container{
-    width: 100%;
     background-color: #f6f6f6;
+    width: 100%;
     border-radius: 30px;
     border: 1px solid #dbdbdb;
     margin: 0;
+    overflow: hidden;
 }
 
 .cote_container_header{
@@ -189,12 +190,18 @@ h1{
     align-items : center;
 }
 
-
-
-.cote_container{
+.cote_container0{
     display: flex;
-    padding: 13px 23px;
+    padding: 10px 20px;
     border-top: 1px solid #dbdbdb;
+}
+
+.cote_container1{
+    background-color: white;
+    display: flex;
+    padding: 10px 20px;
+    border-top: 1px solid #dbdbdb;
+
 }
 
 /*페이지 이동 바*/

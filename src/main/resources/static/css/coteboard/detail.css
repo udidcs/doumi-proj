@@ -229,7 +229,7 @@ button:hover {
 }
 .comment-edit-container{
     display: flex;
-    gap: 5px;
+    gap: 10px;
 }
 .comment-item-body, .hidden-comment-item-body{
     border-radius: 7px;
