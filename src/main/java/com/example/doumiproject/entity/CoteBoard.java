@@ -16,6 +16,6 @@ public class CoteBoard {
     private String contents;
     private int viewCount;
     private Timestamp createdAt;
-    private Timestamp updateddAt;
+    private Timestamp updatedAt;
 
 }

@@ -1,44 +1,95 @@
-const submitButton = document.querySelector('.submit-button');
-// 등록 버튼 클릭
-submitButton.addEventListener('click', () => {
-    handleSubmit("/coteboard/form");
-});
+function clickCommentSubmitButton(button){
+    document.querySelector("main").style.opacity= "0.15";
+    document.querySelector(".modal_comment_post").style.display= "flex";
+//    const commentForm=button.closest('.comment-form');
+//    submitCommentForm(commentForm);
+}
 
-const editButton=document.querySelector('.edit-button');
-editButton.addEventListener('click',()=>{
-    let postId = document.querySelector('.cote-id').value;
-    handleSubmit('/coteboard/edit?id='+postId);
-});
+function clickReCommentSubmitButton(button){
+    const commentForm=button.closest('.re-comment-form');
+    console.log(commentForm) + '!!!';
+    submitCommentForm(commentForm);
+}
 
-function handleSubmit(url){
-    const title = document.querySelector('.title').value.trim();
-    const writer = document.querySelector('.writer').value.trim();
-    const boardPassword = document.querySelector('.boardPassword').value.trim();
-    const userPassword = document.querySelector('.userPassword').value.trim();
+function clickCommentEditButton(button){
+    const commentForm=button.closest('.comment-form');
+    const commentItemContainer= button.closest('.re-comment-item-container') || button.closest('.comment-item-container');
+    const commentId= commentItemContainer.querySelector('.comment-id').value;
+    editCommentForm(commentForm, commentId);
+}
 
-    if (!title || !contentEditor.getMarkdown()) {
-        alert('퀴즈 제목과 내용을 작성해주세요.');
-        return;
-    }
-    // 폼 데이터에 새로 생성된 태그 값들을 추가하는 JavaScript 코드 추가
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('writer', writer);
-    formData.append('boardPassword', boardPassword);
-    formData.append('userPassword', userPassword);
-    formData.append('contents', contentEditor.getMarkdown());
+//삭제 버튼
+function  clickDeleteButton(button){
+    document.querySelector("main").style.opacity= "0.15";
+    document.querySelector(".modal_recomment_delete").style.display= "flex";
+    const postId = document.querySelector('.post-id').value;
+}
+
+function submitCommentForm(commentForm) {
+    const formData = new FormData(commentForm);
+
+    console.log(formData + "???");
 
     $.ajax({
-        type: 'POST',
-        url: url,
+        url: commentForm.action,
+        type: "POST",
         data: formData,
-        contentType: false,
         processData: false,
-        success: function (redirectUrl) {
-            location.href = redirectUrl;
+        contentType: false,
+        success: function (data) {
+            $('.comment-container').html(data);
         },
         error: function (error) {
-            console.error('!!!!!');
+            console.log(error);
+        }
+    });
+}
+
+function requestEditCommentForm(commentItemContainer, comment){
+    $.ajax({
+        url: '/comment/editForm',
+        type: "POST",
+        data: JSON.stringify(comment),
+        processData: false,
+        contentType: 'application/json',
+        success: function (data) {
+            $(commentItemContainer).children('.comment-item-body').replaceWith(data);
+            commentEditFormWordCount(commentItemContainer);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function editCommentForm(commentForm,commentId){
+    const formData = new FormData(commentForm);
+    $.ajax({
+        url: "/comment/edit?id="+commentId,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $('.comment-container').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function deleteComment(postId, commentId){
+    $.ajax({
+        url: "/comment/delete?postId="+postId+"&commentId="+commentId,
+        type: "DELETE",
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $('.comment-container').html(data);
+        },
+        error: function (error) {
+            console.log(error);
         }
     });
 }

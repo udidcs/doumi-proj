@@ -34,7 +34,9 @@ public class CoteBoardCommentController {
         //저장한 댓글 가져오기
         model.addAttribute("postId", post_id);
         model.addAttribute("comments",allCoteBoardComments);
-        model.addAttribute("newComment",new CoteBoard());
+        CoteBoard coteBoard = new CoteBoard();
+        coteBoard.setWriter("김이이");
+        model.addAttribute("newComment", coteBoard);
 
         return "comment/comment";
     }

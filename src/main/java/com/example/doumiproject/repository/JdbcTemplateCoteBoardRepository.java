@@ -21,7 +21,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     @Override
     public CoteBoard selectCoteBoardById(long id) {
 
-        String sql = "select id, writer, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count, created_at, updated_at " +
                 "from coteboard " +
                 "where id = ?";
 
@@ -52,7 +52,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     @Override
     public List<CoteBoard> selectAllCoteBaords() {
 
-        String sql = "select id, writer, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count, created_at, updated_at " +
                 "from coteboard " +
                 "order by " +
                 "id desc";
@@ -65,7 +65,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     public List<CoteBoard> selectAllCoteBaords(int page, int pageSize) {
 
         int offset = (page - 1) * pageSize;
-        String sql = "select id, writer, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count, created_at, updated_at " +
                 "from coteboard " +
                 "order by " +
                 "id desc " +
@@ -82,7 +82,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
         String param = "%"+keyword+"%";
         int offset = (page - 1) * pageSize;
 
-        String sql = "select id, writer, title, contents, view_count " +
+        String sql = "select id, writer, title, contents, view_count, created_at, updated_at " +
                 "from coteboard " +
                 "where title like ? or writer like ? " +
                 "order by " +
@@ -99,8 +99,8 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
-                    PreparedStatement ps = connection.prepareStatement("insert into coteboard(writer, board_password, title, contents, view_count) " +
-                            "values (?, ?, ?, ?, ?)", new String[]{"id"});
+                    PreparedStatement ps = connection.prepareStatement("insert into coteboard(writer, board_password, title, contents, view_count, created_at, updated_at) " +
+                            "values (?, ?, ?, ?, ?, now(), null)", new String[]{"id"});
                     ps.setString(1, coteBoard.getWriter());
                     ps.setString(2, coteBoard.getBoardPassword());
                     ps.setString(3, coteBoard.getTitle());

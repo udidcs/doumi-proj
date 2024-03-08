@@ -28,9 +28,14 @@ p{
     line-height: 200%;
 }
 
-div{
+textarea{
     font-size: 16px;
     line-height: 200%;
+    resize: none;
+    border: none;
+}
+textarea:focus {
+    outline: none;
 }
 
 .liked{
@@ -59,14 +64,16 @@ button:hover {
     border:none;
     clip-path:inset(50%);
 }
-.board-writer-name, .comment-writer-name{
-    font-size: 16px;
+
+.board-writer-name, .comment-writer-name, .re-comment-writer-name{
+    font-size: 15px;
+    color: #868e96;
     font-weight: 700;
 }
 
-.content-createdAt, .comment-createdAt{
-    font-size: 12px;
-    color: #C4C4C4;
+.content-createdAt, .comment-createdAt, .re-comment-createdAt{
+    font-size: 15px;
+    color: #868e96;
 }
 
 
@@ -151,7 +158,7 @@ button:hover {
     margin-bottom: 20px;
     font-size: 16px;
 }
-.answer-input{
+.comment-input{
     width: 100%;
     height: 250px;
     padding: 10px;
@@ -213,6 +220,17 @@ button:hover {
 }
 
 /*main 댓글 파트*/
+.comment-item{
+    width: 100%;
+    height: 250px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #C4C4C4;
+    border-radius: 4px;
+    resize: none;
+}
 .comment-item-container{
     padding: 20px 0;
     border-bottom: 1px solid #C4C4C4;
@@ -262,12 +280,35 @@ button:hover {
     color: black;
 }
 /*답글 파트*/
+.re-comment-item{
+    width: 100%;
+    height: 250px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #C4C4C4;
+    border-radius: 4px;
+    resize: none;
+}
+.re-comment-input{
+    width: 100%;
+    height: 250px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #C4C4C4;
+    border-radius: 4px;
+    resize: none;
+}
 .re-comment-items-container{
     margin: 30px 10px 0 10px;
     padding-left: 10px;
     border-left: 4px solid #C4C4C4;
 }
 .re-comment-item-container{
+    padding-left:5px;
     margin-bottom: 30px;
 }
 .re-comment-item-container:last-child{
@@ -276,4 +317,130 @@ button:hover {
 
 .hidden{
     display: none;
+}
+
+.re-comment-item-header{
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.re-comment-info{
+    display: flex;
+    gap: 10px;
+}
+.re-comment-edit-container{
+
+}
+.re-comment-item-body, .hidden-re-comment-item-body{
+    border-radius: 7px;
+    margin-bottom: 15px;
+}
+.re-comment-item-bottom{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.etc-button-container{
+    display: flex;
+    gap:10px;
+}
+.re-comment-button{
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+.re-comment-button> img{
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+.re-comment-likes{
+    margin-right: 10px;
+}
+
+
+
+
+
+
+.modal_comment_post {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    gap: 30px;
+    width: 800px;
+    height: 380px;
+    border: 2px solid #04B45F;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.modal_recomment_update {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    gap: 30px;
+    width: 800px;
+    height: 380px;
+    border: 2px solid #04B45F;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.modal_recomment_delete {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    gap: 30px;
+    width: 800px;
+    height: 380px;
+    border: 2px solid #04B45F;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+
+.writer-container{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #C4C4C4;
+}
+.writer{
+    border: none;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 7px;
+    font-family: 'Wemakeprice-Bold';
+}
+.writer::placeholder{
+    color: #C4C4C4;
+}
+.boardPassword-container{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #C4C4C4;
+}
+.boardPassword{
+    border: none;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 7px;
+    font-family: 'Wemakeprice-Bold';
+}
+.boardPassword::placeholder{
+    color: #C4C4C4;
 }

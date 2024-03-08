@@ -88,13 +88,19 @@ public class CoteBoardController {
     public String detail(@RequestParam("id") int postId, Model model){
 
         CoteBoardResponseDto coteBoardResponseDto = coteBoardService.getCoteBoard(postId);
-        List<CoteBoardCommentResponseDto> CoteBoardResponseComments = commentService.getAllCoteBoardComments(postId);
+        List<CoteBoardCommentResponseDto> coteBoardCommentResponseDtoList = commentService.getAllCoteBoardComments(postId);
 
         //저장한 댓글 가져오기
         model.addAttribute("cote", coteBoardResponseDto);
         model.addAttribute("postId", postId);
-        model.addAttribute("comments", CoteBoardResponseComments);
-        model.addAttribute("newComment",new CoteBoardComment());
+        model.addAttribute("comments", coteBoardCommentResponseDtoList);
+
+        System.out.println(coteBoardCommentResponseDtoList);
+
+        CoteBoardComment coteBoardComment = new CoteBoardComment();
+        coteBoardComment.setWriter("김이");
+
+        model.addAttribute("newComment", coteBoardComment);
 
         return "coteboard/detail";
     }
