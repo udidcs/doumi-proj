@@ -37,6 +37,7 @@
             <div class="sequence">번호</div>
             <div class="title">제목</div>
             <div class="author">작성자</div>
+            <div class="createdat">작성일</div>
             <div class="viewcount">조회</div>
         </li>
         <li class="cote_container" th:each="cote:${cotes}" th:class="'cote_container'+(${cote.boardNum})%2">
@@ -45,11 +46,10 @@
                 <a th:href="@{'/coteboard/detail?id='+${cote.id}}" th:text="${cote.title}">게시글 제목</a>
             </div>
             <div class="author" th:text="${cote.writer}">작성자</div>
+            <div class="createdat" th:text="${#dates.format(cote.createdAt, 'yy.MM.dd')}"></div>
             <div class="viewcount" th:text="${cote.viewCount}">조회</div>
         </li>
     </div>
-
-    <!--        페이지 링크-->
     <nav class="page">
         <ul class="page_list" th:unless="${cotes.isEmpty()}">
             <li class="page_link" th:unless="${startIdx == 1}">

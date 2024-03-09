@@ -13,9 +13,7 @@ const contentEditor = new toastui.Editor({
             countBytes(contentEditor, coteTextCount, byteLimit);
         }
     },
-
     hooks: {
-
         async addImageBlobHook(blob, callback) {
             try{
                 const formData = new FormData();

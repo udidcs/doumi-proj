@@ -16,9 +16,10 @@ public interface CoteBoardCommentRepository {
             CoteBoardComment coteBoardComment = new CoteBoardComment();
             coteBoardComment.setId(rs.getInt("id"));
             coteBoardComment.setWriter(rs.getString("writer"));
+            coteBoardComment.setCommentPassword(rs.getString("comment_password"));
             coteBoardComment.setPostId(rs.getInt("post_id"));
             coteBoardComment.setContents(rs.getString("contents"));
-            coteBoardComment.setPostId(rs.getInt("parent_comment_id"));
+            coteBoardComment.setParentCommentId(rs.getInt("parent_comment_id"));
             coteBoardComment.setCreatedAt(rs.getTimestamp("created_at"));
             coteBoardComment.setCreatedAt(rs.getTimestamp("updated_at"));
             return coteBoardComment;

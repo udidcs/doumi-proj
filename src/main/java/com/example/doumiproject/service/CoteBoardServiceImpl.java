@@ -23,6 +23,7 @@ public class CoteBoardServiceImpl implements CoteBoardService{
         AtomicInteger boardNum = new AtomicInteger((page-1)*CoteBoardStatic.PAGESIZE+1);
         List<CoteBoardResponseDto> coteBoardDtoList = coteBoardRepository.selectAllCoteBaords(page, pageSize).stream().map(coteBoard -> new CoteBoardResponseDto(boardNum.getAndIncrement(),
                 coteBoard.getId(), coteBoard.getWriter(), coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getViewCount(), coteBoard.getCreatedAt(), coteBoard.getUpdatedAt())).toList();
+
         return coteBoardDtoList;
     }
 
@@ -31,6 +32,7 @@ public class CoteBoardServiceImpl implements CoteBoardService{
         AtomicInteger boardNum = new AtomicInteger((page-1)*CoteBoardStatic.PAGESIZE+1);
         List<CoteBoardResponseDto> coteBoardDtoList = coteBoardRepository.selectAllCoteBaords(page, pageSize, keyword).stream().map(coteBoard -> new CoteBoardResponseDto(boardNum.getAndIncrement(),
                 coteBoard.getId(), coteBoard.getWriter(), coteBoard.getTitle(), coteBoard.getContents(), coteBoard.getViewCount(), coteBoard.getCreatedAt(), coteBoard.getUpdatedAt())).toList();
+
         return coteBoardDtoList;
     }
 

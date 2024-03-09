@@ -95,8 +95,6 @@ public class CoteBoardController {
         model.addAttribute("postId", postId);
         model.addAttribute("comments", coteBoardCommentResponseDtoList);
 
-        System.out.println(coteBoardCommentResponseDtoList);
-
         CoteBoardComment coteBoardComment = new CoteBoardComment();
         coteBoardComment.setWriter("김이");
 
@@ -114,14 +112,11 @@ public class CoteBoardController {
     public ResponseEntity<String> form_post(CoteBoardRequestDto coteBoardRequestDto, HttpServletRequest req) {
 
         UserDto user = userService.getUser(1);
-        System.out.println(coteBoardRequestDto.getUserPassword());
-        System.out.println(user.getUserPassword());
+
         if (coteBoardRequestDto.getUserPassword() != null && coteBoardRequestDto.getUserPassword().equals(user.getUserPassword())) {
             int postId = coteBoardService.saveCoteBoard(coteBoardRequestDto);
-            System.out.println("???");
             return ResponseEntity.ok("/coteboard/detail?id="+postId);
         }
-        System.out.println("!!!");
         throw new CoteBoardAccessDeniedException();
     }
 //

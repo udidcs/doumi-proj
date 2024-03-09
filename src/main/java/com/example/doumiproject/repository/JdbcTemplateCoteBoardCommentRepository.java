@@ -4,6 +4,7 @@ import com.example.doumiproject.entity.CoteBoardComment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,11 +18,11 @@ public class JdbcTemplateCoteBoardCommentRepository implements CoteBoardCommentR
 
     @Override
     public List<CoteBoardComment> selectAllCoteBoardCommentUnderBoardByPostId(int id) {
-        String sql = "select id, post_id, writer, contents, parent_comment_id, created_at, updated_at " +
-                "from coteboardcomment c " +
-                "where c.post_id=? " +
-                "and c.parent_comment_id=0 " +
-                "order by c.created_at DESC";
+        String sql = "select id, writer, comment_password, post_id, contents, parent_comment_id, created_at, updated_at " +
+                "from coteboardcomment " +
+                "where post_id=? " +
+                "and parent_comment_id=0 " +
+                "order by created_at DESC";
 
         List<CoteBoardComment> coteBoardCommentList = jdbcTemplate.query(sql, coteBoardCommentRowMapper(), id);
 
@@ -30,7 +31,7 @@ public class JdbcTemplateCoteBoardCommentRepository implements CoteBoardCommentR
 
     @Override
     public List<CoteBoardComment> selectAllCoteBoardReCommentUnderCommentByParentCommentId(int id) {
-        String sql = "select id, post_id, writer, contents, parent_comment_id, created_at, updated_at " +
+        String sql = "select id, writer, comment_password, post_id, contents, parent_comment_id, created_at, updated_at " +
                 "from coteboardcomment " +
                 "where parent_comment_id=? " +
                 "order by created_at DESC";
@@ -42,10 +43,11 @@ public class JdbcTemplateCoteBoardCommentRepository implements CoteBoardCommentR
 
     @Override
     public void insertCoteBoardComment(CoteBoardComment coteBoardComment) {
+
         String sql = "insert into coteboardcomment(writer, comment_password, post_id, contents, parent_comment_id, created_at, updated_at) " +
                 "values (?, ?, ?, ?, ?, ?, ?) ";
 
-        jdbcTemplate.update(sql, coteBoardComment.getWriter(), coteBoardComment.getPostId(), coteBoardComment.getPostId(), coteBoardComment.getContents(),
+        jdbcTemplate.update(sql, coteBoardComment.getWriter(), coteBoardComment.getCommentPassword(), coteBoardComment.getPostId(), coteBoardComment.getContents(),
                 coteBoardComment.getParentCommentId(), LocalDateTime.now(), LocalDateTime.now());
     }
 

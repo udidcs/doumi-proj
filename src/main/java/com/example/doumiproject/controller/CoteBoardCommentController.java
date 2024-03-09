@@ -21,6 +21,8 @@ public class CoteBoardCommentController {
     @PostMapping("/comment/save")
     public String addComment(@ModelAttribute CoteBoardCommentRequestDto coteBoardComment, Model model){
 
+        System.out.println(coteBoardComment);
+
         int post_id = coteBoardComment.getPostId();
 
         //로그인 기능 생기면 userId 방식 수정해야함

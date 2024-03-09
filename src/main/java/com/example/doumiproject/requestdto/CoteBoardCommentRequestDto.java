@@ -14,18 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CoteBoardCommentRequestDto {
-    int id;
+
+    int postId;
     String writer;
     String commentPassword;
-    int postId;
     String contents;
     int parentCommentId;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-    private List<CoteBoardComment> reComments;
 
     public CoteBoardComment toEntity() {
-        return new CoteBoardComment(id, writer, commentPassword, postId, contents,
-                parentCommentId, createdAt, updatedAt);
+        return new CoteBoardComment(0, writer, commentPassword, postId, contents,
+                parentCommentId, null, null);
     }
 }

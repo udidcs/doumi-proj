@@ -23,9 +23,7 @@ public class FileController{
     public String fileWrite(@RequestBody MultipartFile file) throws IOException {
 
         System.out.println(file.getOriginalFilename());
-
         FileDto fileDto = fileService.fileWrite(file);
-
         return fileDto.getFileName();
     }
 
@@ -33,13 +31,11 @@ public class FileController{
     public byte[] printEditorImage(String fileName) {
 
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\images\\quiz";
-
         File uploadedFile = new File(path+'\\'+fileName);
 
         if (uploadedFile.exists() == false) {
             throw new RuntimeException();
         }
-
         try {
             byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
             return imageBytes;

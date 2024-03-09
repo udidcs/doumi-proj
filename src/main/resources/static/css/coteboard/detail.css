@@ -29,6 +29,7 @@ p{
 }
 
 textarea{
+    height: 300px;
     font-size: 16px;
     line-height: 200%;
     resize: none;
@@ -158,28 +159,43 @@ button:hover {
     margin-bottom: 20px;
     font-size: 16px;
 }
-.comment-input{
+.comment-main-input{
     width: 100%;
     height: 250px;
     padding: 10px;
-    margin-bottom: 10px;
     font-size: 16px;
     line-height: 1.5;
     border: 1px solid #C4C4C4;
     border-radius: 4px;
     resize: none;
 }
+
+.comment-input{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.comment-main-editor-bottom{
+    display: flex;
+    justify-content: flex-end;
+    gap:10px;
+    padding-bottom: 55px; border-bottom: 1px solid #C4C4C4;
+}
+
 .comment-editor-bottom{
     display: flex;
     justify-content: flex-end;
     gap:10px;
-    margin-bottom: 20px;
 }
-.cancel-button,.submit-button, .re-comment-cancel-button, .re-comment-submit-button{
+.submit-button, .edit-button, .cancel-button,
+.comment-submit-button, .comment-edit-button, .comment-cancel-button,
+.re-comment-submit-button, .re-comment-edit-button, .re-comment-cancel-button{
     padding: 10px 20px;
     font-size: 16px;
 }
-.submit-button, .re-comment-submit-button{
+.submit-button, .comment-submit-button, .re-comment-submit-button{
     background-color: #04B45F;
     color: white;
     border: none;
@@ -187,7 +203,7 @@ button:hover {
 
 /*main 댓글 입력창 파트*/
 .comment-header{
-    margin: 40px 0;
+
 }
 .comment-header h2{
     font-size: 23px;
@@ -220,6 +236,11 @@ button:hover {
 }
 
 /*main 댓글 파트*/
+/*답글 파트*/
+.comment-text-count {
+    text-align: right;
+    margin-bottom: 10px;
+}
 .comment-item{
     width: 100%;
     height: 250px;
@@ -232,7 +253,7 @@ button:hover {
     resize: none;
 }
 .comment-item-container{
-    padding: 20px 0;
+    padding: 25px 0px 0px 0px;
     border-bottom: 1px solid #C4C4C4;
 }
 .comment-item-header{
@@ -280,6 +301,20 @@ button:hover {
     color: black;
 }
 /*답글 파트*/
+.re-comment-text-count {
+    text-align: right;
+    margin-bottom: 10px;
+}
+.re-comment-editor-bottom {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+.re-comment-update-botton {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
 .re-comment-item{
     width: 100%;
     height: 250px;
@@ -293,9 +328,7 @@ button:hover {
 }
 .re-comment-input{
     width: 100%;
-    height: 250px;
     padding: 10px;
-    margin-bottom: 10px;
     font-size: 16px;
     line-height: 1.5;
     border: 1px solid #C4C4C4;
@@ -303,16 +336,13 @@ button:hover {
     resize: none;
 }
 .re-comment-items-container{
-    margin: 30px 10px 0 10px;
+    margin: 40px 10px 40px 10px
     padding-left: 10px;
     border-left: 4px solid #C4C4C4;
 }
 .re-comment-item-container{
-    padding-left:5px;
-    margin-bottom: 30px;
-}
-.re-comment-item-container:last-child{
-    margin-bottom: 0;
+    padding-left: 5px;
+    padding-bottom: 80px;
 }
 
 .hidden{
@@ -324,17 +354,20 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 20px;
+
 }
+
 .re-comment-info{
     display: flex;
     gap: 10px;
 }
 .re-comment-edit-container{
-
+    display: flex;
+    gap: 10px;
 }
 .re-comment-item-body, .hidden-re-comment-item-body{
     border-radius: 7px;
-    margin-bottom: 15px;
 }
 .re-comment-item-bottom{
     display: flex;
@@ -364,7 +397,7 @@ button:hover {
 
 
 
-.modal_comment_post {
+.modal_comment_create {
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -372,7 +405,7 @@ button:hover {
     background: white;
     gap: 30px;
     width: 800px;
-    height: 380px;
+    height: 400px;
     border: 2px solid #04B45F;
     position: fixed;
     top: 50%;
@@ -381,7 +414,58 @@ button:hover {
     z-index: 999;
 }
 
-.modal_recomment_update {
+.modal_comment_edit {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    gap: 30px;
+    width: 800px;
+    height: 340px;
+    border: 2px solid #04B45F;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.modal_comment_delete {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    gap: 30px;
+    width: 800px;
+    height: 340px;
+    border: 2px solid #04B45F;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.modal_recomment_create {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    gap: 30px;
+    width: 800px;
+    height: 390px;
+    border: 2px solid #04B45F;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.modal_recomment_edit {
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -442,5 +526,33 @@ button:hover {
     font-family: 'Wemakeprice-Bold';
 }
 .boardPassword::placeholder{
+    color: #C4C4C4;
+}
+.commentPassword-container{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #C4C4C4;
+}
+.commentPassword{
+    border: none;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 7px;
+    font-family: 'Wemakeprice-Bold';
+}
+.commentPassword::placeholder{
+    color: #C4C4C4;
+}
+.recommentPassword-container{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #C4C4C4;
+}
+.recommentPassword{
+    border: none;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 10px 7px;
+    font-family: 'Wemakeprice-Bold';
+}
+.recommentPassword::placeholder{
     color: #C4C4C4;
 }

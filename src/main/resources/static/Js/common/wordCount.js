@@ -1,7 +1,3 @@
-//글자수 제한 길이
-const byteLimit = 3000;
-const titleByteLimit = 250;
-
 // 글자 바이트 세기
 function countUtf8Bytes(str) {
     let byteCount = 0;
@@ -14,6 +10,7 @@ function countUtf8Bytes(str) {
 
     return byteCount;
 }
+
 function countBytes(editor, containerSelector, limit) {
     //toast api일땐 getMarkdown 그냥 input일 경우 value
     const content = editor.getMarkdown ? editor.getMarkdown() : editor.value;
@@ -46,7 +43,12 @@ document.querySelector(".title").addEventListener('input', function() {
     countBytes(this, ".title-text-count", titleByteLimit);
 });
 
+//제목 글자수 제한
+document.querySelector(".writer").addEventListener('input', function() {
+    countBytes(this, ".writer-text-count", writerByteLimit);
+});
 
-// 초기화시 글자 수 업데이트
-countBytes(contentEditor, ".quiz-text-count", byteLimit);
-countBytes(document.querySelector('.title'), ".title-text-count", titleByteLimit);
+//제목 글자수 제한
+document.querySelector(".boardPassword").addEventListener('input', function() {
+    countBytes(this, ".boardPassword-text-count", boardPasswordByteLimit);
+});

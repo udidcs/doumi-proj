@@ -30,7 +30,7 @@ public interface CoteBoardRepository {
             coteBoard.setContents(rs.getString("contents"));
             coteBoard.setViewCount(rs.getInt("view_count"));
             coteBoard.setCreatedAt(rs.getTimestamp("created_at"));
-            coteBoard.setCreatedAt(rs.getTimestamp("updated_at"));
+            coteBoard.setUpdatedAt(rs.getTimestamp("updated_at"));
             return coteBoard;
         });
     }

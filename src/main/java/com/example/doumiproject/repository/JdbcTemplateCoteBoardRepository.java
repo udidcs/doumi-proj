@@ -65,7 +65,7 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
     public List<CoteBoard> selectAllCoteBaords(int page, int pageSize) {
 
         int offset = (page - 1) * pageSize;
-        String sql = "select id, writer, title, contents, view_count, created_at, updated_at " +
+        String sql = "select id, writer, board_password, title, contents, view_count, created_at, updated_at " +
                 "from coteboard " +
                 "order by " +
                 "id desc " +
@@ -96,11 +96,12 @@ public class JdbcTemplateCoteBoardRepository implements CoteBoardRepository {
 
     @Override
     public int insertCoteBoard(CoteBoard coteBoard) {
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
                     PreparedStatement ps = connection.prepareStatement("insert into coteboard(writer, board_password, title, contents, view_count, created_at, updated_at) " +
-                            "values (?, ?, ?, ?, ?, now(), null)", new String[]{"id"});
+                            "values (?, ?, ?, ?, ?, DATE_FORMAT(now(), '%y-%m-%d %H:%m:%s'), null)", new String[]{"id"});
                     ps.setString(1, coteBoard.getWriter());
                     ps.setString(2, coteBoard.getBoardPassword());
                     ps.setString(3, coteBoard.getTitle());

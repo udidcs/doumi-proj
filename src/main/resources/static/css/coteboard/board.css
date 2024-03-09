@@ -10,8 +10,8 @@ ul,ol{
 }
 
 body{
-    margin-left:20vw;
-    margin-right:20vw;
+    margin-left:15vw;
+    margin-right:15vw;
 }
 
 /*header 파트*/
@@ -145,7 +145,8 @@ h1{
 }
 
 .sequence{
-    width:8%;
+    width: 7%;
+    margin-right: 25px;
     text-align: center;
     display : flex;
     justify-content : center;
@@ -153,9 +154,7 @@ h1{
 }
 
 .title{
-    width: 69%;
-    margin-left: 10px;
-    margin-right: 10px;
+    width: 65%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -165,9 +164,7 @@ h1{
 }
 
 .titlecontent{
-    width: 69%;
-    margin-right:10px;
-    margin-left:40px;
+    width: 65%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -176,14 +173,21 @@ h1{
 }
 
 .author{
-    width: 15%;
+    width: 10%;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+.createdat {
+    width: 10%;
     display : flex;
     justify-content : center;
     align-items : center;
 }
 
 .viewcount{
-    width: 8%;
+    width: 7%;
     text-align: center;
     display : flex;
     justify-content : center;
