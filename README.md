@@ -25,20 +25,19 @@
 - [커밋 컨벤션] https://clever-lobe-288.notion.site/d3f1c1d60a6143758737d04f73874529 페이지 참고
 - [코드 컨벤션] https://clever-lobe-288.notion.site/d3f1c1d60a6143758737d04f73874529 페이지 참고
 <br>
-
 ## 2. 페이지 소개
 1. 게시글 올리는 페이지(운영자만 가능, 추 후 자유게시글에서 유저들도 사용 가능)
 ![20240312163115](https://github.com/udidcs/doumi-proj/assets/46997884/0cec29d3-3965-4c58-9c0a-e905100bf900)
 <br>
 <br>
-3. 게시글 메인 페이지
+2. 게시글 메인 페이지
 ![20240312163128](https://github.com/udidcs/doumi-proj/assets/46997884/592bb639-4d31-4569-a25e-ccf7dd765d58)
 코딩테스트에 관한 주제들을 볼 수 있다(주제들 업로드 진행 중).
 <br>
 <br>
-4. 게시글 상세 페이지
+3. 게시글 상세 페이지
 ![20240312163138](https://github.com/udidcs/doumi-proj/assets/46997884/72232cff-df3d-4a52-92b3-87d2f4a70d1d)
 <br>
 <br>
-5. 상세 페이지에 댓글, 대댓글 작성 및 수정, 삭제
+4. 상세 페이지에 댓글, 대댓글 작성 및 수정, 삭제
 ![20240312163546](https://github.com/udidcs/doumi-proj/assets/46997884/ee58f842-9a46-4d8e-aa06-3a9ff04f7a17)
