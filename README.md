@@ -18,7 +18,7 @@
 
 ## 1. 개발 환경
 
-- Front : HTML, CSS, Javascript, Jquery
+- Front : HTML, CSS, Javascript, Jquery, toast editor api(오픈소스)
 - Back-end : 스프링부트, jdbcTemplate, 타임리프, mariadb
 - 버전 및 이슈관리 : Github
 - 협업 툴 : Discord, Notion
@@ -37,21 +37,21 @@
 <br>
 <br>
 
-3. 게시글 메인 페이지(코딩테스트에 관한 주제들을 볼 수 있다(주제들 업로드 진행 중).)
+3. 게시글 메인 페이지(코딩테스트에 관한 주제들을 볼 수 있다(주제들 업로드 진행 중)
 
 ![20240312163128](https://github.com/udidcs/doumi-proj/assets/46997884/fc7cbb59-83d2-4d40-aadc-cc98f7e51ec8)
 
 <br>
 <br>
 
-3. 게시글 상세 페이지
+3. 게시글 상세 페이지(toast 에디터를 사용해서 글과 그림 및 다른 처리를 할 수 있다)
 
 ![20240312163138](https://github.com/udidcs/doumi-proj/assets/46997884/1896707b-722f-47c4-8e7e-3d16c8bd164e)
 
 <br>
 <br>
 
-4. 상세 페이지에 댓글, 대댓글 작성 및 수정, 삭제
+4. 상세 페이지에 댓글, 대댓글 작성 및 수정, 삭제(편하게 로그인 없이 작성자와 비밀번호로 이용가능)
 
 ![20240312163546](https://github.com/udidcs/doumi-proj/assets/46997884/586b30cb-20ca-440f-bbc2-20366551a4a4)
 
