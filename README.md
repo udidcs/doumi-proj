@@ -1,4 +1,4 @@
-![20240312163128](https://github.com/udidcs/doumi-proj/assets/46997884/a1229e7b-354a-4596-a9ae-66901ec89122)# 도우미 프로젝트 README
+# 도우미 프로젝트 README
 
 <br>
 
@@ -37,11 +37,10 @@
 <br>
 <br>
 
-3. 게시글 메인 페이지
+3. 게시글 메인 페이지(코딩테스트에 관한 주제들을 볼 수 있다(주제들 업로드 진행 중).)
 
 ![20240312163128](https://github.com/udidcs/doumi-proj/assets/46997884/fc7cbb59-83d2-4d40-aadc-cc98f7e51ec8)
 
-코딩테스트에 관한 주제들을 볼 수 있다(주제들 업로드 진행 중).
 <br>
 <br>
 
