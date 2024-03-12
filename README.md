@@ -23,8 +23,7 @@
 - 버전 및 이슈관리 : Github
 - 협업 툴 : Discord, Notion
 - 서비스 배포 환경 : AWS Lightsail
-- [커밋 컨벤션] https://clever-lobe-288.notion.site/d3f1c1d60a6143758737d04f73874529 페이지 참고
-- [코드 컨벤션] https://clever-lobe-288.notion.site/d3f1c1d60a6143758737d04f73874529 페이지 참고
+
 <br>
 <br>
 
